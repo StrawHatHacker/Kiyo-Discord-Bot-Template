@@ -1,0 +1,14 @@
+{
+  "name": "bot",
+  "version": "1.0.0",
+  "description": "Multipurpose Discord Bot",
+  "main": "index.js",
+  "dependencies": {
+    "discord.js": "^12.5.1",
+    "dotenv": "^8.2.0",
+    "readdirp": "^3.5.0"
+  },
+  "scripts": {},
+  "author": "strawhathacker",
+  "license": "GNU General Public License v3.0"
+}
