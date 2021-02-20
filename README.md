@@ -24,14 +24,14 @@ cd src/
 ```shell
 touch .env
 ```
-###### Add token into .env file:
+###### Add bot token into the .env file:
 Open .env with your favourite text editor and add this line along with your bot token: <br/>
 `DISCORD_BOT_TOKEN="Your bot token here"`
 ###### Run the bot (Assuming you already are in the /src directory):
 ```shell
 node index.js 
 ```
-If you see `Ready` in the console the the bot is online! Congrats
+*If you see `Ready` in the console the the bot is online, congrats!*
 
 ## #Soon
 * Automating the installation with a schell script.
