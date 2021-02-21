@@ -25,7 +25,9 @@ module.exports = {
         const joinedAt = new DateFormatter(new Date(targetMember.joinedTimestamp)).formatToReadable();
         const createdAt = new DateFormatter(new Date(targetMember.user.createdTimestamp)).formatToReadable();
 
-        const keyPermissions = targetMemberID === message.guild.ownerID ? 'Owner' : new Permissions(targetMember.permissions.toArray()).formatPerms();
+        const memberPerms = targetMember.permissions.toArray();
+        const keyPerms = targetMemberID === message.guild.ownerID ? 'Owner' : new Permissions(memberPerms).filterKeyPerms().formatToReadable();
+        const otherPerms = targetMemberID === message.guild.ownerID ? 'Owner' : new Permissions(memberPerms).filterNonKeyPerms().formatToReadable();
 
         const embed = new Embed()
             .setAuthor(targetMember.displayName, smallAV)
@@ -34,7 +36,8 @@ module.exports = {
             .addDescription(`Joined at: ${joinedAt}`)
             .addDescription(`Created at: ${createdAt}`)
             .addField(`Roles (${targetMember.roles.cache.size - 1})`, `Highest: ${targetMember.roles.highest.toString()} \n\n ${rolesString}`)
-            .addField(`All Permissions`, keyPermissions)
+            .addField(`Key Permissions`, keyPerms)
+            .addField(`Other Permissions`, otherPerms)
             .setFooter(`Requested by: ${message.member.displayName}`, authorAV);
 
         message.channel.send(embed);
