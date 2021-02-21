@@ -40,6 +40,6 @@ module.exports = {
             .addField(`Other Permissions`, otherPerms)
             .setFooter(`Requested by: ${message.member.displayName}`, authorAV);
 
-        message.channel.send(embed);
+        await message.channel.send(embed);
     }
 }
