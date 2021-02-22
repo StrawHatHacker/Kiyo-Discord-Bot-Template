@@ -1,11 +1,11 @@
 Kiyo is an open source Discord Bot under the GNU General Public License v3.0 License  <br/>
-Kiyo has powerful utilities which make it great to build upon. <br/>
+Kiyo has powerful utilities which make it quick and easy to build upon, writing  <br/>
 Feature rich and easy to maintain. <br/>
 Based on the [discord.js](https://github.com/discordjs/discord.js) library.
 
 ## Installation
-##### NPM and Node.js 14.0.0 or higher required.
-##### MongoDB v4 or higher required. Create [here](https://docs.atlas.mongodb.com/getting-started/) for free.
+<b> NPM and Node.js 14.0.0 or higher required. </b> Download [here](https://nodejs.org/) <br/>
+<b> MongoDB v4 or higher required. </b> Create [here](https://docs.atlas.mongodb.com/getting-started) for free. 
 ###### 1. Clone this repository from your terminal:
 ```shell
 git clone https://github.com/StrawHatHacker/Kiyo-Discord-Bot
@@ -40,6 +40,8 @@ node index.js
 ## #Soon
 * Automating the installation with a schell script.
 * [OtakuGifs](https://otakugifs.xyz/) integration for anime gifs.
+* Subcommands
+* Module reloading / command reloading
 
 ## Contribution
 You can open pull requests on the `main` branch. They will take around 1 week to review.
