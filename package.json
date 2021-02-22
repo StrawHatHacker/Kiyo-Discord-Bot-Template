@@ -6,9 +6,13 @@
   "dependencies": {
     "discord.js": "^12.5.1",
     "dotenv": "^8.2.0",
+    "mongoose": "^5.11.15",
     "readdirp": "^3.5.0"
   },
   "scripts": {},
   "author": "strawhathacker",
-  "license": "GNU General Public License v3.0"
+  "license": "GNU General Public License v3.0",
+  "devDependencies": {
+    "eslint": "^7.20.0"
+  }
 }
