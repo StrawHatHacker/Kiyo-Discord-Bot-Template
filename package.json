@@ -2,6 +2,7 @@
   "name": "bot",
   "version": "1.0.0",
   "description": "Multipurpose Discord Bot",
+  "repository": "https://github.com/StrawHatHacker/Kiyo-Discord-Bot",
   "main": "index.js",
   "dependencies": {
     "discord.js": "^12.5.1",
@@ -11,7 +12,7 @@
   },
   "scripts": {},
   "author": "strawhathacker",
-  "license": "GNU General Public License v3.0",
+  "license": "GPL-3.0-only",
   "devDependencies": {
     "eslint": "^7.20.0"
   }
