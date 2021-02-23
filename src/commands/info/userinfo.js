@@ -12,7 +12,10 @@ module.exports = {
         const targetMemberID = (args.length < 1) ? message.author.id : args[0].replace(/[^0-9]+/g, '');
         const targetMember = await message.guild.members.fetch(targetMemberID);
 
-        if (targetMember === undefined) return;
+        // Fetch GuildMember from cache or from the API
+        const targetMember = await message.guild.members.fetch(targetMemberID).catch(e => {
+            throw new Err(e).inputErr().memberNotFound();
+        });
 
         const rolesString = targetMember.roles.cache
             .filter(role => role.name !== '@everyone')

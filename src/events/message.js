@@ -17,16 +17,19 @@ module.exports = async (Kiyo, message) => {
     for (const [commandName, command] of Kiyo.commands) {
         if (commandName !== cmd) continue;
 
-        command.run({ message, Kiyo, args }).catch(e => errotHandler(e, message));
+        command.run({ message, Kiyo, args }).catch(e => errorHandler(e, message));
     }
 };
 
-const errotHandler = (e, m) => {
-    // 404 Usually happens when member.fetch,
-    if (e.httpStatus === 404) m.channel.send('Didn\'t find what you were looking for');
-    // 403 Usually happens when channel.send,
+const errorHandler = (e, m) => {
+    // 404 Not Found
+    if (e.httpStatus === 404) m.channel.send(`${e.name}: ${e.message}`);
+
+    // 403 Missing Permissions
     // BE CAREFUL, you might not see errors in your console because of this line
+    // usually triggers when the bot doesn't have permissions to do something
     else if (e.httpStatus === 403) return;
+
     // All other errors
     else {
         console.log(e);
