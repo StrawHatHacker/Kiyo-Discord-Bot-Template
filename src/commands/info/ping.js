@@ -1,3 +1,5 @@
+'use strict';
+
 const Embed = require('../../classes/Embed');
 
 module.exports = {
@@ -16,8 +18,8 @@ module.exports = {
             botMessage.edit('', embed);
 
         } catch (error) {
-            console.log(error)
+            console.log(error);
             message.channel.send('There was an error').catch(() => { });
-        };
+        }
     }
-}
+};

@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = {
     guild: {
         async findOneOrCreate(GuildModel, [id]) {

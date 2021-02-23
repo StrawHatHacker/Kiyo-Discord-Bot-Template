@@ -51,4 +51,4 @@ module.exports = {
         'MANAGE_WEBHOOKS',
         'MANAGE_EMOJIS',
     ]
-}
+};

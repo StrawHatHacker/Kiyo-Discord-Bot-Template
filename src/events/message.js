@@ -1,3 +1,5 @@
+'use strict';
+
 const utils = require('../utils/database');
 const GuildModel = require('../models/guild');
 

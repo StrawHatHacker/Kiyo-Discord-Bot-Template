@@ -1,3 +1,5 @@
+'use strict';
+
 const MONTHS = [
     'January',
     'February',
@@ -10,13 +12,13 @@ const MONTHS = [
     'September',
     'October',
     'November',
-    'December']
+    'December'];
 
 module.exports = class DateFormatter {
     constructor(date) {
         if (!(date instanceof Date)) throw new Error('You didn\'t pass a valid date');
         this.date = date;
-    };
+    }
 
     formatDayOfMonthToReadable(number) {
         if (isNaN(Number(number))) throw new Error('You didn\'t pass a valid number');
@@ -25,10 +27,10 @@ module.exports = class DateFormatter {
         if (number === 3) return '3rd';
 
         return `${number}th`;
-    };
+    }
 
     formatToReadable() {
         const _ = this.date;
         return `${this.formatDayOfMonthToReadable(_.getDate())} of ${MONTHS[_.getMonth()]} ${_.getFullYear()}`;
-    };
+    }
 };

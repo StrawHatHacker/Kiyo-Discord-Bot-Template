@@ -1,3 +1,5 @@
+'use strict';
+
 const DateFormatter = require('../../classes/DateFormatter');
 const Permissions = require('../../classes/Permissions');
 const Embed = require('../../classes/Embed');
@@ -36,10 +38,10 @@ module.exports = {
             .addDescription(`Joined at: ${joinedAt}`)
             .addDescription(`Created at: ${createdAt}`)
             .addField(`Roles (${targetMember.roles.cache.size - 1})`, `Highest: ${targetMember.roles.highest.toString()} \n\n ${rolesString}`)
-            .addField(`Key Permissions`, keyPerms)
-            .addField(`Other Permissions`, otherPerms)
+            .addField('Key Permissions', keyPerms)
+            .addField('Other Permissions', otherPerms)
             .setFooter(`Requested by: ${message.member.displayName}`, authorAV);
 
         await message.channel.send(embed);
     }
-}
+};

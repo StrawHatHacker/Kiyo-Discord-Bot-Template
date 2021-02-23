@@ -1,3 +1,5 @@
+'use strict';
+
 const { Schema, model } = require('mongoose');
 
 const GuildSchema = new Schema({
@@ -12,8 +14,7 @@ const GuildSchema = new Schema({
     minimize: false,
     id: false,
     collection: 'guild',
-    autoIndex: false,
-    _id: false
+    autoIndex: false
 });
 
 module.exports = model('guild', GuildSchema);

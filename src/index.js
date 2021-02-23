@@ -1,3 +1,5 @@
+'use strict';
+
 require('dotenv').config();
 const Bot = require('./classes/Bot');
 
