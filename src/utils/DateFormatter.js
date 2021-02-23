@@ -1,19 +1,10 @@
 'use strict';
 
-const MONTHS = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December'];
+const { MONTHS } = require('../config');
 
+/*
+    Utility class for beautifying dates
+*/
 module.exports = class DateFormatter {
     constructor(date) {
         if (!(date instanceof Date)) throw new Error('You didn\'t pass a valid date');
@@ -29,6 +20,7 @@ module.exports = class DateFormatter {
         return `${number}th`;
     }
 
+    // Return example: `5th of November 2003`
     formatToReadable() {
         const _ = this.date;
         return `${this.formatDayOfMonthToReadable(_.getDate())} of ${MONTHS[_.getMonth()]} ${_.getFullYear()}`;
