@@ -1,22 +1,26 @@
 'use strict';
 
-const DateFormatter = require('../../classes/DateFormatter');
+const DateFormatter = require('../../utils/DateFormatter');
 const Permissions = require('../../classes/Permissions');
 const Embed = require('../../classes/Embed');
+const Err = require('../../classes/Err');
 
 module.exports = {
     name: 'userinfo',
     description: 'Shows information about a user',
     async run({ message, args }) {
         // TODO profile command
+
+        // if args.length < 1 then targetMember is the message author
+        // if there is an argument, strip it from all characters except numbers, basically trying to get a 1234567890 from <@1234567890>
         const targetMemberID = (args.length < 1) ? message.author.id : args[0].replace(/[^0-9]+/g, '');
-        const targetMember = await message.guild.members.fetch(targetMemberID);
 
         // Fetch GuildMember from cache or from the API
         const targetMember = await message.guild.members.fetch(targetMemberID).catch(e => {
             throw new Err(e).inputErr().memberNotFound();
         });
 
+        // Remove the '@everyone' role from the member and format their roles into a string
         const rolesString = targetMember.roles.cache
             .filter(role => role.name !== '@everyone')
             .map(role => role.toString())
@@ -31,6 +35,7 @@ module.exports = {
         const createdAt = new DateFormatter(new Date(targetMember.user.createdTimestamp)).formatToReadable();
 
         const memberPerms = targetMember.permissions.toArray();
+        // If member is the guild owner, bypass permissions fitlering and formatting
         const keyPerms = targetMemberID === message.guild.ownerID ? 'Owner' : new Permissions(memberPerms).filterKeyPerms().formatToReadable();
         const otherPerms = targetMemberID === message.guild.ownerID ? 'Owner' : new Permissions(memberPerms).filterNonKeyPerms().formatToReadable();
 

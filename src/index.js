@@ -3,6 +3,7 @@
 require('dotenv').config();
 const Bot = require('./classes/Bot');
 
+// Creating a new Bot Client instance
 const Kiyo = new Bot({
     presence: {
         activity: {
@@ -12,4 +13,4 @@ const Kiyo = new Bot({
     },
 });
 
-Kiyo.start();
+Kiyo.start(); // Running the bot
