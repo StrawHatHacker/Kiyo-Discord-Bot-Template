@@ -13,11 +13,15 @@ module.exports = {
 
         // if args.length < 1 then targetMember is the message author
         // if there is an argument, strip it from all characters except numbers, basically trying to get a 1234567890 from <@1234567890>
+        // this specific implementation works only for mentioned users and IDs
         const targetMemberID = (args.length < 1) ? message.author.id : args[0].replace(/[^0-9]+/g, '');
+
+        // Returning if the id is empty, since empty string triggers the .fetch below to return all users in the guild
+        if (targetMemberID === '') throw new Err(404).inputErr().memberNotFound();
 
         // Fetch GuildMember from cache or from the API
         const targetMember = await message.guild.members.fetch(targetMemberID).catch(e => {
-            throw new Err(e).inputErr().memberNotFound();
+            throw new Err(e.httpStatus).inputErr().memberNotFound();
         });
 
         // Remove the '@everyone' role from the member and format their roles into a string

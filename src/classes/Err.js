@@ -4,10 +4,10 @@
     Custom Error class
 */
 module.exports = class Err {
-    constructor(e, name, message) {
+    constructor(httpStatus, name, message) {
         this.name = name ?? 'Unknown';
         this.message = message ?? 'Unknown';
-        this.httpStatus = e.httpStatus ?? 500;
+        this.httpStatus = httpStatus ?? 500;
     }
 
     inputErr() {
