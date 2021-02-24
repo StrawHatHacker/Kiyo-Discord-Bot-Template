@@ -14,10 +14,10 @@ module.exports = async (Kiyo, message) => {
         .slice(Kiyo.globalPrefix.length)
         .split(/\s+/g);
 
-    for (const [commandName, command] of Kiyo.commands) {
-        if (commandName !== cmd) continue;
+    for (const { name, run } of Kiyo.commands) {
+        if (name !== cmd) continue;
 
-        command.run({ message, Kiyo, args }).catch(e => errorHandler(e, message));
+        run({ message, Kiyo, args }).catch(e => errorHandler(e, message));
     }
 };
 
