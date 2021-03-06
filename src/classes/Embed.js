@@ -10,7 +10,7 @@ module.exports = class Embed extends MessageEmbed {
         super();
     }
 
-    // Appends a string to the `.description` property of the object (don't confuse with the `.setDescription` method which replaces the previous description value)
+    // Appends a string to the `.description` property of the object (don't confuse with the inherited `.setDescription` method which replaces the previous description value)
     addDescription(appendable) {
         /*                 `.description` property starts as null                                */
         /*                 if embed has null description initialize it as an empty string        */

@@ -48,8 +48,7 @@ module.exports = class Bot extends Client {
         console.log('Connected to DB');
     }
 
-    // PRIVATE should only be invoked once.
-    // TODO check if bot is not running before executing this function, else return.
+    // TODO use promise.all
     async start() {
         await this._loadCommands();
         await this._loadEvents();

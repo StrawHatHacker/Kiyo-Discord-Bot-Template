@@ -11,7 +11,7 @@ module.exports = class Permissions {
     }
 
     // Returns an array of the MOST important permissions. See KEY_PERMS in config
-    // NOTE:  filterKeyPerms & filterNonKeyPerms are mutually exclusive
+    // NOTE: filterKeyPerms & filterNonKeyPerms are mutually exclusive
     filterKeyPerms() {
         let _ = new Set();
 
@@ -28,7 +28,7 @@ module.exports = class Permissions {
     }
 
     // Returns an array of the NON important permissions. See KEY_PERMS in config
-    // NOTE:  filterKeyPerms & filterNonKeyPerms are mutually exclusive
+    // NOTE: filterKeyPerms & filterNonKeyPerms are mutually exclusive
     filterNonKeyPerms() {
         let _ = new Set();
 
