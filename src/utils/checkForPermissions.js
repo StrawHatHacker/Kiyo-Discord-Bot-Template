@@ -2,7 +2,7 @@
 
 const Permissions = require('../classes/Permissions');
 
-module.exports = (Kiyo, message, cmdName, requiredPermissions) => {
+module.exports = (client, message, cmdName, requiredPermissions) => {
     try {
         const userhasPermission = new Permissions(message.member.permissions)
             .filterKeyPerms()
@@ -18,12 +18,12 @@ module.exports = (Kiyo, message, cmdName, requiredPermissions) => {
             .clientHasPermission(requiredPermissions.client);
 
         if (!clientHasPermissions) {
-            message.member.send(`${Kiyo.user.username} doesn't have permission to run the \`${cmdName}\` command in **${message.guild.name}**`);
+            message.member.send(`${client.user.username} doesn't have permission to run the \`${cmdName}\` command in **${message.guild.name}**`);
             return false;
         }
 
         return true;
-        
+
     } catch (error) {
         return false;
     }
