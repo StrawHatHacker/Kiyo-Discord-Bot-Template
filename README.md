@@ -37,6 +37,70 @@ node index.js
 ```
 *If you see `Ready` in the console the the bot is online, congrats!*
 
+<br/><br/>
+#### By no means this is a descriptive 100% coverage documentation. Please look at the code, find similar use cases of how I use the classes, utils, how commands and events are syntaxed, and go from there.
+<br/>
+
+## Classes
+#### Bot `Class` `extends Client`
+Adding helper methods for easier client creation.
+Arguments:
+* **botConfig**: `Object` This is the [options](https://discord.js.org/#/docs/main/stable/typedef/ClientOptions) object for Discord.#Client(options).
+##### Methods
+* **_loadCommands:** **`Private`** `void` Loads all commands from the `src/commands/` directory and subdirectories.
+* **_loadEvents:** **`Private`** `void` Loads all events from the `src/events/` directory.
+* **_connectToDB:** **`Private`** `void` Connects to the database.
+* **start:** `void` Calls `_loadCommands`, `_loadEvents` and `_connectToDB` and then starts the bot.
+
+#### Err `Class`
+Custom error objects and methods for ease of use and readability.
+Arguments: 
+* **httpStatus**: `Number` Error status code. 
+* **name**: `String` Error name.
+* **message**: `String` Error description.
+##### Methods
+* **inputErr:** `this` Set name to "Input Error"
+* **memberNotFound:** `this` Set message to "Member not found"
+
+#### Embed `Class` `extends MessageEmbed`
+Adding helper methods for easier embed creation.
+##### Methods
+* **addDescription:** `this` Takes in a string and appends it to the `.description` property of the object, in a line (don't confuse with the inherited `.setDescription` method which replaces the previous description value)
+
+#### Permission `Class`
+Permissions class for filtering and formatting Discord permissions
+Arguments:
+* **perms**: A `Discord.Collection` of `Discord.Permissions`, this is usually `#GuildMember.permissions`.
+##### Methods
+* **filterKeyPerms:** `this` Returns an *Array* of key permission flags. See `KEY_PERMS` in `src/config.js`
+* **filterNonKeyPerms:** `this` Returns an *Array* of non key permission flags. See `KEY_PERMS` in `src/config.js`
+* **permsToArray:** `this` Returns an *Array* of all permission flags passed.
+* * NOTE:  `filterKeyPerms` & `filterNonKeyPerms` are mutually exclusive. Meaning they will never have a mutual permission if run the same permission list.
+* * NOTE:  It's always recommended to run `filterKeyPerms`, `filterNonKeyPerms` or `permsToArray` before executing any other method of the class.
+* **userhasPermission:** `Boolean` Takes in an array of permissions. Resolves if the user has **ANY** of those permissions.
+* **clientHasPermission:** `Boolean` Takes in an array of permissions. Resolves if the client has **ALL** of those permissions.
+* **formatToReadable:** `String` Returns a readable string of `this.perms`.
+
+## Utils
+#### database `object`
+Database utilities.
+* **guild** `object`
+    * **findOneOrCreate** `async function` Simple "find or create" implementation.
+        Args: 
+        * *GuildModel*: a valid mongoose.Model.
+        * *id* `String`: Discord guild id.
+
+#### DateFormatter `Class`
+Date formatting tools. This is in the utils and not in the classes folder because it's rarely used and more of a situational utility.
+Arguments:
+* **date:** `Date` a valid JavaScript Date object.
+##### Methods
+* **formatDayOfMonthToReadable:** `String` Appends the right suffix depending on the number(day of the month) and returns that string (Ex: 1 -> 1st, 2 -> 2nd, 6 -> 6th). *Ignores `this.date`*.
+    Arguments:
+    * **number:** `Number` The day of the month (1 - 31).
+* **formatToReadable:** `String` Returns a readable string of `this.date`.
+* **messageErrorHandler:** handles errors in the `message` event. DON'T TOUCH THIS ONE!
+
 ## #Soon
 * Automating the installation with a schell script.
 * [OtakuGifs](https://otakugifs.xyz/) integration for anime gifs.
