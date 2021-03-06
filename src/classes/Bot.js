@@ -17,8 +17,13 @@ module.exports = class Bot extends Client {
     // PRIVATE
     async _loadCommands() {
         // readdirp flattens the `commands` folder and subfolders after reading all folders recursively.
-        for await (const file of readFiles('./commands')) {
+        for await (const file of readFiles('./commands', { fileFilter: ['*.js'] })) {
             const command = require(file.fullPath);
+
+            // Some commands require property population from 3rd party apps
+            // Reactions for example
+            if (command.selfPopulate) await command.selfPopulate();
+
             this.commands.push(command);
         }
         return this;
