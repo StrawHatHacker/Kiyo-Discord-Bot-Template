@@ -1,4 +1,9 @@
 module.exports = {
+    COMMAND_PERMS: {
+        userinfo: {
+            user: ['BAN_MEMBERS', 'KICK_MEMBERS', 'MANAGE_CHANNELS', 'MANAGE_GUILD']
+        }
+    },
     PERM_FLAGS: {
         ADMINISTRATOR: 'Administrator',
         CREATE_INSTANT_INVITE: 'Create Invite',
