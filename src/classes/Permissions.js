@@ -44,6 +44,32 @@ module.exports = class Permissions {
         return this;
     }
 
+    // Helper method to convert discord Permissions Collection to an array ['ADMINISTRATOR', 'BAN_MEMBERS', ...]
+    permsToArray() {
+        this.perms = Array.from(this.perms);
+        return this;
+    }
+
+    // User has to have ANY one of the reqPerms to execute the command
+    userhasPermission(reqPerms) {
+        if (reqPerms.length === 0) return true;
+
+        for (const p of this.perms) {
+            if (reqPerms.includes(p) || p === 'ADMINISTRATOR') return true;
+        }
+        return false;
+    }
+
+    // Client has to have ALL one of the reqPerms to execute the command
+    clientHasPermission(reqPerms) {
+        if (reqPerms.length === 0) return true;
+
+        for (const p of reqPerms) {
+            if (!this.perms.includes(p)) return false;
+        }
+        return true;
+    }
+
     // Returns a "human readable" string of Permission Flags
     formatToReadable() {
         let _ = new Set();
