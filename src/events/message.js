@@ -26,6 +26,6 @@ module.exports = async (client, message) => {
         if (!checkPermissions(client, message, name, requiredPermissions)) return;
 
         // Run the command
-        run({ message, client, args }).catch(e => errorHandler(e, message));
+        run({ message, cmd, client, args }).catch(e => errorHandler(e, message));
     }
 };
