@@ -44,7 +44,7 @@ node index.js
 ## Classes
 #### Bot `Class` `extends Client`
 Adding helper methods for easier client creation.
-Arguments:
+##### Arguments:
 * **botConfig**: `Object` This is the [options](https://discord.js.org/#/docs/main/stable/typedef/ClientOptions) object for Discord.#Client(options).
 ##### Methods
 * **_loadCommands:** **`Private`** `void` Loads all commands from the `src/commands/` directory and subdirectories.
@@ -52,9 +52,12 @@ Arguments:
 * **_connectToDB:** **`Private`** `void` Connects to the database.
 * **start:** `void` Calls `_loadCommands`, `_loadEvents` and `_connectToDB` and then starts the bot.
 
+<br/>
+
+
 #### Err `Class`
 Custom error objects and methods for ease of use and readability.
-Arguments: 
+##### Arguments: 
 * **httpStatus**: `Number` Error status code. 
 * **name**: `String` Error name.
 * **message**: `String` Error description.
@@ -62,24 +65,31 @@ Arguments:
 * **inputErr:** `this` Set name to "Input Error"
 * **memberNotFound:** `this` Set message to "Member not found"
 
+<br/>
+
+
 #### Embed `Class` `extends MessageEmbed`
 Adding helper methods for easier embed creation.
 ##### Methods
 * **addDescription:** `this` Takes in a string and appends it to the `.description` property of the object, in a line (don't confuse with the inherited `.setDescription` method which replaces the previous description value)
 
+<br/>
+
 #### Permission `Class`
 Permissions class for filtering and formatting Discord permissions
-Arguments:
+##### Arguments:
 * **perms**: A `Discord.Collection` of `Discord.Permissions`, this is usually `#GuildMember.permissions`.
 ##### Methods
 * **filterKeyPerms:** `this` Returns an *Array* of key permission flags. See `KEY_PERMS` in `src/config.js`
 * **filterNonKeyPerms:** `this` Returns an *Array* of non key permission flags. See `KEY_PERMS` in `src/config.js`
 * **permsToArray:** `this` Returns an *Array* of all permission flags passed.
-* * NOTE:  `filterKeyPerms` & `filterNonKeyPerms` are mutually exclusive. Meaning they will never have a mutual permission if run the same permission list.
+* * NOTE:  `filterKeyPerms` & `filterNonKeyPerms` are mutually exclusive. Meaning they will never have a mutual permission if run on the same instance.
 * * NOTE:  It's always recommended to run `filterKeyPerms`, `filterNonKeyPerms` or `permsToArray` before executing any other method of the class.
 * **userhasPermission:** `Boolean` Takes in an array of permissions. Resolves if the user has **ANY** of those permissions.
 * **clientHasPermission:** `Boolean` Takes in an array of permissions. Resolves if the client has **ALL** of those permissions.
 * **formatToReadable:** `String` Returns a readable string of `this.perms`.
+
+<br/>
 
 ## Utils
 #### database `object`
@@ -92,7 +102,7 @@ Database utilities.
 
 #### DateFormatter `Class`
 Date formatting tools. This is in the utils and not in the classes folder because it's rarely used and more of a situational utility.
-Arguments:
+##### Arguments:
 * **date:** `Date` a valid JavaScript Date object.
 ##### Methods
 * **formatDayOfMonthToReadable:** `String` Appends the right suffix depending on the number(day of the month) and returns that string (Ex: 1 -> 1st, 2 -> 2nd, 6 -> 6th). *Ignores `this.date`*.
