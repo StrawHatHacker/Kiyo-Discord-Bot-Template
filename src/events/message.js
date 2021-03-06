@@ -1,38 +1,49 @@
 'use strict';
 
-const utils = require('../utils/database');
+const errorHandler = require('../utils/messageErrorHandler');
+const Permissions = require('../classes/Permissions');
 const GuildModel = require('../models/guild');
+const utils = require('../utils/database');
 
 module.exports = async (Kiyo, message) => {
-    if (message.author.bot || message.channel.type === 'dm') return;
-    if (!message.content.toLowerCase().startsWith(Kiyo.globalPrefix)) return;
+    if (message.author.bot || message.channel.type === 'dm') return; // If message came from bot or in a dm channel, ignore it
+    if (!message.content.toLowerCase().startsWith(Kiyo.globalPrefix)) return; // If message doesn't start with prefix, ignore it
 
-    const Guild = await utils.guild.findOneOrCreate(GuildModel, [message.guild.id]);
+    // Fetching or creating if doesn't exist a Guild in the database
+    const Guild = await utils.guild.findOneOrCreate(GuildModel, message.guild.id);
 
-    const [cmd, ...args] = message.content
-        .toLowerCase()
-        .slice(Kiyo.globalPrefix.length)
-        .split(/\s+/g);
+    /*   str   array                     Slicing off the prefix          Spliting at spaces*/
+    let [cmd, ...args] = message.content.slice(Kiyo.globalPrefix.length).split(/\s+/g);
+    cmd = cmd.toLowerCase(); // Lowercasing the cmd to match it with lowercase aliases
 
-    for (const { name, run } of Kiyo.commands) {
-        if (name !== cmd) continue;
+    // Looping through all available commands
+    for (const { name, run, aliases, requiredPermissions } of Kiyo.commands) {
+        if (!aliases.includes(cmd)) continue; // If cmd in not in aliases skip this command
 
-        run({ message, Kiyo, args }).catch(e => errorHandler(e, message));
-    }
-};
+        try {
+            const userhasPermission = new Permissions(message.member.permissions)
+                .filterKeyPerms()
+                .userhasPermission(requiredPermissions.user);
 
-const errorHandler = (e, m) => {
-    // 404 Not Found
-    if (e.httpStatus === 404) m.channel.send(`${e.name}: ${e.message}`);
+            if (!userhasPermission)
+                return message.member.send(`You don't have permission to run the \`${name}\` command in **${message.guild.name}**`);
 
-    // 403 Missing Permissions
-    // BE CAREFUL, you might not see errors in your console because of this line
-    // usually triggers when the bot doesn't have permissions to do something
-    else if (e.httpStatus === 403) return;
+            const clientHasPermissions = new Permissions(message.guild.me.permissions)
+                .permsToArray()
+                .clientHasPermission(requiredPermissions.client);
 
-    // All other errors
-    else {
-        console.log(e);
-        m.channel.send('Unknown Error');
+            if (!clientHasPermissions)
+                return message.member.send(`${Kiyo.user.username} doesn't have permission to run the \`${name}\` command in **${message.guild.name}**`);
+
+            // Run the command
+            run({ message, Kiyo, args }).catch(e => errorHandler(e, message));
+
+        } catch (error) {
+            // Why are we ignoring errors here?
+            // Because the only errors that will be handled here, are from when the ".send" method fails and we don't care about it at all!
+            // If the command execution fails, it will be handled by it's own errorHandler
+            // If you want to work on this code, you should probably handle this catch <3
+            return;
+        }
     }
 };
