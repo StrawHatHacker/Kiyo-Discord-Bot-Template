@@ -1,8 +1,14 @@
 'use strict';
 
 module.exports = {
-    name: 'ping',
+    name: 'Ping',
     description: 'Pings the bot',
+    aliases: ['ping'],
+    syntax: 'ping ',
+    requiredPermissions: {
+        user: [],
+        client: []
+    },
     async run({ message, Kiyo }) {
         // Sending temporary message
         const botMessage = await message.channel.send('Pinging...');

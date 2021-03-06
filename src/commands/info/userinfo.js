@@ -2,12 +2,19 @@
 
 const DateFormatter = require('../../utils/DateFormatter');
 const Permissions = require('../../classes/Permissions');
+const { COMMAND_PERMS } = require('../../config');
 const Embed = require('../../classes/Embed');
 const Err = require('../../classes/Err');
 
 module.exports = {
-    name: 'userinfo',
+    name: 'Userinfo',
     description: 'Shows information about a user',
+    aliases: ['userinfo', 'ui'],
+    syntax: 'userinfo [@mention]',
+    requiredPermissions: {
+        user: COMMAND_PERMS.userinfo.user,
+        client: []
+    },
     async run({ message, args }) {
         // TODO profile command
 
