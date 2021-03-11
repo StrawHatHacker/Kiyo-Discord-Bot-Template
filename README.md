@@ -29,13 +29,17 @@ touch .env
 Open .env with your favourite text editor and add this line along with your bot token: <br/>
 `DISCORD_BOT_TOKEN="Your bot token here"`
 ###### 6 Add MongoDB connection string into the .env file:
-Add the following in a new line: <br/>
+Add the following in a new line:
 `DB_CONNECTION_STRING="Connection string here"`
 ###### 7. Run the bot (Assuming you already are in the /src directory):
 ```shell
 node index.js 
 ```
 *If you see `Ready` in the console the the bot is online, congrats!*
+
+###### 8. (Optional) Add your OtakuGIFs token for anime GIF reactions.
+Get an API Token from https://otakugifs.xyz and add it to the .env file in a new line:
+`OTAKUGIFS_TOKEN="Token goes here"`
 
 <br/><br/>
 #### By no means this is a descriptive 100% coverage documentation. Please look at the code, find similar use cases of how I use the classes, utils, how commands and events are syntaxed, and go from there.
