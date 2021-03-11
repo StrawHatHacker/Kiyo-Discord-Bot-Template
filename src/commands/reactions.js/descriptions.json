@@ -1,0 +1,606 @@
+{
+    "angrystare": {
+        "single": [
+            "--author stares angrily.",
+            "Don't test --author anymore."
+        ],
+        "multiple": [
+            "--author stares angrily at --target.",
+            "--author stares angrily, you better run --target."
+        ]
+    },
+    "bite": {
+        "single": [
+            "--author wants to be bitten, weird!",
+            "--author is looking for a bite!",
+            "--author bites around like a vampire. Everybody run!"
+        ],
+        "multiple": [
+            "--author bites --target.",
+            "--author bites --target hard!",
+            "Run --target! --author wants to bite you."
+        ]
+    },
+    "bleh": {
+        "single": [
+            "Blehhhh!",
+            "Blehhhhhhhhhhhh!"
+        ],
+        "multiple": [
+            "Blehhhh! --target.",
+            "Blehhhh! --target you suck!",
+            "Blehhhh! You are stinky --target."
+        ]
+    },
+    "blush": {
+        "single": [
+            "--author blushes.",
+            "--author feels their cheeks getting surprisingly red!",
+            "--author feels their cheeks getting surprisingly hot!"
+        ],
+        "multiple": [
+            "--author blushes cause of --target.",
+            "--target makes --author blush."
+        ]
+    },
+    "brofist": {
+        "single": [
+            "Thanks for the brofist, bro.",
+            "--author is looking for a brosift. Don't leave them hanging."
+        ],
+        "multiple": [
+            "--author brofists --target, you are a great team!",
+            "Hey bro --target ;)"
+        ]
+    },
+    "celebrate": {
+        "single": [
+            "--author throws a party!",
+            "--author celebrates!",
+            "This calls for celebration. Let's party!"
+        ],
+        "multiple": [
+            "--author and --target celebrate together!",
+            "--author and --target. Let's celebrate together!",
+            "--author and --target. Let's party together!"
+        ]
+    },
+    "cheers": {
+        "single": [
+            "Cheers --author!",
+            "Let's drink to that, --author!"
+        ],
+        "multiple": [
+            "Cheers --author, --target!",
+            "Let's drink to that --author, --target!"
+        ]
+    },
+    "clap": {
+        "single": [
+            "--author claps!",
+            "That's amazing!"
+        ],
+        "multiple": [
+            "--author claps for --target success!",
+            "That's amazing, --target!"
+        ]
+    },
+    "confused": {
+        "single": [
+            "--author seems to be confused.",
+            "--author is kinda confused.",
+            "That's really confusing."
+        ],
+        "multiple": [
+            "--target made --author really confused.",
+            "--author finds you really confusing sometimes, --target."
+        ]
+    },
+    "cry": {
+        "single": [
+            "--author cries.",
+            "--author cries really hard.",
+            "--author sobs in sadness."
+        ],
+        "multiple": [
+            "--target made --author cry",
+            "--author cries because of --target.",
+            "--author cries because of what --target did."
+        ]
+    },
+    "cuddle": {
+        "single": [
+            "I will cuddle you --author!",
+            "--author needs a cuddle.",
+            "--author needs some affection."
+        ],
+        "multiple": [
+            "--author cuddles --target.",
+            "--author and --target cuddle together.",
+            "--author and --target cuddle together. How cute!"
+        ]
+    },
+    "dance": {
+        "single": [
+            "--author is dancing.",
+            "--author dances ||not so good :)||",
+            "--author is a really good dancer!"
+        ],
+        "multiple": [
+            "--author dances with --target.",
+            "--author and --target dance together.",
+            "Everyone STOP! and look --author and --target dance."
+        ]
+    },
+    "drool": {
+        "single": [
+            "--author drools.",
+            "--author drools all over the chat, yuck!"
+        ],
+        "multiple": [
+            "--author drools because of --target.",
+            "--author drools all over --target.",
+            "--author drools when when they see you, --target."
+        ]
+    },
+    "embarrassed": {
+        "single": [
+            "--author is embarrassed.",
+            "--author is embarrassed of the whole situation here."
+        ],
+        "multiple": [
+            "--target made --author feel embarrassed.",
+            "--author is embarrassed of --target."
+        ]
+    },
+    "handhold": {
+        "single": [
+            "--author needs someone to hold their hand.",
+            "Someone, watch the sunset while holding hands with --author."
+        ],
+        "multiple": [
+            "--target holds hands with --author!",
+            "--author wants to hold your hand, --target!"
+        ]
+    },
+    "happy": {
+        "single": [
+            "--author is happy!",
+            "--author is really happy right now!",
+            "--author, want to tell us what made you so happy?"
+        ],
+        "multiple": [
+            "--target made --author happy, cuties!",
+            "--author is happy for --target!",
+            "--author wants to make --target happy!"
+        ]
+    },
+    "headbang": {
+        "single": [
+            "--author bangs their head.",
+            "--author bangs their head table.",
+            "--author can't take this anymore."
+        ],
+        "multiple": [
+            "--author is banging their head because of --target.",
+            "--target, stop. --author can't take it anymore."
+        ]
+    },
+    "hug": {
+        "single": [
+            "Here's a hug for you --author.",
+            "--author needs a hug.",
+            "Huggy for --author!"
+        ],
+        "multiple": [
+            "--author hugs --target.",
+            "--author hugs --target. That's a little too tight --author!",
+            "--author needs a hug from you, --target."
+        ]
+    },
+    "kiss": {
+        "single": [
+            "Here's a kiss for --author.",
+            "--author needs a cute little kissy!",
+            "Smoooooch --author!"
+        ],
+        "multiple": [
+            "--author kisses --target.",
+            "--author kisses --target passionately!",
+            "--author wants to make out with --target."
+        ]
+    },
+    "laugh": {
+        "single": [
+            "--author laughs!",
+            "--author thinks this is hilarious!"
+        ],
+        "multiple": [
+            "--author laughs because --target is too funny!",
+            "--author laughs at --target.",
+            "--target, you are so funny!"
+        ]
+    },
+    "lick": {
+        "single": [
+            "--author wants to be licked, weirdo",
+            "--author wants to lick everyone!"
+        ],
+        "multiple": [
+            "--author is licking --target, eww!",
+            "--target, run away! --author wants to lick you."
+        ]
+    },
+    "love": {
+        "single": [
+            "--author needs some love.",
+            "Here's some love for --author ♥",
+            "I love you --author ♥"
+        ],
+        "multiple": [
+            "--author loves you, --target!",
+            "--author loves --target!",
+            "--author loves --target with all their heart."
+        ]
+    },
+    "mad": {
+        "single": [
+            "--author is mad.",
+            "--author is angy.",
+            "Stop messing with --author, everyone!"
+        ],
+        "multiple": [
+            "--author is mad because of --target.",
+            "--target made --author mad."
+        ]
+    },
+    "nervous": {
+        "single": [
+            "--author feels nervous.",
+            "Someone made --author really nervous.",
+            "--author is uncomfortable."
+        ],
+        "multiple": [
+            "--target makes --author really nervous.",
+            "--target makes --author really uncomfortable."
+        ]
+    },
+    "no": {
+        "single": [
+            "--author says no!",
+            "--author: just no!",
+            "Hell nooooooooo!"
+        ],
+        "multiple": [
+            "--target... just no!",
+            "--author doesn't approve. Sorry --target."
+        ]
+    },
+    "nom": {
+        "single": [
+            "--author noms, what a fatty!",
+            "--author likes eating a lot!",
+            "--author can't get food our of their mind."
+        ],
+        "multiple": [
+            "--author wants to nom with --target, or nom them. Who knows?"
+        ]
+    },
+    "pat": {
+        "single": [
+            "Here's a pat for you, --author!",
+            "--author needs a pat and affection right now.",
+            "Someone pat --author pretty please!"
+        ],
+        "multiple": [
+            "--author pats --target",
+            "--author pats --target and messes up their hair!"
+        ]
+    },
+    "peek": {
+        "single": [
+            "--author peeks into chat.",
+            "--author lurks.",
+            "--author peeks into chat asking for some attention."
+        ],
+        "multiple": [
+            "--author peeks, trying to get your attention --target.",
+            "--author peeks from behind the corner, --target. Be careful!",
+            "--target, I think --author is stalking you."
+        ]
+    },
+    "pinch": {
+        "single": [
+            "--author wants a cheek pinch.",
+            "--author wants cheek pinches."
+        ],
+        "multiple": [
+            "--author pinches --target.",
+            "--author is coming to pinch your cheeks, --target. Run!"
+        ]
+    },
+    "poke": {
+        "single": [
+            "Here's a poke for you, --author.",
+            "--author likes poking around.",
+            "--author likes poking ribs."
+        ],
+        "multiple": [
+            "--author pokes --target.",
+            "--author pokes --target.",
+            "--author pokes for your attention, --target."
+        ]
+    },
+    "pout": {
+        "single": [
+            "--author pouts",
+            "--author pouts and turns around.",
+            "--author is all pouty, who is to blame?"
+        ],
+        "multiple": [
+            "--author pouts because of --target.",
+            "--target made --author pouty."
+        ]
+    },
+    "punch": {
+        "single": [
+            "--author wants to punch something, or someone!",
+            "--author is looking for a fight."
+        ],
+        "multiple": [
+            "--author punches --target. Ouch!"
+        ]
+    },
+    "roll": {
+        "single": [
+            "--author rolls around.",
+            "--author likes to roll around."
+        ],
+        "multiple": [
+            "--author rolls around with --target.",
+            "--author wants to roll on --target."
+        ]
+    },
+    "run": {
+        "single": [
+            "--author runs away!",
+            "--author is running away. Catch them!"
+        ],
+        "multiple": [
+            "--author runs away from --target!",
+            "Run before --target catches you!"
+        ]
+    },
+    "sad": {
+        "single": [
+            "--author is super sad.",
+            "Someone made --author sad :("
+        ],
+        "multiple": [
+            "--target made --author sad.",
+            "--author is sad because of --target. Meanie!"
+        ]
+    },
+    "scared": {
+        "single": [
+            "--author is so scared.",
+            "Something made --author really scared."
+        ],
+        "multiple": [
+            "--author is scared of --target, stop being spooky!",
+            "--author is scared of --target, stop being so intimidating!",
+            "--target is too scary for --author."
+        ]
+    },
+    "shrug": {
+        "single": [
+            "--author shrugs.",
+            "--author shrugs. Ehh whatever!"
+        ],
+        "multiple": [
+            "--author shrugs at whatever you just said, --target.",
+            "--author doesn't care, --target."
+        ]
+    },
+    "shy": {
+        "single": [
+            "--author is really shy, make them feel at home!",
+            "--author is too shy to speak."
+        ],
+        "multiple": [
+            "--author is really shy, --target.",
+            "--author is shy of --target."
+        ]
+    },
+    "sigh": {
+        "single": [
+            "--author sighs.",
+            "--author can't take this anymore!"
+        ],
+        "multiple": [
+            "--author sighs at your unmatched intelligence, --target.",
+            "--author can't stand you anymore, --target."
+        ]
+    },
+    "sip": {
+        "single": [
+            "--author sips their cup.",
+            "--author sips too hard!"
+        ],
+        "multiple": [
+            "--author sips together with --target.",
+            "--author want to have a tea party with --target."
+        ]
+    },
+    "slap": {
+        "single": [
+            "Baka --author, get slapped!",
+            "Wants to slap someone. Run!"
+        ],
+        "multiple": [
+            "--author slaps --target a bit too hard.",
+            "--author slaps --target and they start crying.",
+            "--author slaps --target and then they both start crying."
+        ]
+    },
+    "sleep": {
+        "single": [
+            "--author goes to sleep, bye bye!",
+            "--author can't keep their eyes open anymore.",
+            "--author needs sleep."
+        ],
+        "multiple": [
+            "--author wants to sleep with you, --target",
+            "--author wants to sleep with --target",
+            "--author wants --target to put them to sleep. Tuck them in really good!"
+        ]
+    },
+    "smack": {
+        "single": [
+            "You are being bad again, you are getting smacked, --author.",
+            "--author needs a good smacking."
+        ],
+        "multiple": [
+            "--author smacks --target a bit too hard.",
+            "--author smacks --target on the bum because they've been really bad."
+        ]
+    },
+    "smile": {
+        "single": [
+            "--author smiles, they have a cute smile!",
+            "--author smiles wide!"
+        ],
+        "multiple": [
+            "--author smiles at --target ;)",
+            "--target makes --author smile."
+        ]
+    },
+    "smug": {
+        "single": [
+            "--author smugs, what do they have in mind?",
+            "--author smugs, hehehe!"
+        ],
+        "multiple": [
+            "--author smugs at --target, uh-oh.",
+            "--author smugs at --target, they know something we don't."
+        ]
+    },
+    "sorry": {
+        "single": [
+            "--author is sorry, they messed up.",
+            "--author is incredibly sorry.",
+            "--author is sorry. Please fogive."
+        ],
+        "multiple": [
+            "--author wants you to forgive them, --target.",
+            "--author is asking for forgiveness, --target."
+        ]
+    },
+    "stare": {
+        "single": [
+            "--author stares at a distance.",
+            "--author stares at all the cuties in chat!"
+        ],
+        "multiple": [
+            "--author stares at --target. Akward.",
+            "--author stares intensly at --target.",
+            "--author makes akward eye contact --target.",
+            "--author watches --target very closely!"
+        ]
+    },
+    "surprised": {
+        "single": [
+            "--author is pleasantly surprised!",
+            "Something surprised --author."
+        ],
+        "multiple": [
+            "--target surprised --author."
+        ]
+    },
+    "thumbsup": {
+        "single": [
+            "--author agrees.",
+            "--author approves.",
+            "--author raises their thumb."
+        ],
+        "multiple": [
+            "--author agrees with --target."
+        ]
+    },
+    "tickle": {
+        "single": [
+            "--author wants to be tickled, weird!",
+            "--author wants to tickle someone. Run!"
+        ],
+        "multiple": [
+            "--author tickles --target everywhere!",
+            "--author wants to tickle --target. Run!"
+        ]
+    },
+    "tired": {
+        "single": [
+            "--author is really tired.",
+            "--author is exhausted.",
+            "--author needs some rest."
+        ],
+        "multiple": [
+            "--author is really tired of you, --target.",
+            "--target you make --author really tired."
+        ]
+    },
+    "wave": {
+        "single": [
+            "--author waves at the chat!",
+            "--author waves at everyone!",
+            "--author waves from afar."
+        ],
+        "multiple": [
+            "--author was at you, --target. Please notice them!",
+            "--author waves at --target."
+        ]
+    },
+    "wink": {
+        "single": [
+            "--author winks at the cuties in the chat!",
+            "--author winks. With both eyes!",
+            "--author winks at nowhere."
+        ],
+        "multiple": [
+            "--author winks at --target,",
+            "--author winks at --target. What's the meaning behind this?",
+            "--author winks at --target and then they make akward eye contact."
+        ]
+    },
+    "yawn": {
+        "single": [
+            "--author yawns.",
+            "--author yawns. They need some rest.",
+            "--author yawns. They are pretty bored."
+        ],
+        "multiple": [
+            "--author yawns because you are boring, --target.",
+            "--author yawns. Say something interesting --target."
+        ]
+    },
+    "yay": {
+        "single": [
+            "--author is excited!",
+            "--author is super excited!",
+            "--author is excited! Tell us why!"
+        ],
+        "multiple": [
+            "--author excited for you --target.",
+            "--author excited when you are around, --target."
+        ]
+    },
+    "yes": {
+        "single": [
+            "--author nods happilly.",
+            "--author: YES, YES and YES!."
+        ],
+        "multiple": [
+            "--author agrees with you --target.",
+            "--author nods in agreement with you, --target."
+        ]
+    }
+}
