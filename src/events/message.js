@@ -22,7 +22,7 @@ module.exports = async (client, message) => {
         // If cmd in not in aliases skip this command
         if (!aliases.includes(cmd)) continue;
 
-        // Checking both member and bot permissions
+        // Checking both member and bot permissions before executing the command
         if (!checkPermissions(client, message, name, requiredPermissions)) return;
 
         // Run the command
