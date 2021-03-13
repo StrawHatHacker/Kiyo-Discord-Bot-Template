@@ -1,11 +1,11 @@
 const { GuildMember, Collection } = require('discord.js');
 
-module.exports = async (message, args) => {
+module.exports = async (message, arg) => {
     //Strip it from all characters except numbers, basically trying to get a 1234567890 from <@1234567890>
-    const targetMemberID = args[0].replace(/[^0-9]+/g, '');
+    const targetMemberID = arg.replace(/[^0-9]+/g, '');
 
-    const promise1 = message.guild.members.fetch({ query: args[0], limit: 1 }); // Works for similar names like -> Input Soph, returns user with name Sophie
-    const promise2 = message.guild.members.cache.find(m => m.user.tag === args[0]); // Works for tags like -> Sophie#3287
+    const promise1 = message.guild.members.fetch({ query: arg, limit: 1 }); // Works for similar names like -> Input Soph, returns user with name Sophie
+    const promise2 = message.guild.members.cache.find(m => m.user.tag === arg); // Works for tags like -> Sophie#3287
     const promise3 = message.guild.members.fetch(targetMemberID); // Works for mentioned users and IDs
     // With all the above we handle most ways a user can try to pass another user as argument
 

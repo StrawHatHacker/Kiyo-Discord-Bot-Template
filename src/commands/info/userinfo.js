@@ -22,7 +22,7 @@ module.exports = {
 
         // if args.length < 1 then targetMember is the message author
         if (args.length < 1) targetMember = message.member;
-        else targetMember = await findMember(message, args);
+        else targetMember = await findMember(message, args[0]);
 
         if (targetMember === undefined) throw new Err(404).inputErr().memberNotFound();
 
