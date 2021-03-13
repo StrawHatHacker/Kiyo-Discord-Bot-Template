@@ -2,6 +2,7 @@
 
 const DateFormatter = require('../../utils/DateFormatter');
 const Permissions = require('../../classes/Permissions');
+const findMember = require('../../utils/findMember');
 const { COMMAND_PERMS } = require('../../config');
 const Embed = require('../../classes/Embed');
 const Err = require('../../classes/Err');
@@ -17,19 +18,13 @@ module.exports = {
     },
     async run({ message, args }) {
         // TODO profile command
+        let targetMember;
 
         // if args.length < 1 then targetMember is the message author
-        // if there is an argument, strip it from all characters except numbers, basically trying to get a 1234567890 from <@1234567890>
-        // this specific implementation works only for mentioned users and IDs
-        const targetMemberID = (args.length < 1) ? message.author.id : args[0].replace(/[^0-9]+/g, '');
+        if (args.length < 1) targetMember = message.member;
+        else targetMember = await findMember(message, args);
 
-        // Returning if the id is empty, since empty string triggers the .fetch below to return all users in the guild
-        if (targetMemberID === '') throw new Err(404).inputErr().memberNotFound();
-
-        // Fetch GuildMember from cache or from the API
-        const targetMember = await message.guild.members.fetch(targetMemberID).catch(e => {
-            throw new Err(e.httpStatus).inputErr().memberNotFound();
-        });
+        if (targetMember === undefined) throw new Err(404).inputErr().memberNotFound();
 
         // Remove the '@everyone' role from the member and format their roles into a string
         const rolesString = targetMember.roles.cache
@@ -47,8 +42,8 @@ module.exports = {
 
         const memberPerms = targetMember.permissions.toArray();
         // If member is the guild owner, bypass permissions fitlering and formatting
-        const keyPerms = targetMemberID === message.guild.ownerID ? 'Owner' : new Permissions(memberPerms).filterKeyPerms().formatToReadable();
-        const otherPerms = targetMemberID === message.guild.ownerID ? 'Owner' : new Permissions(memberPerms).filterNonKeyPerms().formatToReadable();
+        const keyPerms = targetMember.id === message.guild.ownerID ? 'Owner' : new Permissions(memberPerms).filterKeyPerms().formatToReadable();
+        const otherPerms = targetMember.id === message.guild.ownerID ? 'Owner' : new Permissions(memberPerms).filterNonKeyPerms().formatToReadable();
 
         const embed = new Embed()
             .setAuthor(targetMember.displayName, smallAV)
