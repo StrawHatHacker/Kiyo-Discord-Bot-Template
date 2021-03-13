@@ -14,7 +14,7 @@ module.exports = {
         client: []
     },
     async selfPopulate() { // Function to populate the `this.aliases` field
-        if (!process.env.OTAKUGIFS_TOKEN) return;
+        if (!process.env.OTAKUGIFS_TOKEN) return console.length('Reactions not configured');
 
         // Get all reactions from otakugifs.xyz
         const response = await axios.get('https://api.otakugifs.xyz/gif/allreactions', {
