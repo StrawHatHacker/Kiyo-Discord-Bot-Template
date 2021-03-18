@@ -41,7 +41,7 @@ module.exports = {
         const createdAt = new DateFormatter(new Date(targetMember.user.createdTimestamp)).formatToReadable();
 
         const memberPerms = targetMember.permissions.toArray();
-        // If member is the guild owner, bypass permissions fitlering and formatting
+        // If member is the guild owner, bypass permission filtering and formatting
         const keyPerms = targetMember.id === message.guild.ownerID ? 'Owner' : new Permissions(memberPerms).filterKeyPerms().formatToReadable();
         const otherPerms = targetMember.id === message.guild.ownerID ? 'Owner' : new Permissions(memberPerms).filterNonKeyPerms().formatToReadable();
 

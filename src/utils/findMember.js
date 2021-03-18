@@ -9,7 +9,6 @@ module.exports = async (message, arg) => {
     const promise3 = message.guild.members.fetch(targetMemberID); // Works for mentioned users and IDs
     // With all the above we handle most ways a user can try to pass another user as argument
 
-
     // 1.value:Collection<GuildMember>, 2.value:GuildMember, 3.value:GuildMember
     const results = await Promise.allSettled([promise1, promise2, promise3]);
     for (const r of results) {
