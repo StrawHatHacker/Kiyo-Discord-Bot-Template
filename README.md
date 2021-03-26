@@ -58,7 +58,6 @@ Adding helper methods for easier client creation.
 
 <br/>
 
-
 #### Err `Class`
 Custom error objects and methods for ease of use and readability.
 ##### Arguments: 
@@ -70,7 +69,6 @@ Custom error objects and methods for ease of use and readability.
 * **memberNotFound:** `this` Set message to "Member not found"
 
 <br/>
-
 
 #### Embed `Class` `extends MessageEmbed`
 Adding helper methods for easier embed creation.
@@ -96,6 +94,13 @@ Permissions class for filtering and formatting Discord permissions
 <br/>
 
 ## Utils
+#### checkForPermissions `Function`
+Check if user and bot have permissions to run a command. Returns `Boolean`
+##### Arguments:
+* **client** A discord.js `Client`. Or a `Bot` Class.
+* **message** A discord.js `Message`.
+* **cmdName** The `name` property of a command module.
+* **requiredPermissions** The `requiredPermissions` property of a command module.
 #### database `object`
 Database utilities.
 * **guild** `object`
@@ -114,6 +119,11 @@ Date formatting tools. This is in the utils and not in the classes folder becaus
     * **number:** `Number` The day of the month (1 - 31).
 * **formatToReadable:** `String` Returns a readable string of `this.date`.
 * **messageErrorHandler:** handles errors in the `message` event. DON'T TOUCH THIS ONE!
+#### findMember `Function`
+Returns a discord.js `GuildMember` from a given argument.
+##### Arguments:
+* **message** A discord.js `Message`.
+* **arg** `String`, argument to match.
 
 ## #Soon
 * Automating the installation with a schell script.
