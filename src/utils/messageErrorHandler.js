@@ -1,6 +1,6 @@
 module.exports = (e, m) => {
     // 404 Not Found
-    if (e.httpStatus === 404) m.channel.send(`${e.name}: ${e.message}`);
+    if (e.httpStatus === 404 || e.httpStatus === 401) m.channel.send(`${e.name}: ${e.message}`);
 
     // 403 Missing Permissions
     // BE CAREFUL, you might not see errors in your console because of this line
