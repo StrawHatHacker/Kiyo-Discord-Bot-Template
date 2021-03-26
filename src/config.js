@@ -2,6 +2,9 @@ module.exports = {
     COMMAND_PERMS: {
         userinfo: {
             user: ['BAN_MEMBERS', 'KICK_MEMBERS', 'MANAGE_CHANNELS', 'MANAGE_GUILD']
+        },
+        makeembed: {
+            user: ['BAN_MEMBERS', 'KICK_MEMBERS', 'MANAGE_CHANNELS', 'MANAGE_GUILD']
         }
     },
     PERM_FLAGS: {

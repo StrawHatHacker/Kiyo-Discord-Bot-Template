@@ -25,7 +25,9 @@ module.exports = async (client, message) => {
         // Checking both member and bot permissions before executing the command
         if (!checkPermissions(client, message, name, requiredPermissions)) return;
 
+        let [, ...cleanArgs] = message.content.slice(client.globalPrefix.length).split(/\s/g);
+
         // Run the command
-        run({ message, cmd, client, args }).catch(e => errorHandler(e, message));
+        run({ message, cmd, client, args, cleanArgs: cleanArgs.join(' ') }).catch(e => errorHandler(e, message));
     }
 };
