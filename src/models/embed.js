@@ -3,7 +3,14 @@
 const { Schema, model } = require('mongoose');
 
 const EmbedSchema = new Schema({
-    guildId: String,
+    guildId: {
+        type: String,
+        required: true
+    },
+    name: {
+        type: String,
+        required: true
+    },
     content: {
         type: String,
         default: ''
