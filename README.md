@@ -3,7 +3,7 @@ Kiyo has powerful utilities which make it quick and easy to build upon, writing 
 Feature rich and easy to maintain. <br/>
 Based on the [discord.js](https://github.com/discordjs/discord.js) library.
 
-## Installation
+## 📥 Installation
 <b> NPM and Node.js 14.0.0 or higher required. </b> Download [here](https://nodejs.org/) <br/>
 <b> MongoDB v4 or higher required. </b> Create [here](https://docs.atlas.mongodb.com/getting-started) for free. 
 ###### 1. Clone this repository from your terminal:
@@ -42,7 +42,7 @@ Get an API Token from https://otakugifs.xyz and add it to the .env file in a new
 `OTAKUGIFS_TOKEN="Token goes here"`
 
 <br/><br/>
-#### By no means this is a descriptive 100% coverage documentation. Please look at the code, find similar use cases of how I use the classes, utils, how commands and events are syntaxed, and go from there.
+#### ❕ By no means this is a descriptive 100% coverage documentation. Please look at the code, find similar use cases of how I use the classes, utils, how commands and events are syntaxed, and go from there.
 <br/>
 
 ## Classes
@@ -125,14 +125,12 @@ Returns a discord.js `GuildMember` from a given argument.
 * **message** A discord.js `Message`.
 * **arg** `String`, argument to match.
 
-## #Soon
+## 🔜 Soon
 * Automating the installation with a schell script.
-* [OtakuGifs](https://otakugifs.xyz/) integration for anime gifs.
-* Subcommands
 * Module reloading / command reloading
 
-## Contribution
+## 🙏 Contribution
 You can open pull requests on the `main` branch. They will take around 1 week to review.
 
-## License
+## 📜 License
 [GNU General Public License v3.0 License](https://github.com/StrawHatHacker/Kiyo-Discord-Bot/blob/main/LICENSE)
