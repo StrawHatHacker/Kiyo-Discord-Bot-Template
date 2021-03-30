@@ -11,7 +11,6 @@ module.exports = class Bot extends Client {
     constructor(botConfig) {
         super(botConfig);
         this.commands = [];
-        this.globalPrefix = '.';
     }
 
     // PRIVATE

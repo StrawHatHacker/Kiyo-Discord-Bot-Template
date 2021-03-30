@@ -7,6 +7,10 @@ const GuildSchema = new Schema({
         type: String,
         required: true,
         unique: true,
+    },
+    prefix:{
+        type: String,
+        default: '>'
     }
 }, {
     timestamps: true,
