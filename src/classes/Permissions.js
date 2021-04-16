@@ -78,4 +78,12 @@ module.exports = class Permissions {
 
         return Array.from(_).join(', ');
     }
+
+    formatToReadableCode() {
+        let _ = new Set();
+
+        for (const p of this.perms) _.add(`\`${PERM_FLAGS[p]}\``);
+
+        return Array.from(_).join(', ');
+    }
 };

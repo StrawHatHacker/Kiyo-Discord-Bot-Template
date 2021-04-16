@@ -90,6 +90,7 @@ Permissions class for filtering and formatting Discord permissions
 * **userhasPermission:** `Boolean` Takes in an array of permissions. Resolves if the user has **ANY** of those permissions.
 * **clientHasPermission:** `Boolean` Takes in an array of permissions. Resolves if the client has **ALL** of those permissions.
 * **formatToReadable:** `String` Returns a readable string of `this.perms`.
+* **formatToReadable:** `String` Returns a readable string of `this.perms` where each permission is wrapped in ``.
 
 <br/>
 
