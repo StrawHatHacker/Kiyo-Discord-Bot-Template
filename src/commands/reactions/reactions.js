@@ -6,9 +6,9 @@ const axios = require('axios');
 
 module.exports = {
     name: 'Reactions',
-    description: 'Anime GIFs are reactions',
+    description: 'Anime GIFs as reactions',
     aliases: [],
-    syntax: 'userinfo [@mention]',
+    syntax: 'reaction [@mention]',
     requiredPermissions: {
         user: [],
         client: []
