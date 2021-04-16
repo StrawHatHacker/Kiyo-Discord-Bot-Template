@@ -14,21 +14,27 @@ module.exports = {
         client: []
     },
     async selfPopulate() { // Function to populate the `this.aliases` field
-        if (!process.env.OTAKUGIFS_TOKEN) return console.length('Reactions not configured');
+        if (!process.env.OTAKUGIFS_API_KEY) return console.log('Optional OtakuGIFs reactions not configured. This is not an error.');
 
-        // Get all reactions from otakugifs.xyz
-        const response = await axios.get('https://api.otakugifs.xyz/gif/allreactions', {
-            headers: {
-                'x-api-key': process.env.OTAKUGIFS_TOKEN
-            }
-        });
+        try {
+            // Get all reactions from otakugifs.xyz
+            const response = await axios.get('https://api.otakugifs.xyz/gif/allreactions', {
+                headers: {
+                    'x-api-key': process.env.OTAKUGIFS_API_KEY
+                }
+            });
 
-        // Adding all reactions that were returned but only if they exist in the descriptions.json
-        this.aliases = response.data.reactions.filter(r => DESCRIPTIONS[r]);
+            // Adding all reactions that were returned but only if they exist in the descriptions.json
+            this.aliases = response.data.reactions.filter(r => DESCRIPTIONS[r]);
 
-        // Showing which reactions have not been implemented yet in the descriptions.json
-        if (this.aliases.length !== response.data.reactions.length)
-            console.log(`Your descriptions.json is missing the ${response.data.reactions.filter(r => !DESCRIPTIONS[r]).join(', ')} reaction(s)`);
+            // Showing which reactions have not been implemented yet in the descriptions.json
+            if (this.aliases.length !== response.data.reactions.length)
+                console.log(`Your descriptions.json is missing the ${response.data.reactions.filter(r => !DESCRIPTIONS[r]).join(', ')} reaction(s)`);
+
+        } catch (error) {
+            console.log('Invalid OtakuGIFs API KEY');
+            process.exit(1);
+        }
 
         console.log('Populated reactions');
     },
