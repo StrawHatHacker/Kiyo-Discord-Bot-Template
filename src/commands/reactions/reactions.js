@@ -43,12 +43,12 @@ module.exports = {
         // Requesting a random GIF from otakugifs.xyz
         const response = await axios.get(`https://api.otakugifs.xyz/gif/${cmd}`, {
             headers: {
-                'x-api-key': process.env.OTAKUGIFS_TOKEN
+                'x-api-key': process.env.OTAKUGIFS_API_KEY
             }
         });
 
         // <GuildMemberRoleManager>.color IS A ROLE INSTANCE ITS NOT A MISTAKE and YES it has .color property 
-        let highestColorRole = message.member.roles.color ? message.member.roles.color.color : 0xffffff;
+        let highestRoleColor = message.member.roles.color?.hexColor || 0xffffff;
 
         let desc = DESCRIPTIONS[cmd]; // Object { single: [...], multiple: [...] }
         desc = message.mentions.members.size === 0 ? desc.single : desc.multiple; // Array of `single` or `multiple` [...]
@@ -62,7 +62,7 @@ module.exports = {
         const embed = new Embed()
             .addDescription(desc)
             .setImage(response.data.url)
-            .setColor(highestColorRole)
+            .setColor(highestRoleColor)
             .setFooter('Powered by otakugifs.xyz', 'https://otakugifs.b-cdn.net/assets/otakugifsLogo.png');
 
         message.channel.send(embed);
