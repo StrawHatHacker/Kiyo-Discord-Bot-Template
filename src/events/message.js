@@ -16,7 +16,7 @@ module.exports = async (client, message) => {
     if (message.content === `<@!${client.user.id}>` && message.content != '@everyone' && message.content != '@here') {
         // Send the prefix. 
         message.channel.send('My prefix here is **' + Guild.prefix + '**!');
-    };
+    }
 
     if (!message.content.toLowerCase().startsWith(Guild.prefix)) return; // If message doesn't start with prefix, ignore it
 
