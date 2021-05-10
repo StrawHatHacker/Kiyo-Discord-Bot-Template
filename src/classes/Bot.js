@@ -11,6 +11,7 @@ module.exports = class Bot extends Client {
     constructor(botConfig) {
         super(botConfig);
         this.commands = [];
+        this.modulesWithCommands = {};
     }
 
     // PRIVATE
@@ -55,9 +56,21 @@ module.exports = class Bot extends Client {
         console.log('Connected to DB');
     }
 
+    // PRIVATE
+    // Always needs to be executed after this._loadCommands
+    async _createModulesWithCommandsField() {
+        for (let cmd of this.commands) {
+            const moduleName = cmd.module.toLowerCase();
+            if (!this.modulesWithCommands[moduleName]) this.modulesWithCommands[moduleName] = [];
+
+            this.modulesWithCommands[moduleName].push(cmd);
+        }
+    }
+
     // TODO use promise.all
     async start() {
         await this._loadCommands();
+        await this._createModulesWithCommandsField();
         await this._loadEvents();
         await this._connectToDB();
         await this.login(process.env.DISCORD_BOT_TOKEN);
