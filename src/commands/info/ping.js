@@ -16,9 +16,9 @@ module.exports = {
         const botMessage = await message.channel.send('Pinging...');
         
         // The times for the embed - too lazy to use inline
-        const days = Math.floor(bot.uptime / 86400000);
-        const hours = Math.floor(bot.uptime / 3600000) % 24;
-        const minutes = Math.floor(bot.uptime / 60000) % 60;
+        const days = Math.floor(client.uptime / 86400000);
+        const hours = Math.floor(client.uptime / 3600000) % 24;
+        const minutes = Math.floor(client.uptime / 60000) % 60;
         const ping = Date.now() - message.createdTimestamp;
         
         // Lets construct the embed!
