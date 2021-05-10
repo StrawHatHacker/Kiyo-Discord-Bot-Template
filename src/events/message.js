@@ -34,6 +34,6 @@ module.exports = async (client, message) => {
         let [, ...cleanArgs] = message.content.slice(Guild.prefix.length).split(/\s/g);
 
         // Run the command
-        run({ message, cmd, client, args, cleanArgs: cleanArgs.join(' '), Guild }).catch(e => errorHandler(e, message));
+        return run({ message, cmd, client, args, cleanArgs: cleanArgs.join(' '), Guild }).catch(e => errorHandler(e, message));
     }
 };
