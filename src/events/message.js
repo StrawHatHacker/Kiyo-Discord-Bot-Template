@@ -15,7 +15,7 @@ module.exports = async (client, message) => {
     // If the message is the bot mention AND the message isn't @everyone or @here
     if (message.content === `<@!${client.user.id}>` && message.content != '@everyone' && message.content != '@here') {
         // Send the prefix. 
-        message.inlineReply('My prefix here is **' + Guild.prefix + '**!');
+        message.channel.send('My prefix here is **' + Guild.prefix + '**!');
     };
 
     if (!message.content.toLowerCase().startsWith(Guild.prefix)) return; // If message doesn't start with prefix, ignore it
