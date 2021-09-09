@@ -6,16 +6,18 @@ const GuildModel = require('../models/guild');
 const databaseUtils = require('../utils/database');
 
 module.exports = async (client, message) => {
-    if (message.author.bot || message.channel.type === 'dm') return; // If message came from bot or in a dm channel, ignore it
+    // If message came from another bot or it was from a non *text* channel, ignore it
+    if (message.author.bot || message.channel.type !== 'text') return;
 
 
     // Fetching or creating if doesn't exist a Guild in the database
     const Guild = await databaseUtils.guild.findOneOrCreate(GuildModel, message.guild.id);
 
-    // If the message is the bot mention return the prefix. Using return here since no command starts with the bot's mention anyway.
+    // If the message is the bot mention return the prefix
     if (message.content === `<@!${client.user.id}>`) return message.channel.send(`My prefix on this server is \`${Guild.prefix}\``);
 
-    if (!message.content.toLowerCase().startsWith(Guild.prefix)) return; // If message doesn't start with prefix, ignore it
+    // If message doesn't start with prefix, ignore it
+    if (!message.content.toLowerCase().startsWith(Guild.prefix)) return;
 
     /*   str   array                     Slice off the prefix      Split at one or more spaces*/
     let [cmd, ...args] = message.content.slice(Guild.prefix.length).split(/\s+/g);
