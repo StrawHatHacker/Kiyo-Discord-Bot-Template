@@ -1,6 +1,15 @@
-const { GuildMember, Collection } = require('discord.js');
+'use strict';
 
+const { GuildMember, Collection, Message } = require('discord.js');
+
+/**
+ * @param {Message} message 
+ * @param {String} arg 
+ * @returns {GuildMember}
+ */
 module.exports = async (message, arg) => {
+    if (!(message instanceof Message)) throw new Error('Parameter `message` is not instance of `Message`');
+
     //Strip it from all characters except numbers, basically trying to get a 1234567890 from <@1234567890>
     const targetMemberID = arg.replace(/[^0-9]+/g, '');
 

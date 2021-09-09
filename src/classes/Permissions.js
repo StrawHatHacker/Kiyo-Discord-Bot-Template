@@ -1,16 +1,23 @@
 'use strict';
 
 const { PERM_FLAGS, KEY_PERMS } = require('../config');
+const { Permissions: TPermissions } = require('discord.js');
+const Err = require('./Err');
 
 /*
     Permissions class for filtering and formatting Discord permissions
 */
 module.exports = class Permissions {
+    /**
+     * @param {TPermissions} perms 
+     */
     constructor(perms) {
+        if (!(perms instanceof TPermissions))
+            throw new Err(400).inputErr().setMessage('Parameter `perms` should be an instance of `Collection`');
         this.perms = perms;
     }
 
-    // Returns an array of the MOST important permissions. See KEY_PERMS in config
+    // Returns an array of the MOST important permissions. See KEY_PERMS in config.json
     // NOTE: filterKeyPerms & filterNonKeyPerms are mutually exclusive
     filterKeyPerms() {
         let _ = new Set();
@@ -27,7 +34,7 @@ module.exports = class Permissions {
         return this;
     }
 
-    // Returns an array of the NON important permissions. See KEY_PERMS in config
+    // Returns an array of the NON important permissions. See KEY_PERMS in config.json
     // NOTE: filterKeyPerms & filterNonKeyPerms are mutually exclusive
     filterNonKeyPerms() {
         let _ = new Set();
@@ -70,7 +77,7 @@ module.exports = class Permissions {
         return true;
     }
 
-    // Returns a "human readable" string of Permission Flags
+    // Returns a readable string of `this.perms`
     formatToReadable() {
         let _ = new Set();
 
@@ -79,6 +86,7 @@ module.exports = class Permissions {
         return Array.from(_).join(', ');
     }
 
+    // Returns a readable string of `this.perms` where each permission is wrapped in backticks.
     formatToReadableCode() {
         let _ = new Set();
 

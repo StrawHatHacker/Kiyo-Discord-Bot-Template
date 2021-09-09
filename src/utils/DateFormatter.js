@@ -6,6 +6,9 @@ const { MONTHS } = require('../config');
     Utility class for beautifying dates
 */
 module.exports = class DateFormatter {
+    /**
+     * @param {Date} date 
+     */
     constructor(date) {
         if (!(date instanceof Date)) throw new Error('You didn\'t pass a valid date');
         this.date = date;

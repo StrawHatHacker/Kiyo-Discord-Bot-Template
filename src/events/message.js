@@ -9,7 +9,6 @@ module.exports = async (client, message) => {
     // If message came from another bot or it was from a non *text* channel, ignore it
     if (message.author.bot || message.channel.type !== 'text') return;
 
-
     // Fetching or creating if doesn't exist a Guild in the database
     const Guild = await databaseUtils.guild.findOneOrCreate(GuildModel, message.guild.id);
 
@@ -30,7 +29,7 @@ module.exports = async (client, message) => {
         if (!aliases.includes(cmd)) continue;
 
         // Checking both member and bot permissions before executing the command
-        if (!checkPermissions(client, message, name, requiredPermissions)) return;
+        if (!checkPermissions(message, name, requiredPermissions)) return;
 
         /*   ,    array                        Slice off the prefix      Split at spaces*/
         let [, ...cleanArgs] = message.content.slice(Guild.prefix.length).split(/\s/g);

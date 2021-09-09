@@ -4,14 +4,20 @@
     Custom Error class
 */
 module.exports = class Err {
+    /**
+     * 
+     * @param {Number} httpStatus 
+     * @param {String} name 
+     * @param {String} message 
+     */
     constructor(httpStatus, name, message) {
         this.name = name ?? 'Unknown';
         this.message = message ?? 'Unknown';
         this.httpStatus = httpStatus ?? 500;
     }
 
-    notFound() {
-        this.httpStatus = 404;
+    setStatusCode(code) {
+        this.httpStatus = code;
         return this;
     }
 
@@ -22,6 +28,21 @@ module.exports = class Err {
 
     setMessage(message) {
         this.message = message;
+        return this;
+    }
+
+    badRequest() {
+        this.httpStatus = 400;
+        return this;
+    }
+
+    unauthorized() {
+        this.httpStatus = 401;
+        return this;
+    }
+
+    notFound() {
+        this.httpStatus = 404;
         return this;
     }
 

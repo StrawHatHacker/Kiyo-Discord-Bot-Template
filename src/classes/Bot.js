@@ -8,6 +8,10 @@ const mongoose = require('mongoose');
     Extending Client with our own methods
 */
 module.exports = class Bot extends Client {
+    /**
+     * 
+     * @param {*} botConfig https://discord.js.org/#/docs/main/12.5.3/typedef/ClientOptions
+     */
     constructor(botConfig) {
         super(botConfig);
         this.commands = [];
@@ -15,6 +19,7 @@ module.exports = class Bot extends Client {
     }
 
     // PRIVATE
+    // Loads all commands from the `src/commands/` directory and subdirectories.
     async _loadCommands() {
         // readdirp flattens the `commands` folder and subfolders after reading all folders recursively.
         for await (const file of readFiles('./commands', { fileFilter: ['*.js'], lstat: true })) {
@@ -24,8 +29,9 @@ module.exports = class Bot extends Client {
             // Reactions for example
             if (command.selfPopulate) await command.selfPopulate();
 
-            // TODO test on linux
-            command.module = file.path.split('\\')[0];
+            // Windows & linux compatibility hack
+            if (file.path.includes('\\')) command.module = file.path.split('\\')[0];
+            else command.module = file.path.split('/')[0];
 
             this.commands.push(command);
         }
@@ -33,6 +39,7 @@ module.exports = class Bot extends Client {
     }
 
     // PRIVATE
+    // Loads all events from the `src/events/` directory.
     async _loadEvents() {
         // readdirp flattens the `events` folder and subfolders after reading all folders recursively.
         // this could be done with fs but I'm using readdirp for consistency.
@@ -48,6 +55,7 @@ module.exports = class Bot extends Client {
     }
 
     // PRIVATE
+    // Connects to the database.
     async _connectToDB() {
         await mongoose.connect(process.env.DB_CONNECTION_STRING, {
             useNewUrlParser: true,
@@ -68,6 +76,7 @@ module.exports = class Bot extends Client {
     }
 
     // TODO use promise.all
+    // Starts the bot
     async start() {
         await this._loadCommands();
         await this._createModulesWithCommandsField();

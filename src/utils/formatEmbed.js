@@ -1,7 +1,6 @@
 const { GuildMember } = require('discord.js');
 
 /**
- * 
  * @param {String} str 
  * @param {GuildMember} member 
  * @returns string
@@ -18,7 +17,6 @@ const replaceFlags = (str, member) => {
 };
 
 /**
- * 
  * @param {*} EmbedProps 
  * @param {GuildMember} member 
  * @returns {EmbedProps}
