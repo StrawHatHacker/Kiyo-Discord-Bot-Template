@@ -2,6 +2,53 @@
 
 const { Schema, model } = require('mongoose');
 
+const FieldSchema = new Schema({
+    name: {
+        type: String,
+        default: ''
+    },
+    value: {
+        type: String,
+        default: ''
+    },
+    inline: {
+        type: Boolean,
+        default: false
+    }
+}, {
+    _id: false,
+});
+
+const AuthorSchema = new Schema({
+    name: {
+        type: String,
+        default: ''
+    },
+    iconURL: {
+        type: String,
+        default: ''
+    },
+    url: {
+        type: String,
+        default: false
+    }
+}, {
+    _id: false,
+});
+
+const FooterSchema = new Schema({
+    text: {
+        type: String,
+        default: ''
+    },
+    iconURL: {
+        type: String,
+        default: ''
+    }
+}, {
+    _id: false
+});
+
 const EmbedSchema = new Schema({
     guildId: {
         type: String,
@@ -15,36 +62,54 @@ const EmbedSchema = new Schema({
         type: String,
         default: ''
     },
-    title: String,
-    description: String,
-    url: String,
-    color: Number,
-    timestamp: Number,
-    fields: [{
-        name: String,
-        value: String,
-        inline: Boolean
-    }],
+    title: {
+        type: String,
+        default: ''
+    },
+    description: {
+        type: String,
+        default: ''
+    },
+    url: {
+        type: String,
+        default: ''
+    },
+    color: {
+        type: Number,
+        default: null
+    },
+    timestamp: {
+        type: Number,
+        default: null
+    },
+    fields: {
+        type: [FieldSchema],
+        default: []
+    },
     thumbnail: {
-        url: String
+        url: {
+            type: String,
+            default: ''
+        }
     },
     image: {
-        url: String
+        url: {
+            type: String,
+            default: ''
+        }
     },
     author: {
-        name: String,
-        iconURL: String,
-        url: String
+        type: AuthorSchema,
+        default: {}
     },
     footer: {
-        text: String,
-        iconURL: String
+        type: FooterSchema,
+        default: {}
     }
 }, {
     timestamps: true,
     validateBeforeSave: true,
     minimize: false,
-    id: false,
     collection: 'embed',
     autoIndex: false
 });

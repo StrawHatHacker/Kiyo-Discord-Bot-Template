@@ -1,7 +1,7 @@
 'use strict';
 
-const EmbedModel = require('../../../models/embed');
 const { COMMAND_PERMS } = require('../../../config');
+const EmbedModel = require('../../../models/embed');
 const Embed = require('../../../classes/Embed');
 const Err = require('../../../classes/Err');
 
@@ -45,7 +45,7 @@ module.exports = {
 
         if (!collected) return;
 
-        const collectedMsgContent = collected.first().content;
+        const collectedMsgContent = collected.first().content.toLowerCase();
 
         await EmbedModel.create({
             guildId: message.guild.id,

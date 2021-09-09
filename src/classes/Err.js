@@ -10,6 +10,11 @@ module.exports = class Err {
         this.httpStatus = httpStatus ?? 500;
     }
 
+    notFound() {
+        this.httpStatus = 404;
+        return this;
+    }
+
     setName(name) {
         this.name = name;
         return this;
