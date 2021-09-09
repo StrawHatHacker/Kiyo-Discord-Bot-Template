@@ -7,7 +7,7 @@ const databaseUtils = require('../utils/database');
 
 module.exports = async (client, message) => {
     // If message came from another bot or it was from a non *text* channel, ignore it
-    if (message.author.bot || message.channel.type !== 'text') return;
+    if (message.author.bot || message.channel.type !== 'GUILD_TEXT') return;
 
     // Fetching or creating if doesn't exist a Guild in the database
     const Guild = await databaseUtils.guild.findOneOrCreate(GuildModel, message.guild.id);

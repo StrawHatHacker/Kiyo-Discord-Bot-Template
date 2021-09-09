@@ -44,8 +44,8 @@ module.exports = {
         // If member is the guild owner, bypass permission filtering and formatting
         const keyPerms = targetMember.id === message.guild.ownerID ? 'Owner' : new Permissions(memberPerms).filterKeyPerms().formatToReadable();
         const otherPerms = targetMember.id === message.guild.ownerID ? 'Owner' : new Permissions(memberPerms).filterNonKeyPerms().formatToReadable();
-        
-        const embed = new Embed()
+
+        const e = new Embed()
             .setAuthor(targetMember.displayName, smallAV)
             .setThumbnail(bigAV)
             .addDescription(`Mention: ${targetMember.toString()}`)
@@ -56,6 +56,6 @@ module.exports = {
             .addField('Other Permissions', otherPerms)
             .setFooter(`Requested by: ${message.member.displayName}`, authorAV);
 
-        await message.channel.send(embed);
+        await message.channel.send({ embeds: [e] });
     }
 };

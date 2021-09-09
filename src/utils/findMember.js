@@ -5,7 +5,7 @@ const { GuildMember, Collection, Message } = require('discord.js');
 /**
  * @param {Message} message 
  * @param {String} arg 
- * @returns {GuildMember}
+ * @returns {Promise<GuildMember>}
  */
 module.exports = async (message, arg) => {
     if (!(message instanceof Message)) throw new Error('Parameter `message` is not instance of `Message`');

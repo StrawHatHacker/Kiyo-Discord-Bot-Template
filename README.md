@@ -4,7 +4,7 @@ Feature rich and easy to maintain. <br/>
 Based on the [discord.js](https://github.com/discordjs/discord.js) library.
 
 ## 📥 Installation
-<b> NPM and Node.js 14.0.0 or higher required. </b> Download [here](https://nodejs.org/) <br/>
+<b> Node.js v14.0.0 or higher required. </b> Download [here](https://nodejs.org/) <br/>
 <b> MongoDB v4 or higher required. </b> Create [here](https://docs.atlas.mongodb.com/getting-started) for free. 
 ###### 1. Clone this repository from your terminal:
 ```shell

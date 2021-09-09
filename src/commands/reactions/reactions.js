@@ -47,8 +47,7 @@ module.exports = {
             }
         });
 
-        // <GuildMemberRoleManager>.color IS A ROLE INSTANCE ITS NOT A MISTAKE and YES it has .color property 
-        let highestRoleColor = message.member.roles.color?.hexColor || 0xffffff;
+        const highestRoleColor = message.member.roles.color?.hexColor || 0xffffff;
 
         let desc = DESCRIPTIONS[cmd]; // Object { single: [...], multiple: [...] }
         desc = message.mentions.members.size === 0 ? desc.single : desc.multiple; // Array of `single` or `multiple` [...]
@@ -65,6 +64,6 @@ module.exports = {
             .setColor(highestRoleColor)
             .setFooter('Powered by otakugifs.xyz', 'https://otakugifs.b-cdn.net/assets/otakugifsLogo.png');
 
-        message.channel.send(embed);
+        message.channel.send({ embeds: [embed] });
     }
 };

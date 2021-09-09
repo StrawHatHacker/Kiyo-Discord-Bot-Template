@@ -13,7 +13,7 @@ module.exports = {
     },
     async run({ message, client }) {
         // Sending temporary message
-        const botMessage = await message.channel.send('Pinging...');
+        const botMessage = await message.channel.send({ content: 'Pinging...' });
 
         const { minutes, hours, days } = getTimeFromMS(client.uptime);
 
@@ -24,7 +24,7 @@ module.exports = {
             .addField('Memory Usage', `:dna: ${Math.trunc(process.memoryUsage().heapUsed / 1024 / 1024)}MBs`, true);
 
         // Editing the embed
-        botMessage.edit('', { embed: pingembed });
+        botMessage.edit({ content: '\u2005', embeds: [pingembed] });
     }
 };
 

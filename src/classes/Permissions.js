@@ -9,11 +9,11 @@ const Err = require('./Err');
 */
 module.exports = class Permissions {
     /**
-     * @param {TPermissions} perms 
+     * @param {TPermissions | String[]} perms 
      */
     constructor(perms) {
-        if (!(perms instanceof TPermissions))
-            throw new Err(400).inputErr().setMessage('Parameter `perms` should be an instance of `Collection`');
+        if (!(perms instanceof TPermissions) && !Array.isArray(perms))
+            throw new Err(400).inputErr().setMessage('Parameter `perms` should be an instance of `Collection` or an array of permissions');
         this.perms = perms;
     }
 

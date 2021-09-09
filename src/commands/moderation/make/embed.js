@@ -23,13 +23,11 @@ module.exports = {
         const { content, embed } = jsonArgs;
         const targetEmbed = new Embed(embed);
 
-        await message.channel.send(content, targetEmbed)
-            .catch(e => { throw new Err(401).inputErr().setMessage(e.message); });
-
+        await message.channel.send({ content, embeds: [targetEmbed] });
         await message.channel.send('Do you want me to save this embed? (Y/N)');
 
         const filterYN = m => m.author.id === message.author.id && (m.content.toLowerCase() === 'y' || m.content.toLowerCase() === 'n');
-        let collected = await message.channel.awaitMessages(filterYN, { max: 1, time: 10000, errors: ['time'] })
+        let collected = await message.channel.awaitMessages({ filter: filterYN, max: 1, time: 10000, errors: ['time'] })
             .catch(() => { throw new Err(401).inputErr().timedOut(); });
 
         if (!collected) return;
@@ -40,7 +38,7 @@ module.exports = {
         await message.channel.send('Let\'s give this embed a name. What do you want me to call it?');
 
         const filterString = m => m.author.id === message.author.id;
-        collected = await message.channel.awaitMessages(filterString, { max: 1, time: 10000, errors: ['time'] })
+        collected = await message.channel.awaitMessages({ filter: filterString, max: 1, time: 10000, errors: ['time'] })
             .catch(() => { throw new Err(401).inputErr().timedOut(); });
 
         if (!collected) return;
