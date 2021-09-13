@@ -9,7 +9,6 @@ const mongoose = require('mongoose');
 */
 module.exports = class Bot extends Client {
     /**
-     * 
      * @param {*} botConfig https://discord.js.org/#/docs/main/12.5.3/typedef/ClientOptions
      */
     constructor(botConfig) {
@@ -25,6 +24,9 @@ module.exports = class Bot extends Client {
         for await (const file of readFiles('./commands', { fileFilter: ['*.js'], lstat: true })) {
             const command = require(file.fullPath);
 
+            // Deleting cached module from require cache, since it's already cached on the Bot Class instanece.
+            delete require.cache[require.resolve(file.fullPath)];
+
             // Some commands require property population from 3rd party apps
             // Reactions for example
             if (command.selfPopulate) await command.selfPopulate();
@@ -36,6 +38,13 @@ module.exports = class Bot extends Client {
             this.commands.push(command);
         }
         return this;
+    }
+
+    async reloadCommands() {
+        this.commands = [];
+        this.modulesWithCommands = {};
+        await this._loadCommands();
+        await this._createModulesWithCommandsField();
     }
 
     // PRIVATE
