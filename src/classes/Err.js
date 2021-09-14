@@ -62,6 +62,7 @@ module.exports = class Err {
     }
 
     memberNotFound() {
+        this.httpStatus = 404;
         this.message = 'Member not found';
         return this;
     }

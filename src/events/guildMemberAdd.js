@@ -19,5 +19,5 @@ module.exports = async (_client, member) => {
 
     const formattedEmbedProps = formatEmbed(EmbedProps, member);
 
-    await channel.send({ content: EmbedProps.content, embeds: [new Embed(formattedEmbedProps)] });
+    await channel.send({ content: EmbedProps.content, embeds: [new Embed(formattedEmbedProps)] }).catch(() => null);
 };
