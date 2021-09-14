@@ -24,9 +24,6 @@ module.exports = class Bot extends Client {
         for await (const file of readFiles('./commands', { fileFilter: ['*.js'], lstat: true })) {
             const command = require(file.fullPath);
 
-            // Deleting cached module from require cache, since it's already cached on the Bot Class instanece.
-            delete require.cache[require.resolve(file.fullPath)];
-
             // Some commands require property population from 3rd party apps
             // Reactions for example
             if (command.selfPopulate) await command.selfPopulate();
@@ -40,11 +37,19 @@ module.exports = class Bot extends Client {
         return this;
     }
 
+    // PUBLIC
+    // Reloading commands and updating file cache. Mongoose Models cannot be overriden
     async reloadCommands() {
+        Object.keys(require.cache).forEach((key) => {
+            if (key.includes('src\\classes\\')) delete require.cache[key];
+            if (key.includes('src\\commands\\')) delete require.cache[key];
+            if (key.includes('src\\utils\\')) delete require.cache[key];
+        });
         this.commands = [];
         this.modulesWithCommands = {};
         await this._loadCommands();
         await this._createModulesWithCommandsField();
+        console.log('Reloaded commands');
     }
 
     // PRIVATE
