@@ -20,4 +20,10 @@ module.exports = class Embed extends MessageEmbed {
         this.description = (this.description === null ? '' : this.description) + '\n' + appendable;
         return this;
     }
+
+    isSuccess() {
+        this.description = '✅ ' + this.description;
+        this.color = 0x2ECC71;
+        return this;
+    }
 };
