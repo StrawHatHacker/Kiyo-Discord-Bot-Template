@@ -5,7 +5,9 @@
   "repository": "https://github.com/StrawHatHacker/Kiyo-Discord-Bot",
   "main": "index.js",
   "dependencies": {
+    "@discordjs/rest": "^0.1.0-canary.0",
     "axios": "^0.21.4",
+    "discord-api-types": "^0.23.1",
     "discord.js": "^13.1.0",
     "dotenv": "^8.6.0",
     "mongoose": "^5.13.9",

@@ -1,5 +1,7 @@
 'use strict';
 
+const { Routes } = require('discord-api-types/v9');
+const { REST } = require('@discordjs/rest');
 const { Client } = require('discord.js');
 const readFiles = require('readdirp');
 const mongoose = require('mongoose');
@@ -14,7 +16,9 @@ module.exports = class Bot extends Client {
     constructor(botConfig) {
         super(botConfig);
         this.commands = [];
+        this.slashCommands = [];
         this.modulesWithCommands = {};
+        this.modulesWithSlashCommands = {};
     }
 
     // PRIVATE
@@ -24,8 +28,7 @@ module.exports = class Bot extends Client {
         for await (const file of readFiles('./commands', { fileFilter: ['*.js'], lstat: true })) {
             const command = require(file.fullPath);
 
-            // Some commands require property population from 3rd party apps
-            // Reactions for example
+            // Some commands require property population
             if (command.selfPopulate) await command.selfPopulate();
 
             // Windows & linux compatibility hack
@@ -34,20 +37,56 @@ module.exports = class Bot extends Client {
 
             this.commands.push(command);
         }
-        return this;
+    }
+
+    async _loadSlashCommands() {
+        for await (const file of readFiles('./slashCommands', { fileFilter: ['*.js'], lstat: true })) {
+            const command = require(file.fullPath);
+
+            // Some commands require property population
+            // Reactions for example
+            if (command.selfPopulate) await command.selfPopulate();
+
+            // Windows & linux compatibility hack
+            if (file.path.includes('\\')) command.module = file.path.split('\\')[0];
+            else command.module = file.path.split('/')[0];
+
+            this.slashCommands.push(command);
+        }
+    }
+
+    // PRIVATE
+    // Loads all slash commands from the `src/slashCommands/` directory and subdirectories.
+    async _registerSlashCommands(token) {
+        const rest = new REST({ version: '9' }).setToken(token);
+        try {
+            console.log('Loading (/) commands...');
+
+            await rest.put(
+                Routes.applicationGuildCommands('794989015765483571', '487199057543036939'),
+                { body: this.slashCommands.map(c => c.data.toJSON()) });
+
+            console.log('Loaded (/) commands');
+        } catch (error) {
+            console.error(error);
+            process.exit(1);
+        }
     }
 
     // PUBLIC
-    // Reloading commands and updating file cache. Mongoose Models cannot be overriden
+    // Reloading commands and updating file cache. Mongoose Models and Classes should not be overriden
     async reloadCommands() {
         Object.keys(require.cache).forEach((key) => {
-            if (key.includes('src\\classes\\')) delete require.cache[key];
             if (key.includes('src\\commands\\')) delete require.cache[key];
+            if (key.includes('src\\slashCommands\\')) delete require.cache[key];
             if (key.includes('src\\utils\\')) delete require.cache[key];
         });
         this.commands = [];
         this.modulesWithCommands = {};
+        this.slashCommands = [];
+        this.modulesWithSlashCommands = {};
         await this._loadCommands();
+        await this._loadSlashCommands();
         await this._createModulesWithCommandsField();
         console.log('Reloaded commands');
     }
@@ -87,12 +126,19 @@ module.exports = class Bot extends Client {
 
             this.modulesWithCommands[moduleName].push(cmd);
         }
+        for (let cmd of this.slashCommands) {
+            const moduleName = cmd.module.toLowerCase();
+            if (!this.modulesWithSlashCommands[moduleName]) this.modulesWithSlashCommands[moduleName] = [];
+
+            this.modulesWithSlashCommands[moduleName].push(cmd);
+        }
     }
 
-    // TODO use promise.all
     // Starts the bot
     async start() {
         await this._loadCommands();
+        await this._loadSlashCommands();
+        await this._registerSlashCommands(process.env.DISCORD_BOT_TOKEN);
         await this._createModulesWithCommandsField();
         await this._loadEvents();
         await this._connectToDB();
