@@ -8,7 +8,7 @@ const Err = require('../../classes/Err');
 module.exports = {
     name: 'Ban',
     description: 'Ban a member from the server',
-    aliases: ['ban'],
+    aliases: [],
     syntax: 'ban <member> [reason]',
     requiredPermissions: {
         user: ['BAN_MEMBERS'],

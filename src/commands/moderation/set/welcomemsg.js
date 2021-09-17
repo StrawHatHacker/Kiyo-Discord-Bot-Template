@@ -6,8 +6,8 @@ const Err = require('../../../classes/Err');
 
 module.exports = {
     name: 'WelcomeMsg',
-    description: 'Configure welcome messages',
-    aliases: ['welcomemsg'],
+    description: 'Configure welcome message functionality',
+    aliases: [],
     syntax: 'welcomemsg <"channel" or "embed name">',
     requiredPermissions: {
         user: ['ADMINISTRATOR'],

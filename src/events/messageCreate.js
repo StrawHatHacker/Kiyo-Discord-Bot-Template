@@ -2,8 +2,8 @@
 
 const checkPermissions = require('../utils/checkForPermissions');
 const errorHandler = require('../utils/messageErrorHandler');
-const GuildModel = require('../models/guild');
 const databaseUtils = require('../utils/database');
+const GuildModel = require('../models/guild');
 
 module.exports = async (client, message) => {
     // If message came from another bot or it was from a non *text* channel, ignore it
@@ -25,8 +25,8 @@ module.exports = async (client, message) => {
     // Looping through all available commands
     for (const { name, run, aliases, requiredPermissions } of client.commands) {
 
-        // If cmd in not in aliases skip this command
-        if (!aliases.includes(cmd)) continue;
+        // If cmd in not in aliases skip this command or not in command name
+        if (!aliases.includes(cmd) && name.toLowerCase() !== cmd) continue;
 
         // Checking both member and bot permissions before executing the command
         if (!checkPermissions(message, name, requiredPermissions)) return;
