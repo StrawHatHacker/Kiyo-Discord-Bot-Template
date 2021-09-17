@@ -16,7 +16,11 @@ const Kiyo = new Bot({
         MessageManager: 100
     }),
     allowedMentions: { parse: ['roles', 'users'] },
-    intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS, Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS],
+    intents: [
+        Intents.FLAGS.GUILDS,
+        Intents.FLAGS.GUILD_MEMBERS,
+        Intents.FLAGS.GUILD_MESSAGES
+    ],
     restRequestTimeout: 5000,
     restGlobalRateLimit: 40,
     large_threshold: 100
