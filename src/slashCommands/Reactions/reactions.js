@@ -1,5 +1,6 @@
 'use strict';
 
+const { SlashCommandBuilder } = require('@discordjs/builders');
 const DESCRIPTIONS = require('./descriptions.json');
 const Embed = require('../../classes/Embed');
 const axios = require('axios');
@@ -13,6 +14,7 @@ module.exports = {
         user: [],
         client: []
     },
+    data: new SlashCommandBuilder().setName('reactions').setDescription('Anime GIFs as reactions'),
     async selfPopulate() { // Function to populate the `this.aliases` field
         if (!process.env.OTAKUGIFS_API_KEY) return console.log('Optional OtakuGIFs reactions not configured. This is not an error.');
 

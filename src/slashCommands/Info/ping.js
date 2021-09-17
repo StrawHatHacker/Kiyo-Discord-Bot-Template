@@ -1,30 +1,33 @@
 'use strict';
 
+const { SlashCommandBuilder } = require('@discordjs/builders');
 const Embed = require('../../classes/Embed');
 
 module.exports = {
-    name: 'Ping',
+    name: 'ping',
     description: 'Pings the bot',
-    aliases: ['ping'],
-    syntax: 'ping ',
+    syntax: 'ping',
     requiredPermissions: {
         user: [],
         client: []
     },
-    async run({ message, client }) {
-        // Sending temporary message
-        const botMessage = await message.channel.send({ content: 'Pinging...' });
+    slashCommand: true,
+    selfPopulate() {
+        this.data = new SlashCommandBuilder().setName(this.name).setDescription(this.description);
+    },
+    async run(client, interaction) {
+        await interaction.reply({ content: 'Pinging...', username: 'test' });
+        const reply = await interaction.fetchReply();
 
         const { minutes, hours, days } = getTimeFromMS(client.uptime);
 
         const pingembed = new Embed()
-            .addField('Ping', `:hourglass_flowing_sand: ${botMessage.createdTimestamp - message.createdTimestamp}ms`, true)
+            .addField('Ping', `:hourglass_flowing_sand: ${reply.createdTimestamp - interaction.createdTimestamp}ms`, true)
             .addField('Websocket', `${client.ws.ping}ms`, true)
             .addField('Uptime', `:clock1: ${days}d, ${hours}h, ${minutes}m`, true)
             .addField('Memory Usage', `:dna: ${Math.trunc(process.memoryUsage().heapUsed / 1024 / 1024)}MBs`, true);
 
-        // Editing the embed
-        botMessage.edit({ content: '\u2005', embeds: [pingembed] });
+        await interaction.editReply({ content: '\u2005', embeds: [pingembed] });
     }
 };
 
