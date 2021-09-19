@@ -5,7 +5,7 @@ const EmbedModel = require('../../../models/embed');
 const Err = require('../../../classes/Err');
 
 module.exports = {
-    name: 'WelcomeMsg',
+    name: 'welcomemsg',
     description: 'Configure welcome message functionality',
     aliases: [],
     syntax: 'welcomemsg <"channel" or "embed name">',

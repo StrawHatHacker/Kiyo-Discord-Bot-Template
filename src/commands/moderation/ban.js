@@ -6,7 +6,7 @@ const Embed = require('../../classes/Embed');
 const Err = require('../../classes/Err');
 
 module.exports = {
-    name: 'Ban',
+    name: 'ban',
     description: 'Ban a member from the server',
     aliases: [],
     syntax: 'ban <member> [reason]',

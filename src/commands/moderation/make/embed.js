@@ -6,7 +6,7 @@ const Embed = require('../../../classes/Embed');
 const Err = require('../../../classes/Err');
 
 module.exports = {
-    name: 'MakeEmbed',
+    name: 'makeembed',
     description: 'Create an embed and save it for future use.\n<embed properties> should be valid JSON embed properties.\nUse https://leovoel.github.io/embed-visualizer for the embed.\nUse https://codebeautify.org/jsonminifier for minifying',
     aliases: [],
     syntax: 'makeembed <embed properties>',
