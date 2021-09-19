@@ -11,8 +11,8 @@ module.exports = {
     aliases: [],
     syntax: 'kick <member> [reason]',
     requiredPermissions: {
-        user: ['BAN_MEMBERS'],
-        client: ['BAN_MEMBERS']
+        user: ['KICK_MEMBERS'],
+        client: ['KICK_MEMBERS']
     },
     async run({ message, args }) {
         const memberInput = args[0];
