@@ -6,6 +6,9 @@ const EmbedModel = require('../models/embed');
 const Embed = require('../classes/Embed');
 
 module.exports = async (_client, member) => {
+    // If guild is not available becase of outage return
+    if (!member.guild.available) return;
+
     const Guild = await GuildModel.findById(member.guild.id);
     if (!Guild) return;
 

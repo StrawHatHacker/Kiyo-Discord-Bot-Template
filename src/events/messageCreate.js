@@ -6,6 +6,9 @@ const databaseUtils = require('../utils/database');
 const GuildModel = require('../models/guild');
 
 module.exports = async (client, message) => {
+    // If guild is not available becase of outage return
+    if (!message.guild.available) return;
+
     // If message came from another bot or it was from a non *text* channel, ignore it
     if (message.author.bot || message.channel.type !== 'GUILD_TEXT') return;
 
