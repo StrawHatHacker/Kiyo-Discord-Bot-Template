@@ -1,5 +1,5 @@
-Kiyo is an open source Discord Bot under the GNU General Public License v3.0 License  <br/>
-Kiyo has powerful utilities which make it quick and easy to build upon, writing  <br/>
+Kiyo is an open source Discord Bot under the GNU General Public License v3.0 License.  <br/>
+Kiyo has powerful utilities which make it quick and easy to build upon.  <br/>
 Feature rich and easy to maintain. <br/>
 Based on the [discord.js](https://github.com/discordjs/discord.js) library.
 
