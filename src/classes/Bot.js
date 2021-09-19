@@ -24,6 +24,7 @@ module.exports = class Bot extends Client {
     // PRIVATE
     // Loads all commands from the `src/commands/` directory and subdirectories.
     async _loadCommands() {
+        console.log('⌛ Loading commands...');
         // readdirp flattens the `commands` folder and subfolders after reading all folders recursively.
         for await (const file of readFiles('./commands', { fileFilter: ['*.js'], lstat: true })) {
             const command = require(file.fullPath);
@@ -37,9 +38,11 @@ module.exports = class Bot extends Client {
 
             this.commands.push(command);
         }
+        console.log('✅ Loaded commands');
     }
 
     async _loadSlashCommands() {
+        console.log('⌛ Loading slash commands...');
         for await (const file of readFiles('./slashCommands', { fileFilter: ['*.js'], lstat: true })) {
             const command = require(file.fullPath);
 
@@ -53,6 +56,7 @@ module.exports = class Bot extends Client {
 
             this.slashCommands.push(command);
         }
+        console.log('✅ Loaded slash commands');
     }
 
     // PRIVATE
@@ -60,13 +64,13 @@ module.exports = class Bot extends Client {
     async _registerSlashCommands(token) {
         const rest = new REST({ version: '9' }).setToken(token);
         try {
-            console.log('Loading (/) commands...');
+            console.log('⏳ Registering slash commands...');
 
             await rest.put(
                 Routes.applicationGuildCommands('794989015765483571', '487199057543036939'),
                 { body: this.slashCommands.map(c => c.data.toJSON()) });
 
-            console.log('Loaded (/) commands');
+            console.log('✅ Registered slash commands');
         } catch (error) {
             console.error(error);
             process.exit(1);
@@ -114,7 +118,7 @@ module.exports = class Bot extends Client {
             useNewUrlParser: true,
             useUnifiedTopology: true
         });
-        console.log('Connected to DB');
+        console.log('🍃 Connected to DB');
     }
 
     // PRIVATE

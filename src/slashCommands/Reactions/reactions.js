@@ -16,7 +16,7 @@ module.exports = {
     },
     data: new SlashCommandBuilder().setName('reactions').setDescription('Anime GIFs as reactions'),
     async selfPopulate() { // Function to populate the `this.aliases` field
-        if (!process.env.OTAKUGIFS_API_KEY) return console.log('Optional OtakuGIFs reactions not configured. This is not an error.');
+        if (!process.env.OTAKUGIFS_API_KEY) return console.log('! Optional OtakuGIFs reactions not configured. This is not an error.');
 
         try {
             // Get all reactions from otakugifs.xyz
@@ -31,14 +31,14 @@ module.exports = {
 
             // Showing which reactions have not been implemented yet in the descriptions.json
             if (this.aliases.length !== response.data.reactions.length)
-                console.log(`Your descriptions.json is missing the ${response.data.reactions.filter(r => !DESCRIPTIONS[r]).join(', ')} reaction(s)`);
+                console.log(`\u2005  ❕ Your descriptions.json is missing the ${response.data.reactions.filter(r => !DESCRIPTIONS[r]).join(', ')} reaction(s)`);
 
         } catch (error) {
-            console.log('Invalid OtakuGIFs API KEY');
+            console.log('\u2005  ❌ Invalid OtakuGIFs API KEY');
             process.exit(1);
         }
 
-        console.log('Populated reactions');
+        console.log('\u2005  ✅ Populated reactions');
     },
     async run({ message, cmd }) {
 
