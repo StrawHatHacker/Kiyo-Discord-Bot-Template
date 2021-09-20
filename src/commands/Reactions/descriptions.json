@@ -1,4 +1,15 @@
 {
+    "airkiss": {
+        "single": [
+            "--author sends kisses.",
+            "Kisses for everyone!",
+            "--author wants to smooch someone!"
+        ],
+        "multiple": [
+            "--author sends a kiss to --target.",
+            "--author wants to smooch --target."
+        ]
+    },
     "angrystare": {
         "single": [
             "--author stares angrily.",
@@ -96,6 +107,15 @@
             "--author finds you really confusing sometimes, --target."
         ]
     },
+    "cool": {
+        "single": [
+            "--author tries to be cool."
+        ],
+        "multiple": [
+            "--author is cool for --target.",
+            "--author is trying to impress --target."
+        ]
+    },
     "cry": {
         "single": [
             "--author cries.",
@@ -151,6 +171,28 @@
         "multiple": [
             "--target made --author feel embarrassed.",
             "--author is embarrassed of --target."
+        ]
+    },
+    "evillaugh": {
+        "single": [
+            "--author laughs in evil.",
+            "--author laugh evilly.",
+            "--author tries hard to be scary."
+        ],
+        "multiple": [
+            "--author tries to scare --target.",
+            "--author laughs evilly --target."
+        ]
+    },
+    "facepalm": {
+        "single": [
+            "--author facepalms.",
+            "--author facepalms so hard.",
+            "--author can't take this anymore."
+        ],
+        "multiple": [
+            "--author facepalms because of --target!",
+            "--author can't deal with you anymore, --target."
         ]
     },
     "handhold": {
@@ -276,6 +318,15 @@
             "--author doesn't approve. Sorry --target."
         ]
     },
+    "nosebleed": {
+        "single": [
+            "--author dies.",
+            "--author bleeds out."
+        ],
+        "multiple": [
+            "--author bleeds because of hottie --target!"
+        ]
+    },
     "nom": {
         "single": [
             "--author noms, what a fatty!",
@@ -284,6 +335,15 @@
         ],
         "multiple": [
             "--author wants to nom with --target, or nom them. Who knows?"
+        ]
+    },
+    "nuzzle": {
+        "single": [
+            "--author wants to nuzzle!",
+            "--author nuzzles around!"
+        ],
+        "multiple": [
+            "--author nuzzles --target!"
         ]
     },
     "pat": {
@@ -450,9 +510,18 @@
             "--author needs sleep."
         ],
         "multiple": [
-            "--author wants to sleep with you, --target",
-            "--author wants to sleep with --target",
+            "--author wants to sleep with you, --target.",
+            "--author wants to sleep with --target.",
             "--author wants --target to put them to sleep. Tuck them in really good!"
+        ]
+    },
+    "slowclap": {
+        "single": [
+            "--author claps slowly, really s l o w l y."
+        ],
+        "multiple": [
+            "--author claps slowly at --target",
+            "--author is so amazed by you, --target"
         ]
     },
     "smack": {
@@ -485,6 +554,15 @@
             "--author smugs at --target, they know something we don't."
         ]
     },
+    "sneeze": {
+        "single": [
+            "--author sneezes.",
+            "--author, stop spreading viruses."
+        ],
+        "multiple": [
+            "--author sneezes because they are allergic to --target."
+        ]
+    },
     "sorry": {
         "single": [
             "--author is sorry, they messed up.",
@@ -508,6 +586,15 @@
             "--author watches --target very closely!"
         ]
     },
+    "stop": {
+        "single": [
+            "--author want everyone to stop."
+        ],
+        "multiple": [
+            "--author wants you to stop, --target.",
+            "--author begs you to stop, --target."
+        ]
+    },
     "surprised": {
         "single": [
             "--author is pleasantly surprised!",
@@ -515,6 +602,15 @@
         ],
         "multiple": [
             "--target surprised --author."
+        ]
+    },
+    "sweat": {
+        "single": [
+            "--author sweats!",
+            "--author sweats intensly."
+        ],
+        "multiple": [
+            "--author sweats because of --target."
         ]
     },
     "thumbsup": {
@@ -569,6 +665,15 @@
             "--author winks at --target,",
             "--author winks at --target. What's the meaning behind this?",
             "--author winks at --target and then they make akward eye contact."
+        ]
+    },
+    "woah": {
+        "single": [
+            "--author woahs!",
+            "--author is amazed!"
+        ],
+        "multiple": [
+            "--author is amazed by --target,"
         ]
     },
     "yawn": {
