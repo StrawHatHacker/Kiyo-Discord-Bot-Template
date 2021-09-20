@@ -66,9 +66,24 @@ module.exports = class Bot extends Client {
         try {
             console.log('⏳ Registering slash commands...');
 
-            await rest.put(
-                Routes.applicationGuildCommands('794989015765483571', '487199057543036939'),
-                { body: this.slashCommands.map(c => c.data.toJSON()) });
+            const slashCommandsData = this.slashCommands.map(c => c.data.toJSON());
+            if (process.env.ENVIRONMENT === 'DEV') {
+
+                await rest.put(
+                    Routes.applicationGuildCommands(process.env.BOT_ID, process.env.DEV_GUILD_ID),
+                    { body: slashCommandsData }
+                );
+
+            } else if (process.env.ENVIRONMENT === 'PRODUCTION') {
+
+                await rest.put(
+                    Routes.applicationCommands(process.env.BOT_ID),
+                    { body: slashCommandsData }
+                );
+
+            } else {
+                throw new Error('Environment variable "ENVIRONMENT" is neither "DEV" or "PRODUCTION"');
+            }
 
             console.log('✅ Registered slash commands');
         } catch (error) {

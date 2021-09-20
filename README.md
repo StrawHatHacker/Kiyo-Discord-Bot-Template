@@ -28,24 +28,32 @@ cd src/
 touch .env
 ```
 
-###### 5 Add bot token into the .env file:
+###### 5. Add bot token into the .env file:
 Open .env with your favourite text editor and add this line along with your bot token:
 `DISCORD_BOT_TOKEN="Your bot token here"`
 
-###### 6 Add MongoDB connection string into the .env file:
-Add the following in a new line:
+###### 6. Add MongoDB connection string into the .env file:
 `DB_CONNECTION_STRING="Connection string here"`
 
-###### 7 Add your Discord ID into the .env file:
-Add the following in a new line:
+###### 7. Add your Discord ID into the .env file:
 `BOT_OWNER_ID="Discord ID here"`
 
-###### 8. Run the bot (Assuming you already are in the /src directory):
+###### 8. Add your development guild ID into the .env file:
+`DEV_GUILD_ID="Discord ID here"`
+
+###### 9. Add your bot's client ID into the .env file:
+`BOT_ID="Discord ID here"`
+
+###### 10. Add your environment into the .env file:
+Can be either `DEV` or `PRODUCTION`. Use `PRODUCTION` to load slash commands for all guilds. Use `DEV` to load slash commands faster, only for your development server.
+`ENVIRONMENT="Environment value here"`
+
+###### 11. Run the bot (Assuming you are already in the /src directory):
 ```shell
 node index.js 
 ```
 
-###### 9. (Optional) Add your OtakuGIFs token for anime GIF reactions.
+###### 12. (Optional) Add your OtakuGIFs token for anime GIF reactions.
 Get an API Token from https://otakugifs.xyz and add it to the .env file in a new line:
 `OTAKUGIFS_TOKEN="API Key here"`
 
