@@ -53,7 +53,7 @@ module.exports = {
         }
 
         // Search throught command names
-        const cmd = client.commands.find(c => c.name.toLowerCase() === arg || c.name.aliases.includes(arg));
+        const cmd = client.commands.find(c => c.name.toLowerCase() === arg || c.aliases.includes(arg));
         if (cmd) return await sendCommandHelp(interaction, cmd);
 
         const slashCmd = client.slashCommands.find(c => c.name.toLowerCase() === arg);
