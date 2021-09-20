@@ -6,6 +6,7 @@ module.exports = {
     name: 'reloadcommands',
     description: 'Reload all bot commands',
     syntax: 'reloadcommands',
+    aliases: [],
     requiredPermissions: {
         user: [],
         client: []

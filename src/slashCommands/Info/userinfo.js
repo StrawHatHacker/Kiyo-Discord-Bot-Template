@@ -12,6 +12,7 @@ module.exports = {
     name: 'userinfo',
     description: 'Shows information about a user',
     syntax: 'userinfo [user]',
+    aliases: [],
     requiredPermissions: {
         user: COMMAND_PERMS.userinfo.user,
         client: []

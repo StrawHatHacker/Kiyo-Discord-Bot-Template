@@ -7,7 +7,7 @@ const Embed = require('../../classes/Embed');
 module.exports = {
     name: 'help',
     description: 'Show all commands and information about the bot, or information about an individual command or module',
-    aliases: ['help'],
+    aliases: [],
     syntax: 'help [command name]',
     requiredPermissions: {
         user: [],

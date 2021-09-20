@@ -8,10 +8,10 @@ module.exports = async (client, interaction) => {
     if (!interaction.guild?.available) return;
     if (!interaction.isCommand() || !interaction.inGuild()) return;
 
-    for (const { name, run, requiredPermissions } of client.slashCommands) {
+    for (const { name, run, aliases, requiredPermissions } of client.slashCommands) {
 
 
-        if (interaction.commandName !== name) continue;
+        if (!aliases.includes(interaction.commandName) && interaction.commandName !== name) continue;
 
         // Checking both member and bot permissions before executing the command
         if (!checkForSlashPermissions(interaction, name, requiredPermissions)) return;

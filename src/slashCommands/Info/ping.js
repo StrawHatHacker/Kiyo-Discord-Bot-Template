@@ -7,6 +7,7 @@ module.exports = {
     name: 'ping',
     description: 'Pings the bot',
     syntax: 'ping',
+    aliases: [],
     requiredPermissions: {
         user: [],
         client: []
