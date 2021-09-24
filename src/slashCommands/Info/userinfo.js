@@ -3,7 +3,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const DateFormatter = require('../../utils/DateFormatter');
 const Permissions = require('../../classes/Permissions');
-const { COMMAND_PERMS } = require('../../config');
 const { GuildMember } = require('discord.js');
 const Embed = require('../../classes/Embed');
 const Err = require('../../classes/Err');
@@ -14,7 +13,7 @@ module.exports = {
     syntax: 'userinfo [user]',
     aliases: [],
     requiredPermissions: {
-        user: COMMAND_PERMS.userinfo.user,
+        user: [],
         client: []
     },
     slashCommand: true,
