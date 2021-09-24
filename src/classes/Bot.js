@@ -1,5 +1,6 @@
 'use strict';
 
+const { SlashCommandBuilder } = require('@discordjs/builders');
 const { Routes } = require('discord-api-types/v9');
 const { REST } = require('@discordjs/rest');
 const { Client } = require('discord.js');
@@ -45,6 +46,7 @@ module.exports = class Bot extends Client {
         console.log('⌛ Loading slash commands...');
         for await (const file of readFiles('./slashCommands', { fileFilter: ['*.js'], lstat: true })) {
             const command = require(file.fullPath);
+            if (command.name === 'reactions') continue;
 
             // Some commands require property population
             // Reactions for example
@@ -57,6 +59,33 @@ module.exports = class Bot extends Client {
             this.slashCommands.push(command);
         }
         console.log('✅ Loaded slash commands');
+    }
+
+    // PRIVATE
+    async _loadReactions() {
+        console.log('⌛ Loading reactions');
+
+        const ReactionsCMD = require('../slashCommands/Reactions/reactions');
+        await ReactionsCMD.selfPopulate();
+
+        for (const r of ReactionsCMD.aliases) {
+            this.slashCommands.push({
+                name: r,
+                description: 'Anime GIFs as reactions',
+                aliases: [],
+                syntax: `${r} [@mention]`,
+                requiredPermissions: {
+                    user: [],
+                    client: []
+                },
+                module: 'reactions',
+                run: ReactionsCMD.run,
+                data: new SlashCommandBuilder().setName(r).setDescription('Anime GIFs as reactions')
+                    .addUserOption(o => o.setName('user').setDescription('User to react to').setRequired(false))
+            });
+        }
+
+        console.log('✅ Loaded reactions');
     }
 
     // PRIVATE
@@ -157,6 +186,7 @@ module.exports = class Bot extends Client {
     async start() {
         await this._loadCommands();
         await this._loadSlashCommands();
+        await this._loadReactions();
         await this._registerSlashCommands(process.env.DISCORD_BOT_TOKEN);
         await this._createModulesWithCommandsField();
         await this._loadEvents();
