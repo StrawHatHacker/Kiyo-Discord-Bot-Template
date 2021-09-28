@@ -23,7 +23,7 @@ const GuildSchema = new Schema({
     },
     features: {
         type: FeaturesSchema,
-        default: () => ({ })
+        default: () => ({})
     },
     welcome_channel_id: {
         type: String,
@@ -32,6 +32,10 @@ const GuildSchema = new Schema({
     welcome_embed_id: {
         type: String,
         default: null
+    },
+    mute_roles: {
+        type: [String],
+        default: []
     }
 }, {
     timestamps: true,

@@ -67,6 +67,18 @@ module.exports = class Err {
         return this;
     }
 
+    roleNotFound() {
+        this.httpStatus = 404;
+        this.message = 'Role not found';
+        return this;
+    }
+
+    roleAlreadyExists() {
+        this.httpStatus = 400;
+        this.message = 'Role already exists';
+        return this;
+    }
+
     jsonNotValid() {
         this.message = 'JSON not valid';
         return this;
