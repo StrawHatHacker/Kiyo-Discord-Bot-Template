@@ -3,7 +3,6 @@
 const checkPermissions = require('../utils/checkForPermissions');
 const errorHandler = require('../utils/messageErrorHandler');
 const databaseUtils = require('../utils/database');
-const GuildModel = require('../models/guild');
 
 module.exports = async (client, message) => {
     // If guild is not available becase of outage return
@@ -12,8 +11,9 @@ module.exports = async (client, message) => {
     // If message came from another bot or it was from a non *text* channel, ignore it
     if (message.author.bot || message.channel.type !== 'GUILD_TEXT') return;
 
-    // Fetching or creating if doesn't exist a Guild in the database
-    const Guild = await databaseUtils.guild.findOneOrCreate(GuildModel, message.guild.id);
+    // Fetching or creating a guild and the user if they don't exist in the database already
+    const Guild = await databaseUtils.guild.findOneOrCreate(message.guild.id);
+    const User = await databaseUtils.user.findOneOrCreate(message.author.id);
 
     // If the message is the bot mention return the prefix
     if (message.content === `<@!${client.user.id}>`) return message.channel.send(`My prefix on this server is \`${Guild.prefix}\``);
@@ -38,6 +38,6 @@ module.exports = async (client, message) => {
         let [, ...cleanArgs] = message.content.slice(Guild.prefix.length).split(/\s/g);
 
         // Run the command
-        return run({ message, cmd, client, args, cleanArgs: cleanArgs.join(' '), Guild }).catch(e => errorHandler(e, message));
+        return run({ message, cmd, client, args, cleanArgs: cleanArgs.join(' '), Guild, User }).catch(e => errorHandler(e, message));
     }
 };
