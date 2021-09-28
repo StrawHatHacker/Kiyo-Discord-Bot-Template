@@ -157,12 +157,23 @@ module.exports = class Bot extends Client {
 
     // PRIVATE
     // Connects to the database.
-    async _connectToDB() {
-        await mongoose.connect(process.env.DB_CONNECTION_STRING, {
+    _connectToDB() {
+        mongoose.connect(process.env.DB_CONNECTION_STRING, {
             useNewUrlParser: true,
-            useUnifiedTopology: true
+            useUnifiedTopology: true,
+            useCreateIndex: true
         });
         console.log('🍃 Connected to DB');
+    }
+
+    // PRIVATE
+    _registerStreams() {
+        const MuteModel = require('../models/mute');
+        const userMuteHandler = require('../streamHandlers/userMute');
+
+        // USED FOR UNMUTES
+        const userMuteStream = MuteModel.watch([{ $match: { operationType: 'delete' } }]);
+        userMuteStream.on('change', document => userMuteHandler(this, document));
     }
 
     // PRIVATE
@@ -190,7 +201,10 @@ module.exports = class Bot extends Client {
         await this._registerSlashCommands(process.env.DISCORD_BOT_TOKEN);
         await this._createModulesWithCommandsField();
         await this._loadEvents();
-        await this._connectToDB();
+
+        this._connectToDB();
+        this._registerStreams();
+
         await this.login(process.env.DISCORD_BOT_TOKEN);
     }
 };
