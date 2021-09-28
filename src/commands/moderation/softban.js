@@ -1,7 +1,7 @@
 'use strict';
 
+const hasModeratorPerms = require('../../utils/hasModeratorPerms');
 const safeFindMember = require('../../utils/safeFindMember');
-const isModerator = require('../../utils/isModerator');
 const Embed = require('../../classes/Embed');
 const Err = require('../../classes/Err');
 
@@ -22,7 +22,7 @@ module.exports = {
         if (!memberToBan) throw new Err().inputErr().memberNotFound();
 
         if (!memberToBan.bannable) throw new Err(400).inputErr().setMessage('Member is higher on the role hierarchy');
-        if (isModerator(memberToBan)) throw new Err(400).inputErr().setMessage('Member has moderation permissions');
+        if (hasModeratorPerms(memberToBan)) throw new Err(400).inputErr().setMessage('Member has moderation permissions');
 
         const reason = args.length > 1 ? args.slice(1).join(' ') : 'No reason provided';
 
