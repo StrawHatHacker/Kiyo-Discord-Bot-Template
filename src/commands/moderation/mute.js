@@ -52,8 +52,8 @@ module.exports = {
                 await UserToMute.updateOne({
                     $push: {
                         mutes: {
-                            doc_id: UserMute._id, 
-                            guild_id: message.guild.id, 
+                            doc_id: UserMute._id,
+                            guild_id: message.guild.id,
                             roles_muted_with: Guild.mute_roles
                         }
                     }
@@ -62,7 +62,7 @@ module.exports = {
         }
 
         await memberToMute.send(`You have been muted in **${message.guild.name}** for: *${reason}*${providedTime ? `\nTime: ${Time.toReadable()}` : ''}`).catch(() => null);
-        await memberToMute.roles.add(muteRoleArrayToAdd);
+        await memberToMute.roles.add(muteRoleArrayToAdd, 'Muted ' + reason);
 
         const e = new Embed().setDescription(`**${memberToMute.user.tag} has been muted**`).isSuccess();
         await message.channel.send({ embeds: [e] });
