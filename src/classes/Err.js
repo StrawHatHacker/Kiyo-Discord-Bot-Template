@@ -79,6 +79,18 @@ module.exports = class Err {
         return this;
     }
 
+    notANumber(whatIsNotANumber) {
+        this.httpStatus = 400;
+        this.message = whatIsNotANumber + ' is not a number';
+        return this;
+    }
+
+    notPositive(whatIsNotPositive) {
+        this.httpStatus = 400;
+        this.message = whatIsNotPositive + ' should be greater than zero';
+        return this;
+    }
+
     jsonNotValid() {
         this.message = 'JSON not valid';
         return this;

@@ -14,6 +14,9 @@ module.exports = {
         },
         removemuterole: {
             user: ['BAN_MEMBERS', 'KICK_MEMBERS', 'MANAGE_CHANNELS', 'MANAGE_GUILD', 'MANAGE_ROLES']
+        },
+        prune: {
+            user: ['BAN_MEMBERS', 'KICK_MEMBERS', 'MANAGE_CHANNELS', 'MANAGE_MESSAGES']
         }
     },
     PERM_FLAGS: {
