@@ -17,6 +17,9 @@ module.exports = {
         },
         prune: {
             user: ['BAN_MEMBERS', 'KICK_MEMBERS', 'MANAGE_CHANNELS', 'MANAGE_MESSAGES']
+        },
+        warn: {
+            user: ['BAN_MEMBERS', 'KICK_MEMBERS', 'MANAGE_CHANNELS', 'MANAGE_GUILD', 'MANAGE_ROLES']
         }
     },
     PERM_FLAGS: {
