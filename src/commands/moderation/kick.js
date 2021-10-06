@@ -21,7 +21,7 @@ module.exports = {
         const memberToKick = await safeFindMember(message, memberInput);
         if (!memberToKick) throw new Err().inputErr().memberNotFound();
 
-        if (!memberToKick.kickable) throw new Err(400).inputErr().setMessage('Member is higher on the role hierarchy');
+        if (!memberToKick.kickable) throw new Err(400).inputErr().setMessage('Member is higher in the role hierarchy');
         if (hasModeratorPerms(memberToKick)) throw new Err(400).inputErr().setMessage('Member has moderation permissions');
 
         const reason = args.length > 1 ? args.slice(1).join(' ') : 'No reason provided';
