@@ -52,8 +52,12 @@ module.exports = {
         const e = new Embed()
             .setAuthor(targetMember.displayName, smallAV)
             .setThumbnail(bigAV)
-            .addDescription(`Mention: ${targetMember.toString()}`)
-            .addDescription(`Joined at: ${joinedAt}`)
+            .addDescription(`Mention: ${targetMember.toString()}`);
+
+        if (interaction.guild.features.includes('MEMBER_VERIFICATION_GATE_ENABLED'))
+            e.addDescription(`Passed Screening: ${targetMember.pending}`);
+
+        e.addDescription(`Joined at: ${joinedAt}`)
             .addDescription(`Created at: ${createdAt}`)
             .addField(`Roles (${targetMember.roles.cache.size - 1})`, `Highest: ${targetMember.roles.highest.toString()} \n\n ${rolesString}`)
             .addField('Key Permissions', keyPerms)
