@@ -14,7 +14,7 @@ module.exports = (e, i) => {
         throw new Error('Parameter `m` is not instance of `Interaction`');
 
     // 404 Not Found
-    if (e.httpStatus === 404 || e.httpStatus === 401 || e.httpStatus === 400) i.reply(`${e.name}: ${e.message}`);
+    if (e.httpStatus === 404 || e.httpStatus === 401 || e.httpStatus === 400) i.reply({ content: `${e.name}: ${e.message}`, ephemeral: true });
 
     // 403 Missing Permissions
     // BE CAREFUL, you might not see errors in your console because of this line
@@ -24,6 +24,6 @@ module.exports = (e, i) => {
     // All other errors
     else {
         console.log(e);
-        i.reply('Unknown Error');
+        i.reply({ content: 'Unknown Error', ephemeral: true });
     }
 };
