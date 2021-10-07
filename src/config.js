@@ -1,4 +1,5 @@
 module.exports = {
+    // You dont have to write ADMINISTRATOR for command perms, that gets checked for you
     COMMAND_PERMS: {
         userinfo: {
             user: ['BAN_MEMBERS', 'KICK_MEMBERS', 'MANAGE_CHANNELS', 'MANAGE_GUILD']
@@ -20,6 +21,12 @@ module.exports = {
         },
         warn: {
             user: ['BAN_MEMBERS', 'KICK_MEMBERS', 'MANAGE_CHANNELS', 'MANAGE_GUILD', 'MANAGE_ROLES']
+        },
+        addcase: {
+            user: ['BAN_MEMBERS', 'KICK_MEMBERS', 'MANAGE_CHANNELS', 'MANAGE_GUILD', 'MANAGE_ROLES', 'MANAGE_MESSAGES']
+        },
+        removecase: {
+            user: ['BAN_MEMBERS', 'KICK_MEMBERS', 'MANAGE_CHANNELS', 'MANAGE_GUILD', 'MANAGE_ROLES', 'MANAGE_MESSAGES']
         }
     },
     PERM_FLAGS: {
