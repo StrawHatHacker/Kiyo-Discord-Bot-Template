@@ -57,10 +57,8 @@ const makeDataEmbed = (messages) => {
     const e = new Embed().setTitle(`Deleted **${messages.length} messages**`);
     let users = {};
 
-    messages.forEach(m => {
-        if (users[m.author.tag]) users[m.author.tag] += 1;
-        else users[m.author.tag] = 1;
-    });
+    // You don't have to understand what's happening here, it just calculates messages from users
+    messages.forEach(m => users[m.author.tag] ? users[m.author.tag] += 1 : users[m.author.tag] = 1);
 
     const formattedData = Object.entries(users).map(([k, v]) => `● **${k}** - ${v}`).join('\n');
 
