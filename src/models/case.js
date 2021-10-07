@@ -2,14 +2,14 @@
 
 const { Schema, model } = require('mongoose');
 
-// WARNS SHOULD NOT BE DELETED
+// CASES SHOULD NOT BE DELETED
 // Instead change the deleted flag to true
-const WarnSchema = new Schema({
+const CaseSchema = new Schema({
     user_id: {
         type: String,
         required: true
     },
-    warn_type: {
+    case_type: {
         type: String,
         required: true
     },
@@ -37,8 +37,8 @@ const WarnSchema = new Schema({
     timestamps: true,
     validateBeforeSave: true,
     minimize: false,
-    collection: 'warn',
+    collection: 'case',
     autoIndex: false
 });
 
-module.exports = model('warn', WarnSchema);
+module.exports = model('case', CaseSchema);

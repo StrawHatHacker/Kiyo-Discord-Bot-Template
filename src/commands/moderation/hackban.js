@@ -1,6 +1,6 @@
 'use strict';
 
-const createWarn = require('../../utils/createWarn');
+const createCase = require('../../utils/createCase');
 const stripToID = require('../../utils/stripToID');
 const Embed = require('../../classes/Embed');
 
@@ -25,7 +25,7 @@ module.exports = {
         await message.guild.members.ban(userIDInput, { reason, days: 7 });
         userToBan && userToBan.send(`You have been banned from **${message.guild.name}** for: *${reason}*`).catch(() => null);
 
-        await createWarn(message.guild.id, userIDInput, message.author.id, reason, 'hackban');
+        await createCase(message.guild.id, userIDInput, message.author.id, reason, 'hackban');
 
         const e = new Embed().setDescription(`**${userToBan?.tag || userIDInput} has been hackbanned**`).isSuccess();
         await message.channel.send({ embeds: [e] });

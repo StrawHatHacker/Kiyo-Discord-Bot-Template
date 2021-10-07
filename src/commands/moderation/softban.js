@@ -2,7 +2,7 @@
 
 const hasModeratorPerms = require('../../utils/hasModeratorPerms');
 const safeFindMember = require('../../utils/safeFindMember');
-const createWarn = require('../../utils/createWarn');
+const createCase = require('../../utils/createCase');
 const Embed = require('../../classes/Embed');
 const Err = require('../../classes/Err');
 
@@ -31,7 +31,7 @@ module.exports = {
         await memberToBan.ban({ reason, days: 7 });
         await message.guild.bans.remove(memberToBan.id, `Softban | ${reason}`);
 
-        await createWarn(message.guild.id, memberToBan.id, message.author.id, reason, 'softban');
+        await createCase(message.guild.id, memberToBan.id, message.author.id, reason, 'softban');
 
         const e = new Embed().setDescription(`**${memberToBan.user.tag} has been softbanned**`).isSuccess();
         await message.channel.send({ embeds: [e] });

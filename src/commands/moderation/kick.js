@@ -2,7 +2,7 @@
 
 const hasModeratorPerms = require('../../utils/hasModeratorPerms');
 const safeFindMember = require('../../utils/safeFindMember');
-const createWarn = require('../../utils/createWarn');
+const createCase = require('../../utils/createCase');
 const Embed = require('../../classes/Embed');
 const Err = require('../../classes/Err');
 
@@ -30,7 +30,7 @@ module.exports = {
         await memberToKick.send(`You have been kicked from **${message.guild.name}** for: *${reason}*`).catch(() => null);
         await memberToKick.kick(reason);
 
-        await createWarn(message.guild.id, memberToKick.id, message.author.id, reason, 'kick');
+        await createCase(message.guild.id, memberToKick.id, message.author.id, reason, 'kick');
 
         const e = new Embed().setDescription(`**${memberToKick.user.tag} has been kicked**`).isSuccess();
         await message.channel.send({ embeds: [e] });
