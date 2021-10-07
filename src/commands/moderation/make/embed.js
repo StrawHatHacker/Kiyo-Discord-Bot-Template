@@ -18,7 +18,7 @@ module.exports = {
         let jsonArgs;
 
         try { jsonArgs = JSON.parse(cleanArgs); }
-        catch (error) { throw new Err(401).syntaxErr().jsonNotValid(); }
+        catch (error) { throw new Err(401).inputErr().jsonNotValid(); }
 
         const { content, embed } = jsonArgs;
         const targetEmbed = new Embed(embed);
@@ -28,7 +28,7 @@ module.exports = {
 
         const filterYN = m => m.author.id === message.author.id && (m.content.toLowerCase() === 'y' || m.content.toLowerCase() === 'n');
         let collected = await message.channel.awaitMessages({ filter: filterYN, max: 1, time: 10000, errors: ['time'] })
-            .catch(() => { throw new Err(401).inputErr().timedOut(); });
+            .catch(() => { throw new Err(401).timeErr().timedOut(); });
 
         if (!collected) return;
 
@@ -39,7 +39,7 @@ module.exports = {
 
         const filterString = m => m.author.id === message.author.id;
         collected = await message.channel.awaitMessages({ filter: filterString, max: 1, time: 10000, errors: ['time'] })
-            .catch(() => { throw new Err(401).inputErr().timedOut(); });
+            .catch(() => { throw new Err(401).timeErr().timedOut(); });
 
         if (!collected) return;
 
