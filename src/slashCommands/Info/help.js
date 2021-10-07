@@ -65,7 +65,7 @@ const sendModuleHelp = async (interaction, moduleCommands, arg) => {
     const e = new Embed()
         .setColor(interaction.guild.me.roles.color?.hexColor || 0xffffff)
         .setTitle(`Module: ${arg}`)
-        .addField('Commands', moduleCommands.map(c => `\`${c}\``).join(', '));
+        .addField('Commands', moduleCommands.sort().map(c => `\`${c}\``).join(', '));
     await interaction.reply({ embeds: [e] });
 };
 
