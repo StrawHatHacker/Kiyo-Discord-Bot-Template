@@ -2,6 +2,7 @@
 
 const hasModeratorPerms = require('../../utils/hasModeratorPerms');
 const safeFindMember = require('../../utils/safeFindMember');
+const createWarn = require('../../utils/createWarn');
 const Embed = require('../../classes/Embed');
 const Err = require('../../classes/Err');
 
@@ -28,6 +29,8 @@ module.exports = {
 
         await memberToBan.send(`You have been banned from **${message.guild.name}** for: *${reason}*`).catch(() => null);
         await memberToBan.ban({ reason, days: 7 });
+
+        await createWarn(message.guild.id, memberToBan.id, message.author.id, reason, 'ban');
 
         const e = new Embed().setDescription(`**${memberToBan.user.tag} has been banned**`).isSuccess();
         await message.channel.send({ embeds: [e] });

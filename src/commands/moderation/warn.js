@@ -2,6 +2,7 @@
 
 const hasModeratorPerms = require('../../utils/hasModeratorPerms');
 const safeFindMember = require('../../utils/safeFindMember');
+const createWarn = require('../../utils/createWarn');
 const { COMMAND_PERMS } = require('../../config');
 const Embed = require('../../classes/Embed');
 const Err = require('../../classes/Err');
@@ -27,6 +28,8 @@ module.exports = {
         const reason = args.length > 1 ? args.slice(1).join(' ') : 'No reason provided';
 
         await memberToWarn.send(`You have been warned in **${message.guild.name}** for: *${reason}*`).catch(() => null);
+
+        await createWarn(message.guild.id, memberToWarn.id, message.author.id, reason, 'warn');
 
         const e = new Embed().setDescription(`**${memberToWarn.user.tag} has been warned**`).isSuccess();
         await message.channel.send({ embeds: [e] });

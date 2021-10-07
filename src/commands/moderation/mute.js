@@ -4,6 +4,7 @@ const hasModeratorPerms = require('../../utils/hasModeratorPerms');
 const safeFindMember = require('../../utils/safeFindMember');
 const TimeParser = require('../../classes/TimeParser');
 const databaseUtils = require('../../utils/database');
+const createWarn = require('../../utils/createWarn');
 const { COMMAND_PERMS } = require('../../config');
 const MuteModel = require('../../models/mute');
 const Embed = require('../../classes/Embed');
@@ -63,6 +64,8 @@ module.exports = {
 
         await memberToMute.send(`You have been muted in **${message.guild.name}** for: *${reason}*${providedTime ? `\nTime: ${Time.toReadable()}` : ''}`).catch(() => null);
         await memberToMute.roles.add(muteRoleArrayToAdd, 'Muted ' + reason);
+
+        await createWarn(message.guild.id, memberToMute.id, message.author.id, reason, 'mute');
 
         const e = new Embed().setDescription(`**${memberToMute.user.tag} has been muted**`).isSuccess();
         await message.channel.send({ embeds: [e] });
