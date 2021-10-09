@@ -1,6 +1,7 @@
 'use strict';
 
 const findTotalPageNumber = require('../../utils/findTotalPageNumber');
+const DateFormatter = require('../../utils/DateFormatter');
 const stripToID = require('../../utils/stripToID');
 const { COMMAND_PERMS } = require('../../config');
 const CaseModel = require('../../models/case');
@@ -98,7 +99,7 @@ const createFields = (min, max, data) => {
 
         fields.push({
             name: `Case #${data[i].case} | ${data[i].case_type}`,
-            value: `**Moderator:** <@${data[i].moderator}>\n**Reason:** ${data[i].reason.slice(0, 200)}`,
+            value: `**Moderator:** <@${data[i].moderator}>\n**Date:** ${new DateFormatter(data[i].createdAt).formatToReadable()}\n**Reason:** ${data[i].reason.slice(0, 200)}`,
             inline: true,
         });
     }
