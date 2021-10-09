@@ -60,7 +60,7 @@ module.exports = class Err {
 
     // Anything else
     otherErr() {
-        this.name = 'Other Error';
+        this.name = 'Error';
         return this;
     }
 
