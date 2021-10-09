@@ -30,6 +30,9 @@ module.exports = {
         },
         editcase: {
             user: ['BAN_MEMBERS', 'KICK_MEMBERS', 'MANAGE_CHANNELS', 'MANAGE_GUILD', 'MANAGE_ROLES', 'MANAGE_MESSAGES']
+        },
+        cases: {
+            user: ['BAN_MEMBERS', 'KICK_MEMBERS', 'MANAGE_CHANNELS', 'MANAGE_GUILD', 'MANAGE_ROLES', 'MANAGE_MESSAGES']
         }
     },
     PERM_FLAGS: {

@@ -26,4 +26,10 @@ module.exports = class Embed extends MessageEmbed {
         this.color = 0x2ECC71;
         return this;
     }
+
+    isFailure() {
+        this.description = '❎ ' + this.description;
+        this.color = 0xaf4541;
+        return this;
+    }
 };
