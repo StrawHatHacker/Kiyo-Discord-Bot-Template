@@ -11,7 +11,7 @@ module.exports = {
     aliases: [],
     syntax: 'editcase <case ID> [reason]',
     requiredPermissions: {
-        user: COMMAND_PERMS.removecase.user,
+        user: COMMAND_PERMS.editcase.user,
         client: []
     },
     async run({ message, args }) {
