@@ -22,7 +22,7 @@ module.exports = {
 
         userInput = stripToID(userInput);
 
-        const user = await client.users.fetch(userInput, { cache: false }); // Throws and sends API error autmotically
+        const user = await client.users.fetch(userInput, { cache: false }); // Throws and sends API error automatically
         const reason = args.slice(1).join(' ');
 
         await createCase(message.guild.id, user.id, message.author.id, reason, 'custom');
