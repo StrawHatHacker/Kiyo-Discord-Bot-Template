@@ -13,6 +13,7 @@ module.exports = {
         user: COMMAND_PERMS.unban.user,
         client: ['BAN_MEMBERS']
     },
+    cooldown: 5000,
     async run({ message, args }) {
         let userInput = args[0];
         if (!userInput) return;

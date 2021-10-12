@@ -14,6 +14,7 @@ module.exports = {
         client: []
     },
     slashCommand: true,
+    cooldown: 3000,
     selfPopulate() {
         this.data = new SlashCommandBuilder().setName('help').setDescription('Show all commands and information about the bot')
             .addStringOption(o => o.setName('command').setDescription('The command to get information about'));
@@ -77,6 +78,7 @@ const sendCommandHelp = async (interaction, cmd) => {
         .addDescription(`Module: ${cmd.module}`);
 
     if (cmd.aliases?.length > 0) e.addDescription(`Aliases: ${cmd.aliases.map(c => `\`${c}\``).join(', ')}`);
+    if (cmd.cooldown) e.addDescription(`Cooldown: ${Math.round(cmd.cooldown / 1000)} seconds`);
 
     e.addDescription(`User Permissions: ${cmd.requiredPermissions.user.length === 0 ? '`None`' : new Perms(cmd.requiredPermissions.user).formatToReadableCode()}`)
         .addDescription(`Bot Permissions: ${cmd.requiredPermissions.client.length === 0 ? '`None`' : new Perms(cmd.requiredPermissions.client).formatToReadableCode()}`)

@@ -16,6 +16,7 @@ module.exports = {
         user: COMMAND_PERMS.warn.user,
         client: []
     },
+    cooldown: 5000,
     async run({ message, args }) {
         const memberInput = args[0];
         if (!memberInput) return;

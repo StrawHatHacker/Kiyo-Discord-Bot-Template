@@ -15,6 +15,7 @@ module.exports = {
         user: COMMAND_PERMS.addcase.user,
         client: []
     },
+    cooldown: 5000,
     async run({ message, args, client }) {
         let userInput = args[0];
         if (!userInput) return;

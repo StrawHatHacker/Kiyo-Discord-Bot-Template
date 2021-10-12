@@ -13,6 +13,7 @@ module.exports = {
         user: ['BAN_MEMBERS'],
         client: ['BAN_MEMBERS']
     },
+    cooldown: 5000,
     async run({ message, args, client }) {
         let userIDInput = args[0];
         if (!userIDInput) return;

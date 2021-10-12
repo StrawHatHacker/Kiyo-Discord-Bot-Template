@@ -14,6 +14,7 @@ module.exports = {
         user: COMMAND_PERMS.makeembed.user,
         client: []
     },
+    cooldown: 5000,
     async run({ message, cleanArgs }) {
         let jsonArgs;
 
