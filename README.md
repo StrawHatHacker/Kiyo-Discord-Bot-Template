@@ -30,6 +30,7 @@ touch .env
 
 ###### 5. Add bot token into the .env file:
 Open .env with your favourite text editor and add this line along with your bot token:
+
 `DISCORD_BOT_TOKEN="Your bot token here"`
 
 ###### 6. Add MongoDB connection string into the .env file:
@@ -77,18 +78,29 @@ module.exports = {
 ```
 
 `name`: Is the name of the command. It gets matched to user input.
+
 `description`: General information about the command.
+
 `aliases`: Array of strings that can invoke the command. They get matched to user input.
+
 `syntax`: Visual representation of how the command should be structured in order to be executed. Elements wrapped in <> are required, elements wrapped in [] are optional.
-`requiredPermissions`: *user* and *client* properties are arrays of key permissions flags that are needed run a command. In the case of *user*, the user needs any of the permissions to be authorized. In the case of *client*, the bot needs all of the permissions to run the command.
+
+`requiredPermissions`: *user* and *client* properties are arrays of key permissions flags that are needed run a command. In the case of *user*, the user needs any of the 
+permissions to be authorized. In the case of *client*, the bot needs all of the permissions to run the command.
+
 `run`: Function to execute when the command is invoked.
 
 Needed for slash commands:
+
 `slashCommand`: True or false, signifying if the object is a slash command. Should be true for obvious reasons.
+
 `data`: Required information for slash commands. Refer to [this article](https://discordjs.guide/interactions/registering-slash-commands.html#options).
 
+
 Optional properties:
+
 `cooldown`: The cooldown of the command in milliseconds.
+
 `selfPopulate`: A function that is run when the bot loads the command. Usually used to populate the aliases array, like the reaction command's, or create the data property for slash commands.
 
 ## Common issues
