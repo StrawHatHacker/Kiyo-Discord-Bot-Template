@@ -2,6 +2,7 @@
 
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const Embed = require('../../classes/Embed');
+const si = require('systeminformation');
 
 module.exports = {
     name: 'ping',
@@ -27,6 +28,12 @@ module.exports = {
             .addField('Websocket', `${client.ws.ping}ms`, true)
             .addField('Uptime', `:clock1: ${days}d, ${hours}h, ${minutes}m`, true)
             .addField('Memory Usage', `:dna: ${Math.trunc(process.memoryUsage().heapUsed / 1024 / 1024)}MBs`, true);
+
+
+        await interaction.editReply({ content: '\u2005', embeds: [pingembed] });
+
+        const cpu = await si.cpu();
+        pingembed.addField('CPU Usage', `${cpu.manufacturer} - ${cpu.cores} Cores - ${cpu.speed}GHz`, true);
 
         await interaction.editReply({ content: '\u2005', embeds: [pingembed] });
     }
