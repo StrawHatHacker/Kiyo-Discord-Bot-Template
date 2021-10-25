@@ -2,6 +2,7 @@
 
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const DateFormatter = require('../../utils/DateFormatter');
+const prettifyRoles = require('../../utils/prettifyRoles');
 const Permissions = require('../../classes/Permissions');
 const { GuildMember } = require('discord.js');
 const Embed = require('../../classes/Embed');
@@ -31,12 +32,7 @@ module.exports = {
             targetMember = mention;
         }
 
-        // Remove the '@everyone' role from the member and format their roles into a string
-        const rolesString = targetMember.roles.cache
-            .filter(role => role.name !== '@everyone')
-            .map(role => role.toString())
-            .join('')
-            .slice(0, 1900);
+        const rolesString = prettifyRoles(targetMember.roles.cache);
 
         const smallAV = targetMember.user.displayAvatarURL({ size: 256, dynamic: true });
         const bigAV = targetMember.user.displayAvatarURL({ size: 4096, dynamic: true });
