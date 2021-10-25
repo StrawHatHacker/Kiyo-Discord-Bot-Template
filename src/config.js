@@ -37,6 +37,9 @@ module.exports = {
         unban: {
             user: ['BAN_MEMBERS', 'MANAGE_GUILD']
         },
+        feature: {
+            user: ['MANAGE_GUILD']
+        }
     },
     PERM_FLAGS: {
         ADMINISTRATOR: 'Administrator',
