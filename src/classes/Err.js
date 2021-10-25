@@ -84,6 +84,13 @@ module.exports = class Err {
         return this;
     }
 
+    // Channel not found
+    channelNotFound() {
+        this.httpStatus = 404;
+        this.message = 'Channel not found';
+        return this;
+    }
+
     // User was not found after API user fetch
     userNotExists() {
         this.httpStatus = 404;
