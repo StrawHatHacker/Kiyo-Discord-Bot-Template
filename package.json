@@ -12,7 +12,8 @@
     "discord.js": "^13.1.0",
     "dotenv": "^8.6.0",
     "mongoose": "^5.13.9",
-    "readdirp": "^3.6.0"
+    "readdirp": "^3.6.0",
+    "systeminformation": "^5.9.7"
   },
   "scripts": {},
   "author": "strawhathacker",
