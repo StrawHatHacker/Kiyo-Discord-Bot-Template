@@ -4,6 +4,7 @@ const hasModeratorPerms = require('../../utils/hasModeratorPerms');
 const safeFindMember = require('../../utils/safeFindMember');
 const createCase = require('../../utils/createCase');
 const { COMMAND_PERMS } = require('../../config');
+const sendLog = require('../../utils/sendLog');
 const Embed = require('../../classes/Embed');
 const Err = require('../../classes/Err');
 
@@ -17,7 +18,7 @@ module.exports = {
         client: []
     },
     cooldown: 5000,
-    async run({ message, args }) {
+    async run({ message, args, Guild }) {
         const memberInput = args[0];
         if (!memberInput) return;
 
@@ -34,5 +35,7 @@ module.exports = {
 
         const e = new Embed().setDescription(`**${memberToWarn.user.tag} has been warned**`).isSuccess();
         await message.channel.send({ embeds: [e] });
+
+        await sendLog('warn', Guild, message.guild, memberToWarn, message.member, reason);
     }
 };

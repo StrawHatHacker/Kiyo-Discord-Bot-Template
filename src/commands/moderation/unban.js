@@ -2,6 +2,7 @@
 
 const stripToID = require('../../utils/stripToID');
 const { COMMAND_PERMS } = require('../../config');
+const sendLog = require('../../utils/sendLog');
 const Embed = require('../../classes/Embed');
 
 module.exports = {
@@ -14,7 +15,7 @@ module.exports = {
         client: ['BAN_MEMBERS']
     },
     cooldown: 5000,
-    async run({ message, args }) {
+    async run({ message, args ,Guild}) {
         let userInput = args[0];
         if (!userInput) return;
 
@@ -26,5 +27,7 @@ module.exports = {
 
         const e = new Embed().setDescription(`**${guildBan.user.tag} has been unbanned**`).isSuccess();
         await message.channel.send({ embeds: [e] });
+
+        await sendLog('unban', Guild, message.guild, guildBan.user, message.member, reason);
     }
 };

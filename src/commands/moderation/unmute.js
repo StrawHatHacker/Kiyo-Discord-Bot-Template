@@ -5,6 +5,7 @@ const safeFindMember = require('../../utils/safeFindMember');
 const { COMMAND_PERMS } = require('../../config');
 const MuteModel = require('../../models/mute');
 const UserModel = require('../../models/user');
+const sendLog = require('../../utils/sendLog');
 const Embed = require('../../classes/Embed');
 const Err = require('../../classes/Err');
 
@@ -56,5 +57,7 @@ module.exports = {
 
         const e = new Embed().setDescription(`**${memberToUnmute.user.tag} has been unmuted**`).isSuccess();
         await message.channel.send({ embeds: [e] });
+
+        await sendLog('unmute', Guild, message.guild, memberToUnmute, message.member, reason);
     }
 };

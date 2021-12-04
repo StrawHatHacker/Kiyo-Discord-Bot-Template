@@ -6,6 +6,7 @@ const TimeParser = require('../../classes/TimeParser');
 const databaseUtils = require('../../utils/database');
 const createCase = require('../../utils/createCase');
 const { COMMAND_PERMS } = require('../../config');
+const sendLog = require('../../utils/sendLog');
 const MuteModel = require('../../models/mute');
 const Embed = require('../../classes/Embed');
 const Err = require('../../classes/Err');
@@ -69,5 +70,7 @@ module.exports = {
 
         const e = new Embed().setDescription(`**${memberToMute.user.tag} has been muted**`).isSuccess();
         await message.channel.send({ embeds: [e] });
+
+        await sendLog('mute', Guild, message.guild, memberToMute, message.member, reason);
     }
 };
