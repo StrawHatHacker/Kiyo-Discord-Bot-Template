@@ -3,8 +3,6 @@
 const DateFormatter = require('../utils/DateFormatter');
 const prettifyRoles = require('./prettifyRoles');
 const Embed = require('../classes/Embed');
-const Discord = require('discord.js');
-const dayjs = require('dayjs');
 
 // Mapping for each log type to the corresponding "channel id" db field
 const logTypeToDBField = {
@@ -19,16 +17,16 @@ const actionData = {
         type: 'moderationlog',
         color: '#ffc107',
         userGot: 'Warned',
-        getEmbed: function ({ person, moderator, reason }) {
-            const rolesString = prettifyRoles(person.roles.cache);
+        getEmbed: function ({ item, moderator, reason }) {
+            const rolesString = prettifyRoles(item.roles.cache);
 
             return new Embed()
                 .setTimestamp()
                 .setColor(this.color)
-                .setThumbnail(person.user.displayAvatarURL({ dynamic: true, size: 2048 }))
-                .setAuthor(`${person.user.tag} got ${this.userGot}`,
-                    person.user.displayAvatarURL({ dynamic: true, size: 128 }))
-                .addField(`${this.userGot} user`, `ID: ${person.id}\n${rolesString ? `Roles: ${rolesString.slice(0, 800)}` : ''}`)
+                .setThumbnail(item.user.displayAvatarURL({ dynamic: true, size: 2048 }))
+                .setAuthor(`${item.user.tag} got ${this.userGot}`,
+                    item.user.displayAvatarURL({ dynamic: true, size: 128 }))
+                .addField(`${this.userGot} user`, `ID: ${item.id}\n${rolesString ? `Roles: ${rolesString.slice(0, 800)}` : ''}`)
                 .addField('Moderator', `${moderator.user.tag}\n${moderator.id}`)
                 .addField('Reason', `${reason.slice(0, 1024)}`);
         }
@@ -37,16 +35,16 @@ const actionData = {
         type: 'moderationlog',
         color: '#e88330',
         userGot: 'Kicked',
-        getEmbed: function ({ person, moderator, reason }) {
-            const rolesString = prettifyRoles(person.roles.cache);
+        getEmbed: function ({ item, moderator, reason }) {
+            const rolesString = prettifyRoles(item.roles.cache);
 
             return new Embed()
                 .setTimestamp()
                 .setColor(this.color)
-                .setThumbnail(person.user.displayAvatarURL({ dynamic: true, size: 2048 }))
-                .setAuthor(`${person.user.tag} got ${this.userGot}`,
-                    person.user.displayAvatarURL({ dynamic: true, size: 128 }))
-                .addField(`${this.userGot} user`, `ID: ${person.id}\n${rolesString ? `Roles: ${rolesString.slice(0, 800)}` : ''}`)
+                .setThumbnail(item.user.displayAvatarURL({ dynamic: true, size: 2048 }))
+                .setAuthor(`${item.user.tag} got ${this.userGot}`,
+                    item.user.displayAvatarURL({ dynamic: true, size: 128 }))
+                .addField(`${this.userGot} user`, `ID: ${item.id}\n${rolesString ? `Roles: ${rolesString.slice(0, 800)}` : ''}`)
                 .addField('Moderator', `${moderator.user.tag}\n${moderator.id}`)
                 .addField('Reason', `${reason.slice(0, 1024)}`);
         }
@@ -55,16 +53,16 @@ const actionData = {
         type: 'moderationlog',
         color: '#e83036',
         userGot: 'Banned',
-        getEmbed: function ({ person, moderator, reason }) {
-            const rolesString = prettifyRoles(person.roles.cache);
+        getEmbed: function ({ item, moderator, reason }) {
+            const rolesString = prettifyRoles(item.roles.cache);
 
             return new Embed()
                 .setTimestamp()
                 .setColor(this.color)
-                .setThumbnail(person.user.displayAvatarURL({ dynamic: true, size: 2048 }))
-                .setAuthor(`${person.user.tag} got ${this.userGot}`,
-                    person.user.displayAvatarURL({ dynamic: true, size: 128 }))
-                .addField(`${this.userGot} user`, `ID: ${person.id}\n${rolesString ? `Roles: ${rolesString.slice(0, 800)}` : ''}`)
+                .setThumbnail(item.user.displayAvatarURL({ dynamic: true, size: 2048 }))
+                .setAuthor(`${item.user.tag} got ${this.userGot}`,
+                    item.user.displayAvatarURL({ dynamic: true, size: 128 }))
+                .addField(`${this.userGot} user`, `ID: ${item.id}\n${rolesString ? `Roles: ${rolesString.slice(0, 800)}` : ''}`)
                 .addField('Moderator', `${moderator.user.tag}\n${moderator.id}`)
                 .addField('Reason', `${reason.slice(0, 1024)}`);
         }
@@ -73,14 +71,14 @@ const actionData = {
         type: 'moderationlog',
         color: '#e8d454',
         userGot: 'Muted',
-        getEmbed: function ({ person, moderator, reason }) {
+        getEmbed: function ({ item, moderator, reason }) {
             return new Embed()
                 .setTimestamp()
                 .setColor(this.color)
-                .setThumbnail(person.user.displayAvatarURL({ dynamic: true, size: 2048 }))
-                .setAuthor(`${person.user.tag} got ${this.userGot}`,
-                    person.user.displayAvatarURL({ dynamic: true, size: 128 }))
-                .addField(`${this.userGot} user`, `ID: ${person.id}`)
+                .setThumbnail(item.user.displayAvatarURL({ dynamic: true, size: 2048 }))
+                .setAuthor(`${item.user.tag} got ${this.userGot}`,
+                    item.user.displayAvatarURL({ dynamic: true, size: 128 }))
+                .addField(`${this.userGot} user`, `ID: ${item.id}`)
                 .addField('Moderator', `${moderator.user.tag}\n${moderator.id}`)
                 .addField('Reason', `${reason.slice(0, 1024)}`);
         }
@@ -89,16 +87,16 @@ const actionData = {
         type: 'moderationlog',
         color: '#f25050',
         userGot: 'Softbanned',
-        getEmbed: function ({ person, moderator, reason }) {
-            const rolesString = prettifyRoles(person.roles.cache);
+        getEmbed: function ({ item, moderator, reason }) {
+            const rolesString = prettifyRoles(item.roles.cache);
 
             return new Embed()
                 .setTimestamp()
                 .setColor(this.color)
-                .setThumbnail(person.user.displayAvatarURL({ dynamic: true, size: 2048 }))
-                .setAuthor(`${person.user.tag} got ${this.userGot}`,
-                    person.user.displayAvatarURL({ dynamic: true, size: 128 }))
-                .addField(`${this.userGot} user`, `ID: ${person.id}\n${rolesString ? `Roles: ${rolesString.slice(0, 800)}` : ''}`)
+                .setThumbnail(item.user.displayAvatarURL({ dynamic: true, size: 2048 }))
+                .setAuthor(`${item.user.tag} got ${this.userGot}`,
+                    item.user.displayAvatarURL({ dynamic: true, size: 128 }))
+                .addField(`${this.userGot} user`, `ID: ${item.id}\n${rolesString ? `Roles: ${rolesString.slice(0, 800)}` : ''}`)
                 .addField('Moderator', `${moderator.user.tag}\n${moderator.id}`)
                 .addField('Reason', `${reason.slice(0, 1024)}`);
         }
@@ -107,14 +105,14 @@ const actionData = {
         type: 'moderationlog',
         color: '#eb8714',
         userGot: 'Unbanned',
-        getEmbed: function ({ person, moderator, reason }) {
+        getEmbed: function ({ item, moderator, reason }) {
             return new Embed()
                 .setTimestamp()
                 .setColor(this.color)
-                .setThumbnail(person.displayAvatarURL({ dynamic: true, size: 2048 }))
-                .setAuthor(`${person.tag} got ${this.userGot}`,
-                    person.displayAvatarURL({ dynamic: true, size: 128 }))
-                .addField(`${this.userGot} user`, `ID: ${person.id}`)
+                .setThumbnail(item.displayAvatarURL({ dynamic: true, size: 2048 }))
+                .setAuthor(`${item.tag} got ${this.userGot}`,
+                    item.displayAvatarURL({ dynamic: true, size: 128 }))
+                .addField(`${this.userGot} user`, `ID: ${item.id}`)
                 .addField('Moderator', `${moderator.user.tag}\n${moderator.id}`)
                 .addField('Reason', `${reason.slice(0, 1024)}`);
         }
@@ -123,14 +121,14 @@ const actionData = {
         type: 'moderationlog',
         color: '#3b77d8',
         userGot: 'Unmuted',
-        getEmbed: function ({ person, moderator, reason }) {
+        getEmbed: function ({ item, moderator, reason }) {
             return new Embed()
                 .setTimestamp()
                 .setColor(this.color)
-                .setThumbnail(person.user.displayAvatarURL({ dynamic: true, size: 2048 }))
-                .setAuthor(`${person.user.tag} got ${this.userGot}`,
-                    person.user.displayAvatarURL({ dynamic: true, size: 128 }))
-                .addField(`${this.userGot} user`, `ID: ${person.id}`)
+                .setThumbnail(item.user.displayAvatarURL({ dynamic: true, size: 2048 }))
+                .setAuthor(`${item.user.tag} got ${this.userGot}`,
+                    item.user.displayAvatarURL({ dynamic: true, size: 128 }))
+                .addField(`${this.userGot} user`, `ID: ${item.id}`)
                 .addField('Moderator', `${moderator.user.tag}\n${moderator.id}`)
                 .addField('Reason', `${reason.slice(0, 1024)}`);
         }
@@ -138,20 +136,91 @@ const actionData = {
     guildMemberAdd: {
         type: 'memberlog',
         color: '#6DD943',
-        getEmbed: function ({ person }) {
-            const timeSinceCreated = new Date().getTime() - person.joinedAt.getTime();
+        getEmbed: function ({ item }) {
+            const timeSinceCreated = new Date().getTime() - item.joinedAt.getTime();
+
             const daysSinceCreated = timeSinceCreated / 1000 * 3600 * 24;
 
             const e = new Embed()
                 .setTimestamp()
                 .setColor(this.color)
-                .setThumbnail(person.user.displayAvatarURL({ dynamic: true, size: 2048 }))
-                .setAuthor(`${person.user.tag} Joined`,
-                    person.user.displayAvatarURL({ dynamic: true, size: 128 }))
-                .addField('New user', `ID: ${person.id}\nCreated at ${new DateFormatter(person.joinedAt).formatToReadable()}`);
+                .setThumbnail(item.user.displayAvatarURL({ dynamic: true, size: 2048 }))
+                .setAuthor(`${item.user.tag} Joined`,
+                    item.user.displayAvatarURL({ dynamic: true, size: 128 }))
+                .addField('New user', `ID: ${item.id}\nCreated at ${new DateFormatter(item.joinedAt).formatToReadable()}`);
 
-            if (person.user.flags.toArray().length > 0) e.addField('Flags', person.user.flags.toArray().join('\n'));
+            if (item.user.flags.toArray().length > 0) e.addField('Flags', item.user.flags.toArray().join('\n'));
             if (daysSinceCreated < 7) e.addField('⚠', `Account created less than ${daysSinceCreated} day(s) before`);
+
+            return e;
+        }
+    },
+    channelCreate: {
+        type: 'serverlog',
+        color: '#6DD943',
+        getEmbed: function ({ item }) {
+            const e = new Embed()
+                .setTimestamp()
+                .setColor(this.color)
+                .setAuthor('Channel Created')
+                .setDescription(`Name: ${item.name}\nID: ${item.id}${item.parent?.name ? `\nCategory: ${item.parent.name}` : ''}\nType: ${item.type}`);
+
+            return e;
+        }
+    },
+    channelDelete: {
+        type: 'serverlog',
+        color: '#e83036',
+        getEmbed: function ({ item }) {
+            const e = new Embed()
+                .setTimestamp()
+                .setColor(this.color)
+                .setAuthor('Channel Deleted')
+                .setDescription(`Name: ${item.name}\nID: ${item.id}${item.parent?.name ? `\nCategory: ${item.parent.name}` : ''}\nType: ${item.type}`);
+
+            return e;
+        }
+    },
+    channelUpdate: {
+        type: 'serverlog',
+        color: '#eb8714',
+        getEmbed: function ({ item }) {
+            const [oldChannel, newChannel] = item;
+
+            const e = new Embed()
+                .setTimestamp()
+                .setColor(this.color)
+                .setAuthor('Channel Updated');
+
+            if (oldChannel.name !== newChannel.name)
+                e.addDescription(`Name: ${oldChannel.name} => ${newChannel.name}`);
+            else e.addDescription(`Name:  ${newChannel.name}`);
+
+            e.addDescription(`ID: ${newChannel.id}`);
+
+            if (oldChannel.parentId !== newChannel.parentId)
+                e.addDescription(`Category: ${oldChannel.parent.name} => ${newChannel.parent.name}`);
+
+            if (oldChannel.type !== newChannel.type)
+                e.addDescription(`Type: ${oldChannel.type} => ${newChannel.type}`);
+
+            if (oldChannel.topic !== newChannel.topic)
+                e.addDescription(`Topic: ${oldChannel.topic?.slice(0, 500) || 'None'} => ${newChannel.topic?.slice(0, 500) || 'None'}`);
+
+            if (oldChannel.nsfw !== newChannel.nsfw)
+                e.addDescription(`NSFW: ${oldChannel.nsfw} => ${newChannel.nsfw}`);
+
+            if (oldChannel.rawPosition !== newChannel.rawPosition)
+                e.addDescription(`Position: ${oldChannel.rawPosition + 1} => ${newChannel.rawPosition + 1}`);
+
+            if (oldChannel.rtcRegion !== newChannel.rtcRegion)
+                e.addDescription(`Region: ${oldChannel.rtcRegion || 'Automatic'} => ${newChannel.rtcRegion || 'Automatic'}`);
+
+            if (oldChannel.userLimit !== newChannel.userLimit)
+                e.addDescription(`User limit: ${oldChannel.userLimit} => ${newChannel.userLimit}`);
+
+            if (oldChannel.bitrate !== newChannel.bitrate)
+                e.addDescription(`Bitrate: ${Math.floor(oldChannel.bitrate / 1000)}kbps => ${Math.floor(newChannel.bitrate / 1000)}kbps`);
 
             return e;
         }
@@ -163,15 +232,13 @@ const actionData = {
  * @param {warn|kick|ban|softban|mute|unban|unmute} action the action that triggered this log
  * @param {GuildObject} Guild object with guild data from the database
  * @param {Discord.Guild} guild 
- * @param {Discord.GuildMember|Discord.User} member 
+ * @param {} item It's an item passed to get embed function. Usually is a GuildMember or User 
  * @param {Discord.GuildMember} moderator 
  * @param {String} reason 
  * @returns {Promise<void>}
  */
-module.exports = async (action, Guild, guild, person, moderator, reason) => {
+module.exports = async (action, Guild, guild, item, moderator, reason) => {
     if (!actionData[action]) throw new Error('Invalid log type');
-    if (!(person instanceof Discord.GuildMember) && !(person instanceof Discord.User))
-        throw new Error('"person" is not instance of Discord.GuildMember or Discord.User');
 
     const d = actionData[action];
 
@@ -188,7 +255,7 @@ module.exports = async (action, Guild, guild, person, moderator, reason) => {
     if (!channel) return;
 
     // call getEmbed to create an embed
-    const e = d.getEmbed({ person, moderator, reason, guild });
+    const e = d.getEmbed({ item, moderator, reason, guild });
 
     await channel.send({ embeds: [e] });
 };
