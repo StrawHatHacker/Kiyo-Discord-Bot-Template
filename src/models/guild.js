@@ -3,7 +3,23 @@
 const { Schema, model } = require('mongoose');
 
 const FeaturesSchema = new Schema({
-    welcome_messages: {
+    welcomemessages: {
+        type: Boolean,
+        default: true
+    },
+    moderationlog: {
+        type: Boolean,
+        default: true
+    },
+    messagelog: {
+        type: Boolean,
+        default: true
+    },
+    serverlog: {
+        type: Boolean,
+        default: true
+    },
+    memberlog: {
         type: Boolean,
         default: true
     }
@@ -36,6 +52,22 @@ const GuildSchema = new Schema({
     mute_roles: {
         type: [String],
         default: []
+    },
+    moderation_log_channel_id: {
+        type: String,
+        default: ''
+    },
+    message_log_channel_id: {
+        type: String,
+        default: ''
+    },
+    server_log_channel_id: {
+        type: String,
+        default: ''
+    },
+    member_log_channel_id: {
+        type: String,
+        default: ''
     }
 }, {
     timestamps: true,
