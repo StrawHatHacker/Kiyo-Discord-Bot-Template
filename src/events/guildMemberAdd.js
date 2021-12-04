@@ -3,10 +3,11 @@
 const formatEmbed = require('../utils/formatEmbed');
 const GuildModel = require('../models/guild');
 const EmbedModel = require('../models/embed');
+const sendLog = require('../utils/sendLog');
 const Embed = require('../classes/Embed');
 
 module.exports = async (_client, member) => {
-    // If guild is not available becase of outage return
+    // If guild is not available because of outage return
     if (!member.guild.available) return;
 
     const Guild = await GuildModel.findById(member.guild.id);
@@ -23,4 +24,5 @@ module.exports = async (_client, member) => {
     const formattedEmbedProps = formatEmbed(EmbedProps, member);
 
     await channel.send({ content: EmbedProps.content, embeds: [new Embed(formattedEmbedProps)] }).catch(() => null);
+    await sendLog('guildMemberAdd', Guild, member.guild, member);
 };

@@ -1,8 +1,10 @@
 'use strict';
 
+const DateFormatter = require('../utils/DateFormatter');
 const prettifyRoles = require('./prettifyRoles');
 const Embed = require('../classes/Embed');
 const Discord = require('discord.js');
+const dayjs = require('dayjs');
 
 // Mapping for each log type to the corresponding "channel id" db field
 const logTypeToDBField = {
@@ -17,7 +19,7 @@ const actionData = {
         type: 'moderationlog',
         color: '#ffc107',
         userGot: 'Warned',
-        getEmbed: function (person, moderator, reason) {
+        getEmbed: function ({ person, moderator, reason }) {
             const rolesString = prettifyRoles(person.roles.cache);
 
             return new Embed()
@@ -35,7 +37,7 @@ const actionData = {
         type: 'moderationlog',
         color: '#e88330',
         userGot: 'Kicked',
-        getEmbed: function (person, moderator, reason) {
+        getEmbed: function ({ person, moderator, reason }) {
             const rolesString = prettifyRoles(person.roles.cache);
 
             return new Embed()
@@ -53,7 +55,7 @@ const actionData = {
         type: 'moderationlog',
         color: '#e83036',
         userGot: 'Banned',
-        getEmbed: function (person, moderator, reason) {
+        getEmbed: function ({ person, moderator, reason }) {
             const rolesString = prettifyRoles(person.roles.cache);
 
             return new Embed()
@@ -71,7 +73,7 @@ const actionData = {
         type: 'moderationlog',
         color: '#e8d454',
         userGot: 'Muted',
-        getEmbed: function (person, moderator, reason) {
+        getEmbed: function ({ person, moderator, reason }) {
             return new Embed()
                 .setTimestamp()
                 .setColor(this.color)
@@ -87,7 +89,7 @@ const actionData = {
         type: 'moderationlog',
         color: '#f25050',
         userGot: 'Softbanned',
-        getEmbed: function (person, moderator, reason) {
+        getEmbed: function ({ person, moderator, reason }) {
             const rolesString = prettifyRoles(person.roles.cache);
 
             return new Embed()
@@ -105,7 +107,7 @@ const actionData = {
         type: 'moderationlog',
         color: '#eb8714',
         userGot: 'Unbanned',
-        getEmbed: function (person, moderator, reason) {
+        getEmbed: function ({ person, moderator, reason }) {
             return new Embed()
                 .setTimestamp()
                 .setColor(this.color)
@@ -121,7 +123,7 @@ const actionData = {
         type: 'moderationlog',
         color: '#3b77d8',
         userGot: 'Unmuted',
-        getEmbed: function (person, moderator, reason) {
+        getEmbed: function ({ person, moderator, reason }) {
             return new Embed()
                 .setTimestamp()
                 .setColor(this.color)
@@ -131,6 +133,27 @@ const actionData = {
                 .addField(`${this.userGot} user`, `ID: ${person.id}`)
                 .addField('Moderator', `${moderator.user.tag}\n${moderator.id}`)
                 .addField('Reason', `${reason.slice(0, 1024)}`);
+        }
+    },
+    guildMemberAdd: {
+        type: 'memberlog',
+        color: '#6DD943',
+        getEmbed: function ({ person }) {
+            const timeSinceCreated = new Date().getTime() - person.joinedAt.getTime();
+            const daysSinceCreated = timeSinceCreated / 1000 * 3600 * 24;
+
+            const e = new Embed()
+                .setTimestamp()
+                .setColor(this.color)
+                .setThumbnail(person.user.displayAvatarURL({ dynamic: true, size: 2048 }))
+                .setAuthor(`${person.user.tag} Joined`,
+                    person.user.displayAvatarURL({ dynamic: true, size: 128 }))
+                .addField('New user', `ID: ${person.id}\nCreated at ${new DateFormatter(person.joinedAt).formatToReadable()}`);
+
+            if (person.user.flags.toArray().length > 0) e.addField('Flags', person.user.flags.toArray().join('\n'));
+            if (daysSinceCreated < 7) e.addField('⚠', `Account created less than ${daysSinceCreated} day(s) before`);
+
+            return e;
         }
     }
 };
@@ -149,14 +172,11 @@ module.exports = async (action, Guild, guild, person, moderator, reason) => {
     if (!actionData[action]) throw new Error('Invalid log type');
     if (!(person instanceof Discord.GuildMember) && !(person instanceof Discord.User))
         throw new Error('"person" is not instance of Discord.GuildMember or Discord.User');
-    if (!(moderator instanceof Discord.GuildMember)) throw new Error('"moderator" is not instance of Discord.GuildMember');
-    if (!(typeof reason === 'string')) throw new Error('"reason" is not a string');
 
     const d = actionData[action];
 
     // If the feature is disabled by the guild, return
     if (!Guild.features[d.type]) return;
-
     // Based on the type of log, get the corresponding db field
     // For example, moderationlog -> moderation_log_channel_id
     const db_field = logTypeToDBField[d.type];
@@ -168,7 +188,7 @@ module.exports = async (action, Guild, guild, person, moderator, reason) => {
     if (!channel) return;
 
     // call getEmbed to create an embed
-    const e = d.getEmbed(person, moderator, reason);
+    const e = d.getEmbed({ person, moderator, reason, guild });
 
     await channel.send({ embeds: [e] });
 };
