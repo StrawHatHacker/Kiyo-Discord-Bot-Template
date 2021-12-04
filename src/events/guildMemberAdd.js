@@ -13,6 +13,8 @@ module.exports = async (_client, member) => {
     const Guild = await GuildModel.findById(member.guild.id);
     if (!Guild) return;
 
+    await sendLog('guildMemberAdd', Guild, member.guild, member);
+
     if (!Guild.features.welcomemessages) return;
     if (Guild.welcome_channel_id === null || Guild.welcome_embed_id === null) return;
 
@@ -24,5 +26,4 @@ module.exports = async (_client, member) => {
     const formattedEmbedProps = formatEmbed(EmbedProps, member);
 
     await channel.send({ content: EmbedProps.content, embeds: [new Embed(formattedEmbedProps)] }).catch(() => null);
-    await sendLog('guildMemberAdd', Guild, member.guild, member);
 };
