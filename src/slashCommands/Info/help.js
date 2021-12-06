@@ -26,7 +26,7 @@ module.exports = {
             const e = new Embed()
                 .setColor(interaction.guild.me.roles.color?.hexColor || 0xffffff)
                 .setThumbnail(client.user.displayAvatarURL({ dynamic: true, size: 2048 }))
-                .addDescription('[ɪɴᴠɪᴛᴇ ᴍᴇ](https://discord.com/api/oauth2/authorize?client_id=794989015765483571&permissions=0&scope=bot) ┃ [ꜱᴜᴘᴘᴏʀᴛ ꜱᴇʀᴠᴇʀ](https://discord.gg/ypEBGHB) \n')
+                .addDescription('[ɪɴᴠɪᴛᴇ ᴍᴇ](https://discord.com/api/oauth2/authorize?client_id=794989015765483571&permissions=0&scope=bot%20applications.commands) ┃ [ꜱᴜᴘᴘᴏʀᴛ ꜱᴇʀᴠᴇʀ](https://discord.gg/ypEBGHB) \n')
                 .addDescription(`Hey! I'm ${client.user.username} and I'm Open Source. You can find me [here](https://github.com/StrawHatHacker/Kiyo-Discord-Bot).\n\u200B`)
                 .addDescription('Type `/help moduleName` to see all commands of that module.')
                 .addDescription('Type `/help commandName` to see all information of that command.')
