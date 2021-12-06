@@ -24,6 +24,7 @@ const Kiyo = new Bot({
         Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
         Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS,
     ],
+    partials: ['GUILD_MEMBER', 'USER', 'MESSAGE', 'CHANNEL', 'REACTION'],
     restRequestTimeout: 5000,
     restGlobalRateLimit: 40,
     large_threshold: 100
