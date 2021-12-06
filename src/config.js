@@ -106,5 +106,13 @@ module.exports = {
         'October',
         'November',
         'December'
-    ]
+    ],
+    colors: {
+        redPrimary: 0xe83036,
+        redSecondary: 0xf25050,
+        orangePrimary: 0xeb8714,
+        yellowPrimary: 0xffc107,
+        bluePrimary: 0x3b77d8,
+        greenPrimary: 0x6DD943
+    }
 };

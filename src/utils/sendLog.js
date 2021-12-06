@@ -3,6 +3,7 @@
 const DateFormatter = require('../utils/DateFormatter');
 const prettifyRoles = require('./prettifyRoles');
 const Embed = require('../classes/Embed');
+const { colors } = require('../config');
 
 // Mapping for each log type to the corresponding "channel id" db field
 const logTypeToDBField = {
@@ -15,7 +16,7 @@ const logTypeToDBField = {
 const actionData = {
     warn: {
         type: 'moderationlog',
-        color: '#ffc107',
+        color: colors.orangePrimary,
         userGot: 'Warned',
         getEmbed: function ({ item, moderator, reason }) {
             const rolesString = prettifyRoles(item.roles.cache);
@@ -33,7 +34,7 @@ const actionData = {
     },
     kick: {
         type: 'moderationlog',
-        color: '#e88330',
+        color: colors.redSecondary,
         userGot: 'Kicked',
         getEmbed: function ({ item, moderator, reason }) {
             const rolesString = prettifyRoles(item.roles.cache);
@@ -51,7 +52,7 @@ const actionData = {
     },
     ban: {
         type: 'moderationlog',
-        color: '#e83036',
+        color: colors.redPrimary,
         userGot: 'Banned',
         getEmbed: function ({ item, moderator, reason }) {
             const rolesString = prettifyRoles(item.roles.cache);
@@ -69,7 +70,7 @@ const actionData = {
     },
     mute: {
         type: 'moderationlog',
-        color: '#e8d454',
+        color: colors.orangePrimary,
         userGot: 'Muted',
         getEmbed: function ({ item, moderator, reason }) {
             return new Embed()
@@ -85,7 +86,7 @@ const actionData = {
     },
     softban: {
         type: 'moderationlog',
-        color: '#f25050',
+        color: colors.redSecondary,
         userGot: 'Softbanned',
         getEmbed: function ({ item, moderator, reason }) {
             const rolesString = prettifyRoles(item.roles.cache);
@@ -103,7 +104,7 @@ const actionData = {
     },
     unban: {
         type: 'moderationlog',
-        color: '#eb8714',
+        color: colors.orangePrimary,
         userGot: 'Unbanned',
         getEmbed: function ({ item, moderator, reason }) {
             return new Embed()
@@ -119,7 +120,7 @@ const actionData = {
     },
     unmute: {
         type: 'moderationlog',
-        color: '#3b77d8',
+        color: colors.yellowPrimary,
         userGot: 'Unmuted',
         getEmbed: function ({ item, moderator, reason }) {
             return new Embed()
@@ -135,7 +136,7 @@ const actionData = {
     },
     guildMemberAdd: {
         type: 'memberlog',
-        color: '#6DD943',
+        color: colors.greenPrimary,
         getEmbed: function ({ item }) {
             const timeSinceCreated = new Date().getTime() - item.joinedAt.getTime();
 
@@ -157,7 +158,7 @@ const actionData = {
     },
     channelCreate: {
         type: 'serverlog',
-        color: '#6DD943',
+        color: colors.greenPrimary,
         getEmbed: function ({ item }) {
             return new Embed()
                 .setTimestamp()
@@ -168,7 +169,7 @@ const actionData = {
     },
     channelDelete: {
         type: 'serverlog',
-        color: '#e83036',
+        color: colors.redPrimary,
         getEmbed: function ({ item }) {
             return new Embed()
                 .setTimestamp()
@@ -179,7 +180,7 @@ const actionData = {
     },
     channelUpdate: {
         type: 'serverlog',
-        color: '#eb8714',
+        color: colors.orangePrimary,
         getEmbed: function ({ item }) {
             const [oldChannel, newChannel] = item;
 
@@ -223,7 +224,7 @@ const actionData = {
     },
     emojiCreate: {
         type: 'serverlog',
-        color: '#6DD943',
+        color: colors.greenPrimary,
         getEmbed: function ({ item }) {
             return new Embed()
                 .setTimestamp()
@@ -235,7 +236,7 @@ const actionData = {
     },
     emojiDelete: {
         type: 'serverlog',
-        color: '#e83036',
+        color: colors.redPrimary,
         getEmbed: function ({ item }) {
             return new Embed()
                 .setTimestamp()
@@ -247,7 +248,7 @@ const actionData = {
     },
     emojiUpdate: {
         type: 'serverlog',
-        color: '#3b77d8',
+        color: colors.orangePrimary,
         getEmbed: function ({ item }) {
             const [oldEmoji, newEmoji] = item;
 
