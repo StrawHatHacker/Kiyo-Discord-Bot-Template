@@ -9,7 +9,7 @@
     "axios": "^0.21.4",
     "dayjs": "^1.10.7",
     "discord-api-types": "^0.23.1",
-    "discord.js": "^13.1.0",
+    "discord.js": "^13.3.1",
     "dotenv": "^8.6.0",
     "mongoose": "^5.13.9",
     "readdirp": "^3.6.0",
