@@ -259,7 +259,34 @@ const actionData = {
                 .setThumbnail(newEmoji.url)
                 .setDescription(`Name: ${oldEmoji.name} => ${newEmoji.name}\nID: ${newEmoji.id}`);
         }
-    }
+    },
+    guildBanAdd: {
+        type: 'serverlog',
+        color: colors.redSecondary,
+        getEmbed: function ({ item }) {
+            return new Embed()
+                .setTimestamp()
+                .setColor(this.color)
+                .setThumbnail(item.user.displayAvatarURL({ dynamic: true, size: 2048 }))
+                .setAuthor(`${item.user.tag} got banned`,
+                    item.user.displayAvatarURL({ dynamic: true, size: 128 }))
+                .addField('Banned user', `ID: ${item.user.id}`)
+                .addField('Reason', `${item.reason?.slice(0, 1024) || 'No reason provided'}`);
+        }
+    },
+    guildBanRemove: {
+        type: 'serverlog',
+        color: colors.orangePrimary,
+        getEmbed: function ({ item }) {
+            return new Embed()
+                .setTimestamp()
+                .setColor(this.color)
+                .setThumbnail(item.user.displayAvatarURL({ dynamic: true, size: 2048 }))
+                .setAuthor(`${item.user.tag} got unbanned`,
+                    item.user.displayAvatarURL({ dynamic: true, size: 128 }))
+                .addField('Unbanned user', `ID: ${item.user.id}`);
+        }
+    },
 };
 
 /**
