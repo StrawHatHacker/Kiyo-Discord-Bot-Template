@@ -148,10 +148,29 @@ const actionData = {
                 .setThumbnail(item.user.displayAvatarURL({ dynamic: true, size: 2048 }))
                 .setAuthor(`${item.user.tag} Joined`,
                     item.user.displayAvatarURL({ dynamic: true, size: 128 }))
-                .addField('New user', `ID: ${item.id}\nCreated at ${new DateFormatter(item.joinedAt).formatToReadable()}`);
+                .addField('User', `ID: ${item.id}\nCreated at ${new DateFormatter(item.joinedAt).formatToReadable()}`);
 
             if (item.user.flags.toArray().length > 0) e.addField('Flags', item.user.flags.toArray().join('\n'));
             if (daysSinceCreated < 7) e.addField('⚠', `Account created less than ${daysSinceCreated} day(s) before`);
+
+            return e;
+        }
+    },
+    guildMemberRemove: {
+        type: 'memberlog',
+        color: colors.orangePrimary,
+        getEmbed: function ({ item }) {
+            const rolesString = prettifyRoles(item.roles.cache);
+            console.log('ok1');
+            const e = new Embed()
+                .setTimestamp()
+                .setColor(this.color)
+                .setThumbnail(item.user.displayAvatarURL({ dynamic: true, size: 2048 }))
+                .setAuthor(`${item.user.tag} Left`,
+                    item.user.displayAvatarURL({ dynamic: true, size: 128 }))
+                .addField('User', `ID: ${item.id}${rolesString ? `\nRoles: ${rolesString.slice(0, 800)}` : ''}\nCreated at ${new DateFormatter(item.joinedAt).formatToReadable()}`);
+
+            if (item.user.flags.toArray().length > 0) e.addField('Flags', item.user.flags.toArray().join('\n'));
 
             return e;
         }
