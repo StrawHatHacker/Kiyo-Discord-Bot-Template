@@ -8,7 +8,7 @@ const { Intents, Options } = require('discord.js');
 const Kiyo = new Bot({
     presence: {
         activity: {
-            name: 'IN LESSON | BEING DEVED',
+            name: 'BEING DEVED',
             type: 'COMPETING',
         },
     },
