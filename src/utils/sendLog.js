@@ -161,7 +161,7 @@ const actionData = {
         color: colors.orangePrimary,
         getEmbed: function ({ item }) {
             const rolesString = prettifyRoles(item.roles.cache);
-            console.log('ok1');
+
             const e = new Embed()
                 .setTimestamp()
                 .setColor(this.color)
