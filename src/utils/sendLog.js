@@ -159,26 +159,22 @@ const actionData = {
         type: 'serverlog',
         color: '#6DD943',
         getEmbed: function ({ item }) {
-            const e = new Embed()
+            return new Embed()
                 .setTimestamp()
                 .setColor(this.color)
                 .setAuthor('Channel Created')
                 .setDescription(`Name: ${item.name}\nID: ${item.id}${item.parent?.name ? `\nCategory: ${item.parent.name}` : ''}\nType: ${item.type}`);
-
-            return e;
         }
     },
     channelDelete: {
         type: 'serverlog',
         color: '#e83036',
         getEmbed: function ({ item }) {
-            const e = new Embed()
+            return new Embed()
                 .setTimestamp()
                 .setColor(this.color)
                 .setAuthor('Channel Deleted')
                 .setDescription(`Name: ${item.name}\nID: ${item.id}${item.parent?.name ? `\nCategory: ${item.parent.name}` : ''}\nType: ${item.type}`);
-
-            return e;
         }
     },
     channelUpdate: {
@@ -223,6 +219,44 @@ const actionData = {
                 e.addDescription(`Bitrate: ${Math.floor(oldChannel.bitrate / 1000)}kbps => ${Math.floor(newChannel.bitrate / 1000)}kbps`);
 
             return e;
+        }
+    },
+    emojiCreate: {
+        type: 'serverlog',
+        color: '#6DD943',
+        getEmbed: function ({ item }) {
+            return new Embed()
+                .setTimestamp()
+                .setColor(this.color)
+                .setAuthor('Emoji Added')
+                .setThumbnail(item.url)
+                .setDescription(`Name: ${item.name}\nID: ${item.id}`);
+        }
+    },
+    emojiDelete: {
+        type: 'serverlog',
+        color: '#e83036',
+        getEmbed: function ({ item }) {
+            return new Embed()
+                .setTimestamp()
+                .setColor(this.color)
+                .setAuthor('Emoji Deleted')
+                .setThumbnail(item.url)
+                .setDescription(`Name: ${item.name}\nID: ${item.id}`);
+        }
+    },
+    emojiUpdate: {
+        type: 'serverlog',
+        color: '#3b77d8',
+        getEmbed: function ({ item }) {
+            const [oldEmoji, newEmoji] = item;
+
+            return new Embed()
+                .setTimestamp()
+                .setColor(this.color)
+                .setAuthor('Emoji Updated')
+                .setThumbnail(newEmoji.url)
+                .setDescription(`Name: ${oldEmoji.name} => ${newEmoji.name}\nID: ${newEmoji.id}`);
         }
     }
 };
