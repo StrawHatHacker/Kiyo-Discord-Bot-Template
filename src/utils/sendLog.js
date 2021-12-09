@@ -405,6 +405,44 @@ const actionData = {
                 .setDescription(`Channel: ${item.channel.toString()}\nURL: ${item.url}`);
         }
     },
+    messageDelete: {
+        type: 'messagelog',
+        color: colors.redPrimary,
+        getEmbed: function ({ item }) {
+            const e = new Embed()
+                .setTimestamp()
+                .setColor(this.color)
+                .setAuthor('Message Deleted')
+                .setDescription(`Author: ${item.member.displayName}\nAuthor ID: ${item.author.id}\nChannel: ${item.channel.toString()}\nAttachments: ${item.attachments.size}`)
+                .addField('Content ↓', item.content.slice(0, 2000));
+
+            if (item.content.length > 2000) {
+                e.addField('Content ↓', item.content.slice(2000, 4000));
+            }
+
+            return e;
+        }
+    },
+    messageDeleteBulk: {
+        type: 'messagelog',
+        color: colors.redPrimary,
+        getEmbed: function ({ item }) {
+            const content = item.map(msg => `${msg.member.displayName}: ${msg.content}`).reverse().join('\n');
+
+            const e = new Embed()
+                .setTimestamp()
+                .setColor(this.color)
+                .setAuthor(`Message Bulk Delete (${item.size})`)
+                .setDescription(`Channel: ${item.first().channel.toString()}`)
+                .addField('Content ↓', content.slice(0, 2000));
+
+            if (content.length > 2000) {
+                e.addField('Content ↓', content.slice(2000, 4000));
+            }
+
+            return e;
+        }
+    }
 };
 
 /**
@@ -412,7 +450,7 @@ const actionData = {
  * @param {warn|kick|ban|softban|mute|unban|unmute} action the action that triggered this log
  * @param {GuildObject} Guild object with guild data from the database
  * @param {Discord.Guild} guild 
- * @param {} item It's an item passed to get embed function. Usually is a GuildMember or User 
+ * @param {} item It's an item with information passed to get embed function to use it as it likes
  * @param {Discord.GuildMember} moderator 
  * @param {String} reason 
  * @returns {Promise<void>}
