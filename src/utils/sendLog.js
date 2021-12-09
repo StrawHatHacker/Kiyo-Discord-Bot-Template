@@ -412,7 +412,9 @@ const actionData = {
             const e = new Embed()
                 .setTimestamp()
                 .setColor(this.color)
-                .setAuthor('Message Deleted')
+                .setThumbnail(item.author.displayAvatarURL({ dynamic: true, size: 2048 }))
+                .setAuthor('Message Deleted',
+                    item.author.displayAvatarURL({ dynamic: true, size: 128 }))
                 .setDescription(`Author: ${item.member.displayName}\nAuthor ID: ${item.author.id}\nChannel: ${item.channel.toString()}\nAttachments: ${item.attachments.size}`)
                 .addField('Content ↓', item.content.slice(0, 2000));
 
