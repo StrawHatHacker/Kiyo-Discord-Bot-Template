@@ -238,6 +238,7 @@ const actionData = {
             if (oldChannel.bitrate !== newChannel.bitrate)
                 e.addDescription(`Bitrate: ${Math.floor(oldChannel.bitrate / 1000)}kbps => ${Math.floor(newChannel.bitrate / 1000)}kbps`);
 
+            if (e.description === '' || e.description === null) return null;
             return e;
         }
     },
@@ -306,6 +307,82 @@ const actionData = {
                 .addField('Unbanned user', `ID: ${item.user.id}`);
         }
     },
+    guildUpdate: {
+        type: 'serverlog',
+        color: colors.orangePrimary,
+        getEmbed: function ({ item }) {
+            const [oldGuild, newGuild] = item;
+
+            const e = new Embed()
+                .setTimestamp()
+                .setColor(this.color)
+                .setThumbnail(newGuild.iconURL({ dynamic: true, size: 2048 }))
+                .setAuthor('Server Update', newGuild.iconURL({ dynamic: true, size: 128 }));
+
+            if (oldGuild.name !== newGuild.name) e.addDescription(`Name: ${oldGuild.name} => ${newGuild.name}`);
+
+            if (oldGuild.afkChannelId !== newGuild.afkChannelId) {
+                e.addDescription(`AFK channel: ${oldGuild.afkChannel?.name || 'Not set'} => ${newGuild.afkChannel?.name || 'Unset'}`);
+            }
+
+            if (oldGuild.afkTimeout !== newGuild.afkTimeout) {
+                e.addDescription(`AFK timeout: ${oldGuild.afkTimeout / 60} minute(s) => ${newGuild.afkTimeout / 60} minute(s)`);
+            }
+
+            if (oldGuild.banner !== newGuild.banner) {
+                const oldBanner = oldGuild.bannerURL({ dynamic: true, size: 2048 });
+                const newBanner = newGuild.bannerURL({ dynamic: true, size: 2048 });
+                e.addDescription(`Banner: ${oldBanner || 'Not set'} => ${newBanner || 'Unset'}`);
+            }
+
+            if (oldGuild.explicitContentFilter !== newGuild.explicitContentFilter) {
+                e.addDescription(`Explicit content filter: ${oldGuild.explicitContentFilter} => ${newGuild.explicitContentFilter}`);
+            }
+
+            if (oldGuild.mfaLevel !== newGuild.mfaLevel) {
+                e.addDescription(`MFA level: ${oldGuild.mfaLevel} => ${newGuild.mfaLevel}`);
+            }
+
+            if (oldGuild.defaultMessageNotifications !== newGuild.defaultMessageNotifications) {
+                e.addDescription(`Default message notifications: ${oldGuild.defaultMessageNotifications} => ${newGuild.defaultMessageNotifications}`);
+            }
+
+            if (oldGuild.discoverySplash !== newGuild.discoverySplash) {
+                e.addDescription(`Discovery splash: ${oldGuild.discoverySplashURL({ size: 2048 }) || 'Not set'} => ${newGuild.discoverySplashURL({ size: 2048 }) || 'Unset'}`);
+                if (newGuild.discoverySplash) e.setImage(newGuild.discoverySplashURL({ size: 2048 }));
+            }
+
+            if (oldGuild.nsfwLevel !== newGuild.nsfwLevel) {
+                e.addDescription(`NSFW level: ${oldGuild.nsfwLevel} => ${newGuild.nsfwLevel}`);
+            }
+
+            if (oldGuild.premiumTier !== newGuild.premiumTier) {
+                e.addDescription(`Premium tier: ${oldGuild.premiumTier} => ${newGuild.premiumTier}`);
+            }
+
+            if (oldGuild.premiumSubscriptionCount !== newGuild.premiumSubscriptionCount) {
+                e.addDescription(`Premium subscription count: ${oldGuild.premiumSubscriptionCount} => ${newGuild.premiumSubscriptionCount}`);
+            }
+
+            if (oldGuild.splash !== newGuild.splash) {
+                const oldSplash = oldGuild.splashURL({ size: 2048 });
+                const newSplash = newGuild.splashURL({ size: 2048 });
+                e.addDescription(`Splash: ${oldSplash || 'Not set'} => ${newSplash || 'Unset'}`);
+                if (newGuild.splash) e.setImage(newGuild.splashURL({ size: 2048 }));
+            }
+
+            if (oldGuild.vanityURLCode !== newGuild.vanityURLCode) {
+                e.addDescription(`Vanity URL code: ${oldGuild.vanityURLCode || 'Not set'} => ${newGuild.vanityURLCode || 'Unset'}`);
+            }
+
+            if (oldGuild.verificationLevel !== newGuild.verificationLevel) {
+                e.addDescription(`Verification level: ${oldGuild.verificationLevel} => ${newGuild.verificationLevel}`);
+            }
+
+            if (e.description === '' || e.description === null) return null;
+            return e;
+        }
+    },
 };
 
 /**
@@ -337,6 +414,7 @@ module.exports = async (action, Guild, guild, item, moderator, reason) => {
 
     // call getEmbed to create an embed
     const e = d.getEmbed({ item, moderator, reason, guild });
+    if (!e) return;
 
     await channel.send({ embeds: [e] });
 };
