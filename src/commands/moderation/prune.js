@@ -34,6 +34,7 @@ module.exports = {
 
             messagesFromUser = messagesFromUser.slice(0, amount);
 
+            await message.delete();
             await message.channel.bulkDelete(messagesFromUser.map(m => m.id));
 
             const msg = await message.channel.send({ embeds: [makeDataEmbed(messagesFromUser)] });
@@ -45,6 +46,7 @@ module.exports = {
 
             if (messages.size === 0) throw new Err(404).inputErr().setMessage('There are no messages in this channel');
 
+            await message.delete();
             await message.channel.bulkDelete(messages);
 
             const msg = await message.channel.send({ embeds: [makeDataEmbed([...messages.values()])] });
