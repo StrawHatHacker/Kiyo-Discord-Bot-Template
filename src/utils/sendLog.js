@@ -383,6 +383,28 @@ const actionData = {
             return e;
         }
     },
+    inviteCreate: {
+        type: 'serverlog',
+        color: colors.greenPrimary,
+        getEmbed: function ({ item }) {
+            return new Embed()
+                .setTimestamp()
+                .setColor(this.color)
+                .setAuthor('Invite link created')
+                .setDescription(`Channel: ${item.channel.toString()}\nURL: ${item.url}`);
+        }
+    },
+    inviteDelete: {
+        type: 'serverlog',
+        color: colors.redPrimary,
+        getEmbed: function ({ item }) {
+            return new Embed()
+                .setTimestamp()
+                .setColor(this.color)
+                .setAuthor('Invite link deleted')
+                .setDescription(`Channel: ${item.channel.toString()}\nURL: ${item.url}`);
+        }
+    },
 };
 
 /**
