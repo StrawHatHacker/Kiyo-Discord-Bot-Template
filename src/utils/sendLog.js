@@ -444,7 +444,31 @@ const actionData = {
 
             return e;
         }
-    }
+    },
+    messageUpdate: {
+        type: 'messagelog',
+        color: colors.bluePrimary,
+        getEmbed: function ({ item }) {
+            const [oldMessage, newMessage] = item;
+
+            const e = new Embed()
+                .setTimestamp()
+                .setColor(this.color)
+                .setThumbnail(newMessage.author.displayAvatarURL({ dynamic: true, size: 2048 }))
+                .setAuthor('Message Updated',
+                    newMessage.author.displayAvatarURL({ dynamic: true, size: 128 }))
+                .addDescription(`Channel: ${newMessage.channel.toString()}`)
+                .addDescription(`[Jump To Message](https://discordapp.com/channels/${newMessage.guild.id}/${newMessage.channel.id}/${newMessage.id})`);
+
+            e.addField('Content Before ↓', oldMessage.content.slice(0, 2000));
+            if (oldMessage.content.length > 2000) e.addField('Content Before ↓', oldMessage.content.slice(2000, 4000));
+
+            e.addField('Content After ↓', newMessage.content.slice(0, 2000));
+            if (newMessage.content.length > 2000) e.addField('Content After ↓', newMessage.content.slice(2000, 4000));
+
+            return e;
+        }
+    },
 };
 
 /**
