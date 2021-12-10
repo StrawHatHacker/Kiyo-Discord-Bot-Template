@@ -1,6 +1,7 @@
 'use strict';
 
 const DateFormatter = require('../utils/DateFormatter');
+const Permissions = require('../classes/Permissions');
 const prettifyRoles = require('./prettifyRoles');
 const Embed = require('../classes/Embed');
 const { colors } = require('../config');
@@ -469,6 +470,64 @@ const actionData = {
             return e;
         }
     },
+    roleCreate: {
+        type: 'serverlog',
+        color: colors.greenPrimary,
+        getEmbed: function ({ item }) {
+            const e = new Embed()
+                .setTimestamp()
+                .setColor(this.color)
+                .setAuthor('Role created')
+                .setDescription(`Name: ${item.name}\nRole: ${item.toString()}\nID: ${item.id}\nColor: ${item.hexColor}`)
+                .addField('Key Permissions ↓', new Permissions(item.permissions.toArray()).filterKeyPerms().formatToReadable());
+
+            if (item.icon) e.setThumbnail(item.iconURL({ size: 1024 }));
+
+            return e;
+        }
+    },
+    roleDelete: {
+        type: 'serverlog',
+        color: colors.redPrimary,
+        getEmbed: function ({ item }) {
+            const e = new Embed()
+                .setTimestamp()
+                .setColor(this.color)
+                .setAuthor('Role deleted')
+                .setDescription(`Name: ${item.name}\nID: ${item.id}\nColor: ${item.hexColor}`)
+                .addField('Key Permissions ↓', new Permissions(item.permissions.toArray()).filterKeyPerms().formatToReadable());
+
+            if (item.icon) e.setThumbnail(item.iconURL({ size: 1024 }));
+
+            return e;
+        }
+    },
+    roleUpdate: {
+        type: 'serverlog',
+        color: colors.orangePrimary,
+        getEmbed: function ({ item }) {
+            const [oldRole, newRole] = item;
+
+            const e = new Embed()
+                .setTimestamp()
+                .setColor(this.color)
+                .setAuthor('Role update');
+
+            const oldPerms = new Permissions(oldRole.permissions).filterKeyPerms().formatToReadable();
+            const newPerms = new Permissions(newRole.permissions).filterKeyPerms().formatToReadable();
+
+            if (oldRole.name !== newRole.name) e.addDescription(`Name: ${oldRole.name} => ${newRole.name}`);
+            else e.addDescription(`Name: ${newRole.name}`);
+            if (oldRole.hexColor !== newRole.hexColor) e.addDescription(`Color: ${oldRole.hexColor} => ${newRole.hexColor}`);
+            if (oldRole.hoist !== newRole.hoist) e.addDescription(`Hoist: ${oldRole.hoist} => ${newRole.hoist}`);
+            if (oldRole.mentionable !== newRole.mentionable) e.addDescription(`Mentionable: ${oldRole.mentionable} => ${newRole.mentionable}`);
+            if (oldRole.rawPosition !== newRole.rawPosition) e.addDescription(`Position: ${oldRole.rawPosition} => ${newRole.rawPosition}`);
+            if (oldPerms !== newPerms) e.addDescription(`**Key Permissions ↓**\n${oldPerms} => ${newPerms}`);
+
+            if (e.description === '' || e.description === null) return null;
+            return e;
+        }
+    }
 };
 
 /**
