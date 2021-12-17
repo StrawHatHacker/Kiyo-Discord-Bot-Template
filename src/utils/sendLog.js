@@ -527,7 +527,52 @@ const actionData = {
             if (e.description === '' || e.description === null) return null;
             return e;
         }
-    }
+    },
+    stickerCreate: {
+        type: 'serverlog',
+        color: colors.greenPrimary,
+        getEmbed: function ({ item }) {
+            return new Embed()
+                .setTimestamp()
+                .setColor(this.color)
+                .setAuthor('Sticker Added')
+                .setThumbnail(item.url)
+                .setDescription(`Name: ${item.name}\nID: ${item.id}\nDescription: ${item.description}\nTags: ${item?.tags?.join(', ') || 'No tags'}`);
+        }
+    },
+    stickerDelete: {
+        type: 'serverlog',
+        color: colors.redPrimary,
+        getEmbed: function ({ item }) {
+            return new Embed()
+                .setTimestamp()
+                .setColor(this.color)
+                .setAuthor('Sticker Deleted')
+                .setDescription(`Name: ${item.name}\nID: ${item.id}\nDescription: ${item.description}\nTags: ${item?.tags?.join(', ') || 'No tags'}`);
+        }
+    },
+    stickerUpdate: {
+        type: 'serverlog',
+        color: colors.orangePrimary,
+        getEmbed: function ({ item }) {
+            const [oldSticker, newSticker] = item;
+
+            const e = new Embed()
+                .setTimestamp()
+                .setColor(this.color)
+                .setAuthor('Sticker Updated')
+                .setThumbnail(newSticker.url);
+
+            if (oldSticker.name !== newSticker.name) e.addDescription(`Name: ${oldSticker.name} => ${newSticker.name}`);
+            if (oldSticker.description !== newSticker.description) e.addDescription(`Description: ${oldSticker.description} => ${newSticker.description}`);
+            if (oldSticker.tags !== newSticker.tags)
+                e.addDescription(`Tags: ${oldSticker?.tags?.join(', ') || 'No tags'} => ${newSticker?.tags?.join(', ') || 'No tags'}`);
+
+            if (e.description === '' || e.description === null) return null;
+
+            return e;
+        }
+    },
 };
 
 /**
