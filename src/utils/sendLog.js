@@ -169,7 +169,7 @@ const actionData = {
                 .setThumbnail(item.user.displayAvatarURL({ dynamic: true, size: 2048 }))
                 .setAuthor(`${item.user.tag} Left`,
                     item.user.displayAvatarURL({ dynamic: true, size: 128 }))
-                .addField('User', `ID: ${item.id}${rolesString ? `\nRoles: ${rolesString.slice(0, 800)}` : ''}\nCreated at ${new DateFormatter(item.joinedAt).formatToReadable()}`);
+                .addField('User', `ID: ${item.id}${rolesString ? `\nRoles: ${rolesString.slice(0, 800)}` : ''}\nCreated at ${new DateFormatter(item.user.createdAt).formatToReadable()}`);
 
             if (item.user.flags.toArray().length > 0) e.addField('Flags', item.user.flags.toArray().join('\n'));
 
