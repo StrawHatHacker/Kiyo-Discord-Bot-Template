@@ -139,7 +139,7 @@ const actionData = {
         type: 'memberlog',
         color: colors.greenPrimary,
         getEmbed: function ({ item }) {
-            const timeSinceCreated = new Date().getTime() - item.joinedAt.getTime();
+            const timeSinceCreated = new Date().getTime() - item.user.createdAt.getTime();
 
             const daysSinceCreated = timeSinceCreated / 1000 * 3600 * 24;
 
@@ -149,7 +149,7 @@ const actionData = {
                 .setThumbnail(item.user.displayAvatarURL({ dynamic: true, size: 2048 }))
                 .setAuthor(`${item.user.tag} Joined`,
                     item.user.displayAvatarURL({ dynamic: true, size: 128 }))
-                .addField('User', `ID: ${item.id}\nCreated at ${new DateFormatter(item.joinedAt).formatToReadable()}`);
+                .addField('User', `ID: ${item.id}\nCreated at: ${new DateFormatter(item.user.createdAt).formatToReadable()}`);
 
             if (item.user.flags.toArray().length > 0) e.addField('Flags', item.user.flags.toArray().join('\n'));
             if (daysSinceCreated < 7) e.addField('⚠', `Account created less than ${daysSinceCreated} day(s) before`);
