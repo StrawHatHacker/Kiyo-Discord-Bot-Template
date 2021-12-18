@@ -573,6 +573,46 @@ const actionData = {
             return e;
         }
     },
+    threadCreate: {
+        type: 'serverlog',
+        color: colors.greenPrimary,
+        getEmbed: function ({ item }) {
+            return new Embed()
+                .setTimestamp()
+                .setColor(this.color)
+                .setAuthor('Channel Created')
+                .setDescription(`Name: ${item.name}\nID: ${item.id}\nParent: ${item.parent.name}\nType: thread`);
+        }
+    },
+    threadDelete: {
+        type: 'serverlog',
+        color: colors.redPrimary,
+        getEmbed: function ({ item }) {
+            return new Embed()
+                .setTimestamp()
+                .setColor(this.color)
+                .setAuthor('Channel Deleted')
+                .setDescription(`Name: ${item.name}\nID: ${item.id}\nParent: ${item.parent.name}\nType: thread`);
+        }
+    },
+    threadUpdate: {
+        type: 'serverlog',
+        color: colors.orangePrimary,
+        getEmbed: function ({ item }) {
+            const [oldThread, newThread] = item;
+
+            const e = new Embed()
+                .setTimestamp()
+                .setColor(this.color)
+                .setAuthor('Channel Updated');
+
+            if (newThread.name !== newThread.name)
+                e.addDescription(`Name: ${oldThread.name} => ${newThread.name}`);
+
+            if (e.description === '' || e.description === null) return null;
+            return e;
+        }
+    },
 };
 
 /**
