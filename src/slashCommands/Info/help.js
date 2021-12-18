@@ -74,7 +74,7 @@ const sendCommandHelp = async (interaction, cmd) => {
     const e = new Embed()
         .setColor(interaction.guild.me.roles.color?.hexColor || 0xffffff)
         .setTitle(`Command: ${cmd.name}`)
-        .addDescription(`Syntax: \`/${cmd.syntax}\``)
+        .addDescription(`Syntax: \`${cmd.syntax}\``)
         .addDescription(`Module: ${cmd.module}`);
 
     if (cmd.aliases?.length > 0) e.addDescription(`Aliases: ${cmd.aliases.map(c => `\`${c}\``).join(', ')}`);
