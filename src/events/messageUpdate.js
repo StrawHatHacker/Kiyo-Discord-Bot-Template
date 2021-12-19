@@ -15,6 +15,9 @@ module.exports = async (_client, oldMessage, newMessage) => {
     // Return if newly edited message is the same as before
     if (oldMessage.content === newMessage.content) return;
 
+    // Return if message is edited by bot
+    if (newMessage.author.bot) return;
+
     const Guild = await GuildModel.findById(newMessage.guild.id);
     if (!Guild) return;
 
