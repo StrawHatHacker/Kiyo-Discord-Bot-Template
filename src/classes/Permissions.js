@@ -81,7 +81,10 @@ module.exports = class Permissions {
     formatToReadable() {
         let _ = new Set();
 
-        for (const p of this.perms) _.add(PERM_FLAGS[p]);
+        for (const p of this.perms) {
+            if (PERM_FLAGS[p]) _.add(PERM_FLAGS[p]);
+            else _.add(p);
+        }
 
         return Array.from(_).join(', ');
     }
@@ -90,7 +93,10 @@ module.exports = class Permissions {
     formatToReadableCode() {
         let _ = new Set();
 
-        for (const p of this.perms) _.add(`\`${PERM_FLAGS[p]}\``);
+        for (const p of this.perms) {
+            if (PERM_FLAGS[p]) _.add(`\`${PERM_FLAGS[p]}\``);
+            else _.add(`\`${p}\``);
+        }
 
         return Array.from(_).join(', ');
     }
