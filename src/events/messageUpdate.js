@@ -12,6 +12,9 @@ module.exports = async (_client, oldMessage, newMessage) => {
     // Return in case of uncached message
     if (!oldMessage.content) return;
 
+    // Return if newly edited message is the same as before
+    if (oldMessage.content === newMessage.content) return;
+
     const Guild = await GuildModel.findById(newMessage.guild.id);
     if (!Guild) return;
 
