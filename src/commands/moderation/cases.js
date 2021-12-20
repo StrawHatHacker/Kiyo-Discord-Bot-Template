@@ -17,6 +17,7 @@ module.exports = {
         user: COMMAND_PERMS.cases.user,
         client: [],
     },
+    cooldown: 2000,
     async run({ message, args, client }) {
         const userInput = args[0];
         if (!userInput) return;

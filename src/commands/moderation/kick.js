@@ -16,6 +16,7 @@ module.exports = {
         user: ['KICK_MEMBERS'],
         client: ['KICK_MEMBERS']
     },
+    cooldown: 2000,
     async run({ message, args, Guild }) {
         const memberInput = args[0];
         if (!memberInput) return;

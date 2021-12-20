@@ -77,6 +77,7 @@ module.exports = class Bot extends Client {
                     user: [],
                     client: []
                 },
+                cooldown: 5000,
                 module: 'reactions',
                 run: ReactionsCMD.run,
                 data: new SlashCommandBuilder().setName(r).setDescription('Anime GIFs as reactions')

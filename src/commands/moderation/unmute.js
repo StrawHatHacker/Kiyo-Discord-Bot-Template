@@ -18,6 +18,7 @@ module.exports = {
         user: COMMAND_PERMS.mute.user,
         client: ['MANAGE_ROLES']
     },
+    cooldown: 2000,
     async run({ message, args, Guild }) {
         const memberInput = args[0];
         if (!memberInput) return;

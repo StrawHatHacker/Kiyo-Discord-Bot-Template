@@ -14,6 +14,7 @@ module.exports = {
         client: []
     },
     slashCommand: true,
+    cooldown: 5000,
     selfPopulate() {
         this.data = new SlashCommandBuilder().setName(this.name).setDescription(this.description);
     },

@@ -16,6 +16,7 @@ module.exports = {
         user: ['BAN_MEMBERS'],
         client: ['BAN_MEMBERS']
     },
+    cooldown: 2000,
     async run({ message, args, Guild }) {
         const memberInput = args[0];
         if (!memberInput) return;

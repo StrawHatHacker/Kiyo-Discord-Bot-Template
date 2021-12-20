@@ -14,6 +14,7 @@ module.exports = {
         user: COMMAND_PERMS.removecase.user,
         client: []
     },
+    cooldown: 2000,
     async run({ message, args }) {
         let caseNumberInput = args[0];
         if (!caseNumberInput) return;

@@ -18,6 +18,7 @@ module.exports = {
         client: []
     },
     slashCommand: true,
+    cooldown: 5000,
     selfPopulate() {
         this.data = new SlashCommandBuilder().setName('userinfo').setDescription('Shows information about a user')
             .addMentionableOption(o => o.setName('user').setDescription('Mention a user (@)'));

@@ -15,6 +15,7 @@ module.exports = {
         user: COMMAND_PERMS.addmuterole.user,
         client: []
     },
+    cooldown: 2000,
     async run({ message, args, Guild }) {
         const roleInput = args[0];
         if (!roleInput) return;

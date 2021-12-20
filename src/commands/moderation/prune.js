@@ -14,6 +14,7 @@ module.exports = {
         user: COMMAND_PERMS.prune.user,
         client: ['MANAGE_MESSAGES']
     },
+    cooldown: 5000,
     async run({ message, args }) {
         const amountInput = args[0];
         const memberInput = args[1];
