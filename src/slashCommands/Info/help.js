@@ -32,7 +32,7 @@ module.exports = {
                 .addDescription('Type `/help commandName` to see all information of that command.')
                 .addField('Prefix Modules', Object.keys(client.modulesWithCommands).map(m => `\`${m}\``).join(', '))
                 .addField('Slash Modules', Object.keys(client.modulesWithSlashCommands).map(m => `\`${m}\``).join(', '))
-                .addField('Referrals', 'Hosting Services: [DigitalOcean](https://m.do.co/c/f51cd516e684), [Hetzner](https://hetzner.cloud/?ref=0fswF9Kv99Av)\nCDN: [BunnyCDN](https://bunnycdn.com/?ref=1dqicv581x)\nVPN: [Surfshark](https://surfshark.club/friend/VZJP3rPr)')
+                .addField('Referrals', 'Cloud servers: [DigitalOcean](https://m.do.co/c/f51cd516e684), [Hetzner](https://hetzner.cloud/?ref=0fswF9Kv99Av)\nCDN: [BunnyCDN](https://bunnycdn.com/?ref=1dqicv581x)')
                 .addField('Donate', '[Ko-fi](https://ko-fi.com/skillers3)');
 
             return await interaction.reply({ embeds: [e] });

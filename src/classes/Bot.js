@@ -1,5 +1,4 @@
 'use strict';
-
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { Routes } = require('discord-api-types/v9');
 const { REST } = require('@discordjs/rest');
@@ -97,18 +96,14 @@ module.exports = class Bot extends Client {
 
             const slashCommandsData = this.slashCommands.map(c => c.data.toJSON());
             if (process.env.ENVIRONMENT === 'DEV') {
-
                 await rest.put(
                     Routes.applicationGuildCommands(process.env.BOT_ID, process.env.DEV_GUILD_ID),
-                    { body: slashCommandsData }
-                );
+                    { body: slashCommandsData });
 
             } else if (process.env.ENVIRONMENT === 'PRODUCTION') {
-
                 await rest.put(
                     Routes.applicationCommands(process.env.BOT_ID),
-                    { body: slashCommandsData }
-                );
+                    { body: slashCommandsData });
 
             } else {
                 throw new Error('Environment variable "ENVIRONMENT" is neither "DEV" or "PRODUCTION"');
