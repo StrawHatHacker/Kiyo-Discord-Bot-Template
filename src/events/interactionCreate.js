@@ -10,18 +10,22 @@ module.exports = async (client, interaction) => {
     if (!interaction.guild?.available) return;
     if (!interaction.isCommand() || !interaction.inGuild()) return;
 
-    for (const { name, run, aliases, requiredPermissions, cooldown } of client.slashCommands) {
+    // Find the interaction
+    const interactionToRun = client.slashCommands.find(i => i.aliases.includes(interaction.commandName) || interaction.commandName === i.name);
+    if (!interactionToRun) return;
 
-        if (!aliases.includes(interaction.commandName) && interaction.commandName !== name) continue;
-        if (cooldown && onCooldown(name, interaction.member.id, cooldown) === true)
-            return interaction.reply({ content: 'You are on cooldown', ephemeral: true });
+    const { name, run, requiredPermissions, cooldown } = interactionToRun;
 
-        await databaseUtils.user.findOneOrCreate(interaction.member.id);
+    // If interaction has a cooldown, check if the user is on cooldown
+    if (cooldown && onCooldown(name, interaction.member.id, cooldown) === true)
+        return interaction.reply({ content: 'You are on cooldown', ephemeral: true });
 
-        // Checking both member and bot permissions before executing the command
-        if (!checkForSlashPermissions(interaction, name, requiredPermissions)) return;
+    await databaseUtils.user.findOneOrCreate(interaction.member.id);
 
-        return run(client, interaction).catch(e => interactionErrorHandler(e, interaction));
+    // Checking both member and bot permissions before executing the interaction
+    if (!checkForSlashPermissions(interaction, name, requiredPermissions)) return;
 
-    }
+    // Run the interaction
+    run(client, interaction)
+        .catch(e => interactionErrorHandler(e, interaction));
 };

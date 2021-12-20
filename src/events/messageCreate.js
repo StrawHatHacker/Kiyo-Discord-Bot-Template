@@ -26,21 +26,24 @@ module.exports = async (client, message) => {
     let [cmd, ...args] = message.content.slice(Guild.prefix.length).split(/\s+/g);
     cmd = cmd.toLowerCase(); // Lowercase the cmd to match it with lowercase aliases
 
-    // Looping through all available commands
-    for (const { name, run, aliases, requiredPermissions, cooldown } of client.commands) {
+    // Find the command
+    const commandToRun = client.commands.find(c => c.aliases.includes(cmd) || c.name.toLowerCase() === cmd);
+    if (!commandToRun) return;
 
-        // If cmd in not in aliases skip this command or not in command name
-        if (!aliases.includes(cmd) && name.toLowerCase() !== cmd) continue;
+    const { name, requiredPermissions, cooldown, run } = commandToRun;
 
-        // Checking both member and bot permissions before executing the command
-        if (!checkPermissions(message, name, requiredPermissions)) return;
+    // Check both member and bot permissions before executing the command
+    if (!checkPermissions(message, name, requiredPermissions)) return;
 
-        if (cooldown && onCooldown(name, message.author.id, cooldown) === true) return message.channel.send('You are on cooldown');
+    // If command has a cooldown, check if the user is on cooldown
+    if (cooldown && onCooldown(name, message.author.id, cooldown) === true) return message.channel.send('You are on cooldown');
 
-        /*   ,    array                        Slice off the prefix      Split at spaces*/
-        let [, ...cleanArgs] = message.content.slice(Guild.prefix.length).split(/\s/g);
+    // The differnce between cleanArgs and args is that cleanArgs doen't trim spaces or newlines
+    // So it's used for multiline input or input that needs to exactly how the user intended
+    /*   ,    array                        Slice off the prefix      Split at spaces*/
+    let [, ...cleanArgs] = message.content.slice(Guild.prefix.length).split(/\s/g);
 
-        // Run the command
-        return run({ message, cmd, client, args, cleanArgs: cleanArgs.join(' '), Guild, User }).catch(e => errorHandler(e, message));
-    }
+    // Run the command
+    run({ message, cmd, client, args, cleanArgs: cleanArgs.join(' '), Guild, User })
+        .catch(e => errorHandler(e, message));
 };
