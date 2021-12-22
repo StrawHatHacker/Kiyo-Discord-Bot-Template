@@ -538,8 +538,7 @@ const actionData = {
             if (oldRole.hexColor !== newRole.hexColor) e.addDescription(`Color: ${oldRole.hexColor} => ${newRole.hexColor}`);
             if (oldRole.hoist !== newRole.hoist) e.addDescription(`Hoist: ${oldRole.hoist} => ${newRole.hoist}`);
             if (oldRole.mentionable !== newRole.mentionable) e.addDescription(`Mentionable: ${oldRole.mentionable} => ${newRole.mentionable}`);
-            if (oldRole.rawPosition !== newRole.rawPosition) e.addDescription(`Position: ${oldRole.rawPosition} => ${newRole.rawPosition}`);
-            if (oldPerms !== newPerms) e.addDescription(`**Key Permissions ↓**\n${oldPerms} => ${newPerms}`);
+            if (oldPerms !== newPerms) e.addDescription(`**Key Permissions ↓**\n${oldPerms} => ${newPerms}`); // TODO Only show which permissions changed, not all of them
 
             if (e.description === '' || e.description === null) return null;
             return e;
