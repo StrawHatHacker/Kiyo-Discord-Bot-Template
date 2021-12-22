@@ -36,19 +36,19 @@ module.exports = {
             messagesFromUser = messagesFromUser.slice(0, amount);
 
             await message.delete();
-            await message.channel.bulkDelete(messagesFromUser.map(m => m.id));
+            await message.channel.bulkDelete(messagesFromUser.map(m => m.id), true);
 
             const msg = await message.channel.send({ embeds: [makeDataEmbed(messagesFromUser)] });
             setTimeout(() => msg.delete(), 10000);
 
         } else {
-            let messages = await message.channel.messages.fetch({ limit: amount }, true);
+            let messages = await message.channel.messages.fetch({ limit: amount });
             messages = messages.filter(m => !m.pinned);
 
             if (messages.size === 0) throw new Err(404).inputErr().setMessage('There are no messages in this channel');
 
             await message.delete();
-            await message.channel.bulkDelete(messages);
+            await message.channel.bulkDelete(messages, true);
 
             const msg = await message.channel.send({ embeds: [makeDataEmbed([...messages.values()])] });
             setTimeout(() => msg.delete(), 10000);
