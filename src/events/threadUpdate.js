@@ -10,5 +10,5 @@ module.exports = async (_client, oldThread, newThread) => {
     const Guild = await GuildModel.findById(newThread.guild.id);
     if (!Guild) return;
 
-    await sendLog('channelUpdate', Guild, newThread.guild, [oldThread, newThread]);
+    await sendLog('threadUpdate', Guild, newThread.guild, [oldThread, newThread]);
 };
