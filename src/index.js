@@ -1,6 +1,8 @@
 'use strict';
 
 require('dotenv').config();
+require('./polyfills');
+
 const Bot = require('./classes/Bot');
 const { Intents, Options } = require('discord.js');
 
