@@ -632,7 +632,9 @@ const actionData = {
 };
 
 /**
- * @description Sends a log message to the corresponding log channel
+ * @description Sends a log message to the corresponding log channel. It has a
+ *             set delay so audit logs have time to be created. 
+ *             Use with caution because it might make your commands slower
  * @param {warn|kick|ban|softban|mute|unban|unmute} action the action that triggered this log
  * @param {GuildObject} Guild object with guild data from the database
  * @param {Discord.Guild} guild 
@@ -658,9 +660,11 @@ module.exports = async (action, Guild, guild, item, moderator, reason) => {
     const channel = guild.channels.cache.get(Guild[db_field]);
     if (!channel) return;
 
+    await wait(500);
+
     // call getEmbed to create an embed
-    const e = d.getEmbed({ item, moderator, reason, guild });
+    const e = await d.getEmbed({ item, moderator, reason, guild });
     if (!e) return;
 
-    await channel.send({ embeds: [e] });
+    await channel.send({ embeds: [e] }).catch(() => null);
 };
