@@ -1,6 +1,6 @@
 'use strict';
 
-const { USER_FLAGS } = require('../config');
+const { USER_FLAGS, CHANNEL_TYPES } = require('../config');
 
 module.exports.prettifyUserFlags = (flagArray) => {
     if (!Array.isArray(flagArray)) throw new Error('Flag array is not an array');
@@ -21,6 +21,6 @@ module.exports.prettifyUserFlags = (flagArray) => {
 module.exports.prettifyChannelTypeFlags = (flag) => {
     if (typeof flag !== 'string') throw new Error('Flag is not a string');
 
-    if (USER_FLAGS[flag]) return USER_FLAGS[flag];
+    if (CHANNEL_TYPES[flag]) return CHANNEL_TYPES[flag];
     else return flag;
 };
