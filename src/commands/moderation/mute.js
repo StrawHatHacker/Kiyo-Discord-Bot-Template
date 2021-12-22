@@ -47,6 +47,7 @@ module.exports = {
         if (providedTime) {
             Time = new TimeParser(providedTime);
 
+            // TODO put these at the end of the file
             // These don't need to be executed immediately,
             // so they don't have to delay the message reponses, hence why they are wrapped in a setImmediate
             setImmediate(async () => {
@@ -67,11 +68,11 @@ module.exports = {
         await memberToMute.send(`You have been muted in **${message.guild.name}** for: *${reason}*${providedTime ? `\nTime: ${Time.toReadable()}` : ''}`).catch(() => null);
         await memberToMute.roles.add(muteRoleArrayToAdd, 'Muted ' + reason);
 
-        await createCase(message.guild.id, memberToMute.id, message.author.id, reason, 'mute');
+        const NewCase = await createCase(message.guild.id, memberToMute.id, message.author.id, reason, 'mute');
 
         const e = new Embed().setDescription(`**${memberToMute.user.tag} has been muted**`).isSuccess();
         await message.channel.send({ embeds: [e] });
 
-        await sendLog('mute', Guild, message.guild, memberToMute, message.member, reason);
+        await sendLog('mute', Guild, message.guild, [memberToMute, NewCase], message.member, reason);
     }
 };

@@ -33,11 +33,11 @@ module.exports = {
         await memberToBan.ban({ reason, days: 7 });
         await message.guild.bans.remove(memberToBan.id, `Softban | ${reason}`);
 
-        await createCase(message.guild.id, memberToBan.id, message.author.id, reason, 'softban');
+        const NewCase = await createCase(message.guild.id, memberToBan.id, message.author.id, reason, 'softban');
 
         const e = new Embed().setDescription(`**${memberToBan.user.tag} has been softbanned**`).isSuccess();
         await message.channel.send({ embeds: [e] });
 
-        await sendLog('softban', Guild, message.guild, memberToBan, message.member, reason);
+        await sendLog('softban', Guild, message.guild, [memberToBan, NewCase], message.member, reason);
     }
 };

@@ -31,11 +31,11 @@ module.exports = {
 
         await memberToWarn.send(`You have been warned in **${message.guild.name}** for: *${reason}*`).catch(() => null);
 
-        await createCase(message.guild.id, memberToWarn.id, message.author.id, reason, 'warn');
+        const NewCase = await createCase(message.guild.id, memberToWarn.id, message.author.id, reason, 'warn');
 
         const e = new Embed().setDescription(`**${memberToWarn.user.tag} has been warned**`).isSuccess();
         await message.channel.send({ embeds: [e] });
 
-        await sendLog('warn', Guild, message.guild, memberToWarn, message.member, reason);
+        await sendLog('warn', Guild, message.guild, [memberToWarn, NewCase], message.member, reason);
     }
 };

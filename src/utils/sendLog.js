@@ -21,17 +21,19 @@ const actionData = {
         color: colors.orangePrimary,
         userGot: 'Warned',
         getEmbed: function ({ item, moderator, reason }) {
-            const rolesString = prettifyRoles(item.roles.cache);
+            const [memberToWarn, NewCase] = item;
+            const rolesString = prettifyRoles(memberToWarn.roles.cache);
 
             return new Embed()
                 .setTimestamp()
                 .setColor(this.color)
-                .setThumbnail(item.user.displayAvatarURL({ dynamic: true, size: 2048 }))
-                .setAuthor(`${item.user.tag} got ${this.userGot}`,
-                    item.user.displayAvatarURL({ dynamic: true, size: 128 }))
-                .addField(`${this.userGot} user`, `ID: ${item.id}\n${rolesString ? `Roles: ${rolesString}` : ''}`)
+                .setThumbnail(memberToWarn.user.displayAvatarURL({ dynamic: true, size: 2048 }))
+                .setAuthor(`${memberToWarn.user.tag} got ${this.userGot}`,
+                    memberToWarn.user.displayAvatarURL({ dynamic: true, size: 128 }))
+                .addField(`${this.userGot} user`, `ID: ${memberToWarn.id}\n${rolesString ? `Roles: ${rolesString}` : ''}`)
                 .addField('Moderator', `${moderator.user.tag}\n${moderator.id}`)
-                .addField('Reason', `${reason.slice(0, 1024)}`);
+                .addField('Reason', `${reason.slice(0, 1024)}`)
+                .setFooter(`Case #${NewCase.case}`);
         }
     },
     kick: {
@@ -39,17 +41,19 @@ const actionData = {
         color: colors.redSecondary,
         userGot: 'Kicked',
         getEmbed: function ({ item, moderator, reason }) {
-            const rolesString = prettifyRoles(item.roles.cache);
+            const [memberToKick, NewCase] = item;
+            const rolesString = prettifyRoles(memberToKick.roles.cache);
 
             return new Embed()
                 .setTimestamp()
                 .setColor(this.color)
-                .setThumbnail(item.user.displayAvatarURL({ dynamic: true, size: 2048 }))
-                .setAuthor(`${item.user.tag} got ${this.userGot}`,
-                    item.user.displayAvatarURL({ dynamic: true, size: 128 }))
-                .addField(`${this.userGot} user`, `ID: ${item.id}\n${rolesString ? `Roles: ${rolesString}` : ''}`)
+                .setThumbnail(memberToKick.user.displayAvatarURL({ dynamic: true, size: 2048 }))
+                .setAuthor(`${memberToKick.user.tag} got ${this.userGot}`,
+                    memberToKick.user.displayAvatarURL({ dynamic: true, size: 128 }))
+                .addField(`${this.userGot} user`, `ID: ${memberToKick.id}\n${rolesString ? `Roles: ${rolesString}` : ''}`)
                 .addField('Moderator', `${moderator.user.tag}\n${moderator.id}`)
-                .addField('Reason', `${reason.slice(0, 1024)}`);
+                .addField('Reason', `${reason.slice(0, 1024)}`)
+                .setFooter(`Case #${NewCase.case}`);
         }
     },
     ban: {
@@ -57,17 +61,19 @@ const actionData = {
         color: colors.redPrimary,
         userGot: 'Banned',
         getEmbed: function ({ item, moderator, reason }) {
-            const rolesString = prettifyRoles(item.roles.cache);
+            const [memberToBan, NewCase] = item;
+            const rolesString = prettifyRoles(memberToBan.roles.cache);
 
             return new Embed()
                 .setTimestamp()
                 .setColor(this.color)
-                .setThumbnail(item.user.displayAvatarURL({ dynamic: true, size: 2048 }))
-                .setAuthor(`${item.user.tag} got ${this.userGot}`,
-                    item.user.displayAvatarURL({ dynamic: true, size: 128 }))
-                .addField(`${this.userGot} user`, `ID: ${item.id}\n${rolesString ? `Roles: ${rolesString}` : ''}`)
+                .setThumbnail(memberToBan.user.displayAvatarURL({ dynamic: true, size: 2048 }))
+                .setAuthor(`${memberToBan.user.tag} got ${this.userGot}`,
+                    memberToBan.user.displayAvatarURL({ dynamic: true, size: 128 }))
+                .addField(`${this.userGot} user`, `ID: ${memberToBan.id}\n${rolesString ? `Roles: ${rolesString}` : ''}`)
                 .addField('Moderator', `${moderator.user.tag}\n${moderator.id}`)
-                .addField('Reason', `${reason.slice(0, 1024)}`);
+                .addField('Reason', `${reason.slice(0, 1024)}`)
+                .setFooter(`Case #${NewCase.case}`);
         }
     },
     mute: {
@@ -75,15 +81,18 @@ const actionData = {
         color: colors.orangePrimary,
         userGot: 'Muted',
         getEmbed: function ({ item, moderator, reason }) {
+            const [memberToMute, NewCase] = item;
+
             return new Embed()
                 .setTimestamp()
                 .setColor(this.color)
-                .setThumbnail(item.user.displayAvatarURL({ dynamic: true, size: 2048 }))
-                .setAuthor(`${item.user.tag} got ${this.userGot}`,
-                    item.user.displayAvatarURL({ dynamic: true, size: 128 }))
-                .addField(`${this.userGot} user`, `ID: ${item.id}`)
+                .setThumbnail(memberToMute.user.displayAvatarURL({ dynamic: true, size: 2048 }))
+                .setAuthor(`${memberToMute.user.tag} got ${this.userGot}`,
+                    memberToMute.user.displayAvatarURL({ dynamic: true, size: 128 }))
+                .addField(`${this.userGot} user`, `ID: ${memberToMute.id}`)
                 .addField('Moderator', `${moderator.user.tag}\n${moderator.id}`)
-                .addField('Reason', `${reason.slice(0, 1024)}`);
+                .addField('Reason', `${reason.slice(0, 1024)}`)
+                .setFooter(`Case #${NewCase.case}`);
         }
     },
     softban: {
@@ -91,17 +100,19 @@ const actionData = {
         color: colors.redSecondary,
         userGot: 'Softbanned',
         getEmbed: function ({ item, moderator, reason }) {
-            const rolesString = prettifyRoles(item.roles.cache);
+            const [memberToBan, NewCase] = item;
+            const rolesString = prettifyRoles(memberToBan.roles.cache);
 
             return new Embed()
                 .setTimestamp()
                 .setColor(this.color)
-                .setThumbnail(item.user.displayAvatarURL({ dynamic: true, size: 2048 }))
-                .setAuthor(`${item.user.tag} got ${this.userGot}`,
-                    item.user.displayAvatarURL({ dynamic: true, size: 128 }))
-                .addField(`${this.userGot} user`, `ID: ${item.id}\n${rolesString ? `Roles: ${rolesString}` : ''}`)
+                .setThumbnail(memberToBan.user.displayAvatarURL({ dynamic: true, size: 2048 }))
+                .setAuthor(`${memberToBan.user.tag} got ${this.userGot}`,
+                    memberToBan.user.displayAvatarURL({ dynamic: true, size: 128 }))
+                .addField(`${this.userGot} user`, `ID: ${memberToBan.id}\n${rolesString ? `Roles: ${rolesString}` : ''}`)
                 .addField('Moderator', `${moderator.user.tag}\n${moderator.id}`)
-                .addField('Reason', `${reason.slice(0, 1024)}`);
+                .addField('Reason', `${reason.slice(0, 1024)}`)
+                .setFooter(`Case #${NewCase.case}`);
         }
     },
     unban: {

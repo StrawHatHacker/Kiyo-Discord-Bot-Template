@@ -23,20 +23,16 @@ module.exports = async (guild_id, user_id, moderator, reason, case_type) => {
         typeof reason !== 'string'
     ) throw new Error('Invalid parameters');
 
-    try {
-        const WarnCount = await WarnModel.countDocuments({ guild_id });
+    const WarnCount = await WarnModel.countDocuments({ guild_id });
 
-        await WarnModel.create({
-            user_id,
-            guild_id,
-            moderator,
-            reason,
-            case_type,
-            case: WarnCount + 1,
-        });
+    const NewCase = await WarnModel.create({
+        user_id,
+        guild_id,
+        moderator,
+        reason,
+        case_type,
+        case: WarnCount + 1,
+    });
 
-        return null;
-    } catch (error) {
-        throw new Error(error);
-    }
+    return NewCase;
 };

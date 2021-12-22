@@ -32,11 +32,11 @@ module.exports = {
         await memberToBan.send(`You have been banned from **${message.guild.name}** for: *${reason}*`).catch(() => null);
         await memberToBan.ban({ reason, days: 7 });
 
-        await createCase(message.guild.id, memberToBan.id, message.author.id, reason, 'ban');
+        const NewCase = await createCase(message.guild.id, memberToBan.id, message.author.id, reason, 'ban');
 
         const e = new Embed().setDescription(`**${memberToBan.user.tag} has been banned**`).isSuccess();
         await message.channel.send({ embeds: [e] });
 
-        await sendLog('ban', Guild, message.guild, memberToBan, message.member, reason);
+        await sendLog('ban', Guild, message.guild, [memberToBan, NewCase], message.member, reason);
     }
 };

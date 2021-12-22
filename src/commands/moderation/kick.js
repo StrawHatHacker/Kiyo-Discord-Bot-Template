@@ -32,11 +32,11 @@ module.exports = {
         await memberToKick.send(`You have been kicked from **${message.guild.name}** for: *${reason}*`).catch(() => null);
         await memberToKick.kick(reason);
 
-        await createCase(message.guild.id, memberToKick.id, message.author.id, reason, 'kick');
+        const NewCase = await createCase(message.guild.id, memberToKick.id, message.author.id, reason, 'kick');
 
         const e = new Embed().setDescription(`**${memberToKick.user.tag} has been kicked**`).isSuccess();
         await message.channel.send({ embeds: [e] });
 
-        await sendLog('kick', Guild, message.guild, memberToKick, message.member, reason);
+        await sendLog('kick', Guild, message.guild, [memberToKick, NewCase], message.member, reason);
     }
 };
