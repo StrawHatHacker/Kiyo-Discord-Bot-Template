@@ -48,7 +48,7 @@ module.exports = {
             if (Mutes.length > 0) {
                 // Delete documents from the MuteModel
                 // This is also trigger the userMute stream handler which unmutes the user in the guild
-                // Instead of it happening autmatically, we do it manually by deleting the mongo documents
+                // Instead of doing it manually, it unmutes automatically by deleting the mongo documents
                 await MuteModel.deleteMany({ $or: muteDocIDs });
             }
         }
