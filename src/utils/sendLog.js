@@ -622,7 +622,7 @@ const actionData = {
                 .setColor(this.color)
                 .setAuthor('Channel Updated');
 
-            if (newThread.name !== newThread.name)
+            if (oldThread.name !== newThread.name)
                 e.addDescription(`Name: ${oldThread.name} => ${newThread.name}`);
 
             if (e.description === '' || e.description === null) return null;
