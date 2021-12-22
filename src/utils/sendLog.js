@@ -441,15 +441,20 @@ const actionData = {
     messageDeleteBulk: {
         type: 'messagelog',
         color: colors.redPrimary,
-        getEmbed: function ({ item }) {
-            const content = item.map(msg => `${msg.member.displayName}: ${msg.content}`).reverse().join('\n');
+            const content = item
+                .filter(msg => !!msg.content)
+                .map(msg => `${msg.member.displayName}: ${msg.content}`)
+                .reverse()
+                .join('\n');
+
+            const firstMsg = item.first();
 
             const e = new Embed()
                 .setTimestamp()
                 .setColor(this.color)
                 .setAuthor(`Message Bulk Delete (${item.size})`)
-                .setDescription(`Channel: ${item.first().channel.toString()}`)
-                .addField('Content ↓', content.slice(0, 2000));
+                .setDescription(`Channel: ${firstMsg.channel.toString()}`)
+                .addField('Content ↓', content.slice(0, 2000) || 'No text messages');
 
             if (content.length > 2000) {
                 e.addField('Content ↓', content.slice(2000, 4000));
