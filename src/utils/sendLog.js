@@ -6,6 +6,7 @@ const Permissions = require('../classes/Permissions');
 const prettifyRoles = require('./prettifyRoles');
 const Embed = require('../classes/Embed');
 const { colors } = require('../config');
+const wait = require('../utils/wait');
 
 // Mapping for each log type to the corresponding "channel id" db field
 const logTypeToDBField = {
@@ -191,29 +192,44 @@ const actionData = {
     channelCreate: {
         type: 'serverlog',
         color: colors.greenPrimary,
-        getEmbed: function ({ item }) {
-            return new Embed()
+        getEmbed: async function ({ item, guild }) {
+
+            const e = new Embed()
                 .setTimestamp()
                 .setColor(this.color)
                 .setAuthor('Channel Created')
                 .setDescription(`Name: ${item.name}\nID: ${item.id}${item.parent?.name ? `\nCategory: ${item.parent.name}` : ''}\nType: ${prettifyChannelTypeFlags(item.type)}`);
+
+            if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
+                const auditLog = await guild.fetchAuditLogs({ type: 'CHANNEL_CREATE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
+                if (auditLog.target.id === item.id) e.setFooter(`Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}`);
+            }
+
+            return e;
         }
     },
     channelDelete: {
         type: 'serverlog',
         color: colors.redPrimary,
-        getEmbed: function ({ item }) {
-            return new Embed()
+        getEmbed: async function ({ item, guild }) {
+            const e = new Embed()
                 .setTimestamp()
                 .setColor(this.color)
                 .setAuthor('Channel Deleted')
                 .setDescription(`Name: ${item.name}\nID: ${item.id}${item.parent?.name ? `\nCategory: ${item.parent.name}` : ''}\nType: ${prettifyChannelTypeFlags(item.type)}`);
+
+            if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
+                const auditLog = await guild.fetchAuditLogs({ type: 'CHANNEL_DELETE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
+                if (auditLog.target.id === item.id) e.setFooter(`Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}`);
+            }
+
+            return e;
         }
     },
     channelUpdate: {
         type: 'serverlog',
         color: colors.orangePrimary,
-        getEmbed: function ({ item }) {
+        getEmbed: async function ({ item, guild }) {
             const [oldChannel, newChannel] = item;
 
             const e = new Embed()
@@ -252,52 +268,78 @@ const actionData = {
                 e.addDescription(`Bitrate: ${Math.floor(oldChannel.bitrate / 1000)}kbps => ${Math.floor(newChannel.bitrate / 1000)}kbps`);
 
             if (e.description === '' || e.description === null) return null;
+
+            if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
+                const auditLog = await guild.fetchAuditLogs({ type: 'CHANNEL_UPDATE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
+                if (auditLog.target.id === newChannel.id) e.setFooter(`Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}`);
+            }
+
             return e;
         }
     },
     emojiCreate: {
         type: 'serverlog',
         color: colors.greenPrimary,
-        getEmbed: function ({ item }) {
-            return new Embed()
+        getEmbed: async function ({ item, guild }) {
+            const e = new Embed()
                 .setTimestamp()
                 .setColor(this.color)
                 .setAuthor('Emoji Added')
                 .setThumbnail(item.url)
                 .setDescription(`Name: ${item.name}\nID: ${item.id}`);
+
+            if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
+                const auditLog = await guild.fetchAuditLogs({ type: 'EMOJI_CREATE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
+                if (auditLog.target.id === item.id) e.setFooter(`Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}`);
+            }
+
+            return e;
         }
     },
     emojiDelete: {
         type: 'serverlog',
         color: colors.redPrimary,
-        getEmbed: function ({ item }) {
-            return new Embed()
+        getEmbed: async function ({ item, guild }) {
+            const e = new Embed()
                 .setTimestamp()
                 .setColor(this.color)
                 .setAuthor('Emoji Deleted')
                 .setThumbnail(item.url)
                 .setDescription(`Name: ${item.name}\nID: ${item.id}`);
+
+            if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
+                const auditLog = await guild.fetchAuditLogs({ type: 'EMOJI_DELETE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
+                if (auditLog.target.id === item.id) e.setFooter(`Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}`);
+            }
+
+            return e;
         }
     },
     emojiUpdate: {
         type: 'serverlog',
         color: colors.orangePrimary,
-        getEmbed: function ({ item }) {
+        getEmbed: async function ({ item, guild }) {
             const [oldEmoji, newEmoji] = item;
 
-            return new Embed()
+            const e = new Embed()
                 .setTimestamp()
                 .setColor(this.color)
                 .setAuthor('Emoji Updated')
                 .setThumbnail(newEmoji.url)
                 .setDescription(`Name: ${oldEmoji.name} => ${newEmoji.name}\nID: ${newEmoji.id}`);
+
+            if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
+                const auditLog = await guild.fetchAuditLogs({ type: 'EMOJI_UPDATE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
+                if (auditLog.target.id === newEmoji.id) e.setFooter(`Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}`);
+            }
+            return e;
         }
     },
     guildBanAdd: {
         type: 'serverlog',
         color: colors.redSecondary,
-        getEmbed: function ({ item }) {
-            return new Embed()
+        getEmbed: async function ({ item, guild }) {
+            const e = new Embed()
                 .setTimestamp()
                 .setColor(this.color)
                 .setThumbnail(item.user.displayAvatarURL({ dynamic: true, size: 2048 }))
@@ -305,25 +347,39 @@ const actionData = {
                     item.user.displayAvatarURL({ dynamic: true, size: 128 }))
                 .addField('Banned user', `ID: ${item.user.id}`)
                 .addField('Reason', `${item.reason?.slice(0, 1024) || 'No reason provided'}`);
+
+            if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
+                const auditLog = await guild.fetchAuditLogs({ type: 'MEMBER_BAN_ADD', limit: 1 }).then(auditLogs => auditLogs.entries.first());
+                if (auditLog.target.id === item.user.id) e.setFooter(`Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}`);
+            }
+
+            return e;
         }
     },
     guildBanRemove: {
         type: 'serverlog',
         color: colors.orangePrimary,
-        getEmbed: function ({ item }) {
-            return new Embed()
+        getEmbed: async function ({ item, guild }) {
+            const e = new Embed()
                 .setTimestamp()
                 .setColor(this.color)
                 .setThumbnail(item.user.displayAvatarURL({ dynamic: true, size: 2048 }))
                 .setAuthor(`${item.user.tag} got unbanned`,
                     item.user.displayAvatarURL({ dynamic: true, size: 128 }))
                 .addField('Unbanned user', `ID: ${item.user.id}`);
+
+            if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
+                const auditLog = await guild.fetchAuditLogs({ type: 'MEMBER_BAN_REMOVE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
+                if (auditLog.target.id === item.user.id) e.setFooter(`Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}`);
+            }
+
+            return e;
         }
     },
     guildUpdate: {
         type: 'serverlog',
         color: colors.orangePrimary,
-        getEmbed: function ({ item }) {
+        getEmbed: async function ({ item, guild }) {
             const [oldGuild, newGuild] = item;
 
             const e = new Embed()
@@ -393,29 +449,49 @@ const actionData = {
             }
 
             if (e.description === '' || e.description === null) return null;
+
+            if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
+                const auditLog = await guild.fetchAuditLogs({ type: 'GUILD_UPDATE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
+                if (auditLog.target.id === newGuild.id) e.setFooter(`Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}`);
+            }
+
             return e;
         }
     },
     inviteCreate: {
         type: 'serverlog',
         color: colors.greenPrimary,
-        getEmbed: function ({ item }) {
-            return new Embed()
+        getEmbed: async function ({ item, guild }) {
+            const e = new Embed()
                 .setTimestamp()
                 .setColor(this.color)
                 .setAuthor('Invite link created')
                 .setDescription(`Channel: ${item.channel.toString()}\nURL: ${item.url}`);
+
+            if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
+                const auditLog = await guild.fetchAuditLogs({ type: 'INVITE_CREATE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
+                if (auditLog.target.id === item.id) e.setFooter(`Created by: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}`);
+            }
+
+            return e;
         }
     },
     inviteDelete: {
         type: 'serverlog',
         color: colors.redPrimary,
-        getEmbed: function ({ item }) {
-            return new Embed()
+        getEmbed: async function ({ item, guild }) {
+            const e = new Embed()
                 .setTimestamp()
                 .setColor(this.color)
                 .setAuthor('Invite link deleted')
-                .setDescription(`Channel: ${item.channel.toString()}\nURL: ${item.url}`);
+                .setDescription(`Channel: ${item.channel.toString()}\nURL: ${item.url}\nUsed: ${item?.uses || 0} time(s)`);
+
+            if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
+                const auditLog = await guild.fetchAuditLogs({ type: 'INVITE_DELETE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
+                if (auditLog.changes[0].old === item.code) e.setFooter(`Deleted by: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}`);
+            }
+
+            return e;
         }
     },
     messageDelete: {
@@ -441,6 +517,7 @@ const actionData = {
     messageDeleteBulk: {
         type: 'messagelog',
         color: colors.redPrimary,
+        getEmbed: async function ({ item, guild }) {
             const content = item
                 .filter(msg => !!msg.content)
                 .map(msg => `${msg.member.displayName}: ${msg.content}`)
@@ -458,6 +535,11 @@ const actionData = {
 
             if (content.length > 2000) {
                 e.addField('Content ↓', content.slice(2000, 4000));
+            }
+
+            if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
+                const auditLog = await guild.fetchAuditLogs({ type: 'MESSAGE_BULK_DELETE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
+                if (auditLog.target.id === firstMsg.channel.id) e.setFooter(`Deleted by: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}`);
             }
 
             return e;
@@ -490,7 +572,7 @@ const actionData = {
     roleCreate: {
         type: 'serverlog',
         color: colors.greenPrimary,
-        getEmbed: function ({ item }) {
+        getEmbed: async function ({ item, guild }) {
             const e = new Embed()
                 .setTimestamp()
                 .setColor(this.color)
@@ -500,13 +582,18 @@ const actionData = {
 
             if (item.icon) e.setThumbnail(item.iconURL({ size: 1024 }));
 
+            if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
+                const auditLog = await guild.fetchAuditLogs({ type: 'ROLE_CREATE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
+                if (auditLog.target.id === item.id) e.setFooter(`Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}`);
+            }
+
             return e;
         }
     },
     roleDelete: {
         type: 'serverlog',
         color: colors.redPrimary,
-        getEmbed: function ({ item }) {
+        getEmbed: async function ({ item, guild }) {
             const e = new Embed()
                 .setTimestamp()
                 .setColor(this.color)
@@ -516,13 +603,18 @@ const actionData = {
 
             if (item.icon) e.setThumbnail(item.iconURL({ size: 1024 }));
 
+            if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
+                const auditLog = await guild.fetchAuditLogs({ type: 'ROLE_DELETE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
+                if (auditLog.target.id === item.id) e.setFooter(`Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}`);
+            }
+
             return e;
         }
     },
     roleUpdate: {
         type: 'serverlog',
         color: colors.orangePrimary,
-        getEmbed: function ({ item }) {
+        getEmbed: async function ({ item, guild }) {
             const [oldRole, newRole] = item;
 
             const e = new Embed()
@@ -541,36 +633,56 @@ const actionData = {
             if (oldPerms !== newPerms) e.addDescription(`**Key Permissions ↓**\n${oldPerms} => ${newPerms}`); // TODO Only show which permissions changed, not all of them
 
             if (e.description === '' || e.description === null) return null;
+
+            if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
+                const auditLog = await guild.fetchAuditLogs({ type: 'ROLE_UPDATE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
+                if (auditLog.target.id === newRole.id) e.setFooter(`Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}`);
+            }
+
             return e;
         }
     },
     stickerCreate: {
         type: 'serverlog',
         color: colors.greenPrimary,
-        getEmbed: function ({ item }) {
-            return new Embed()
+        getEmbed: async function ({ item, guild }) {
+            const e = new Embed()
                 .setTimestamp()
                 .setColor(this.color)
                 .setAuthor('Sticker Added')
                 .setThumbnail(item.url)
                 .setDescription(`Name: ${item.name}\nID: ${item.id}\nDescription: ${item.description}\nTags: ${item?.tags?.join(', ') || 'No tags'}`);
+
+            if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
+                const auditLog = await guild.fetchAuditLogs({ type: 'STICKER_CREATE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
+                if (auditLog.target.id === item.id) e.setFooter(`Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}`);
+            }
+
+            return e;
         }
     },
     stickerDelete: {
         type: 'serverlog',
         color: colors.redPrimary,
-        getEmbed: function ({ item }) {
-            return new Embed()
+        getEmbed: async function ({ item, guild }) {
+            const e = new Embed()
                 .setTimestamp()
                 .setColor(this.color)
                 .setAuthor('Sticker Deleted')
                 .setDescription(`Name: ${item.name}\nID: ${item.id}\nDescription: ${item.description}\nTags: ${item?.tags?.join(', ') || 'No tags'}`);
+
+            if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
+                const auditLog = await guild.fetchAuditLogs({ type: 'STICKER_DELETE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
+                if (auditLog.target.id === item.id) e.setFooter(`Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}`);
+            }
+
+            return e;
         }
     },
     stickerUpdate: {
         type: 'serverlog',
         color: colors.orangePrimary,
-        getEmbed: function ({ item }) {
+        getEmbed: async function ({ item, guild }) {
             const [oldSticker, newSticker] = item;
 
             const e = new Embed()
@@ -586,35 +698,54 @@ const actionData = {
 
             if (e.description === '' || e.description === null) return null;
 
+            if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
+                const auditLog = await guild.fetchAuditLogs({ type: 'STICKER_UPDATE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
+                if (auditLog.target.id === item.id) e.setFooter(`Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}`);
+            }
+
             return e;
         }
     },
     threadCreate: {
         type: 'serverlog',
         color: colors.greenPrimary,
-        getEmbed: function ({ item }) {
-            return new Embed()
+        getEmbed: async function ({ item, guild }) {
+            const e = new Embed()
                 .setTimestamp()
                 .setColor(this.color)
                 .setAuthor('Channel Created')
                 .setDescription(`Name: ${item.name}\nID: ${item.id}\nParent: ${item.parent.name}\nType: thread`);
+
+            if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
+                const auditLog = await guild.fetchAuditLogs({ type: 'THREAD_CREATE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
+                if (auditLog.target.id === item.id) e.setFooter(`Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}`);
+            }
+
+            return e;
         }
     },
     threadDelete: {
         type: 'serverlog',
         color: colors.redPrimary,
-        getEmbed: function ({ item }) {
-            return new Embed()
+        getEmbed: async function ({ item, guild }) {
+            const e = new Embed()
                 .setTimestamp()
                 .setColor(this.color)
                 .setAuthor('Channel Deleted')
                 .setDescription(`Name: ${item.name}\nID: ${item.id}\nParent: ${item.parent.name}\nType: thread`);
+
+            if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
+                const auditLog = await guild.fetchAuditLogs({ type: 'THREAD_CREATE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
+                if (auditLog.target.id === item.id) e.setFooter(`Deleted by: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}`);
+            }
+
+            return e;
         }
     },
     threadUpdate: {
         type: 'serverlog',
         color: colors.orangePrimary,
-        getEmbed: function ({ item }) {
+        getEmbed: async function ({ item, guild }) {
             const [oldThread, newThread] = item;
 
             const e = new Embed()
@@ -626,6 +757,12 @@ const actionData = {
                 e.addDescription(`Name: ${oldThread.name} => ${newThread.name}`);
 
             if (e.description === '' || e.description === null) return null;
+
+            if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
+                const auditLog = await guild.fetchAuditLogs({ type: 'THREAD_UPDATE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
+                if (auditLog.target.id === newThread.id) e.setFooter(`Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}`);
+            }
+
             return e;
         }
     },
