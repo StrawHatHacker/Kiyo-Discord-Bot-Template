@@ -1,5 +1,6 @@
 'use strict';
 
+const { prettifyUserFlags } = require('../utils/prettifyFlags');
 const DateFormatter = require('../utils/DateFormatter');
 const Permissions = require('../classes/Permissions');
 const prettifyRoles = require('./prettifyRoles');
@@ -28,7 +29,7 @@ const actionData = {
                 .setThumbnail(item.user.displayAvatarURL({ dynamic: true, size: 2048 }))
                 .setAuthor(`${item.user.tag} got ${this.userGot}`,
                     item.user.displayAvatarURL({ dynamic: true, size: 128 }))
-                .addField(`${this.userGot} user`, `ID: ${item.id}\n${rolesString ? `Roles: ${rolesString.slice(0, 800)}` : ''}`)
+                .addField(`${this.userGot} user`, `ID: ${item.id}\n${rolesString ? `Roles: ${rolesString}` : ''}`)
                 .addField('Moderator', `${moderator.user.tag}\n${moderator.id}`)
                 .addField('Reason', `${reason.slice(0, 1024)}`);
         }
@@ -46,7 +47,7 @@ const actionData = {
                 .setThumbnail(item.user.displayAvatarURL({ dynamic: true, size: 2048 }))
                 .setAuthor(`${item.user.tag} got ${this.userGot}`,
                     item.user.displayAvatarURL({ dynamic: true, size: 128 }))
-                .addField(`${this.userGot} user`, `ID: ${item.id}\n${rolesString ? `Roles: ${rolesString.slice(0, 800)}` : ''}`)
+                .addField(`${this.userGot} user`, `ID: ${item.id}\n${rolesString ? `Roles: ${rolesString}` : ''}`)
                 .addField('Moderator', `${moderator.user.tag}\n${moderator.id}`)
                 .addField('Reason', `${reason.slice(0, 1024)}`);
         }
@@ -64,7 +65,7 @@ const actionData = {
                 .setThumbnail(item.user.displayAvatarURL({ dynamic: true, size: 2048 }))
                 .setAuthor(`${item.user.tag} got ${this.userGot}`,
                     item.user.displayAvatarURL({ dynamic: true, size: 128 }))
-                .addField(`${this.userGot} user`, `ID: ${item.id}\n${rolesString ? `Roles: ${rolesString.slice(0, 800)}` : ''}`)
+                .addField(`${this.userGot} user`, `ID: ${item.id}\n${rolesString ? `Roles: ${rolesString}` : ''}`)
                 .addField('Moderator', `${moderator.user.tag}\n${moderator.id}`)
                 .addField('Reason', `${reason.slice(0, 1024)}`);
         }
@@ -98,7 +99,7 @@ const actionData = {
                 .setThumbnail(item.user.displayAvatarURL({ dynamic: true, size: 2048 }))
                 .setAuthor(`${item.user.tag} got ${this.userGot}`,
                     item.user.displayAvatarURL({ dynamic: true, size: 128 }))
-                .addField(`${this.userGot} user`, `ID: ${item.id}\n${rolesString ? `Roles: ${rolesString.slice(0, 800)}` : ''}`)
+                .addField(`${this.userGot} user`, `ID: ${item.id}\n${rolesString ? `Roles: ${rolesString}` : ''}`)
                 .addField('Moderator', `${moderator.user.tag}\n${moderator.id}`)
                 .addField('Reason', `${reason.slice(0, 1024)}`);
         }
@@ -151,7 +152,7 @@ const actionData = {
                     item.user.displayAvatarURL({ dynamic: true, size: 128 }))
                 .addField('User', `ID: ${item.id}\nCreated at: ${new DateFormatter(item.user.createdAt).formatToReadable()}`);
 
-            if (item.user.flags.toArray().length > 0) e.addField('Flags', item.user.flags.toArray().join('\n'));
+            if (item.user.flags.toArray().length > 0) e.addField('Flags', prettifyUserFlags(item.user.flags.toArray()).join(', '));
             if (daysSinceCreated < 7) e.addField('⚠', `Account created less than ${daysSinceCreated} day(s) before`);
 
             return e;
@@ -169,9 +170,9 @@ const actionData = {
                 .setThumbnail(item.user.displayAvatarURL({ dynamic: true, size: 2048 }))
                 .setAuthor(`${item.user.tag} Left`,
                     item.user.displayAvatarURL({ dynamic: true, size: 128 }))
-                .addField('User', `ID: ${item.id}${rolesString ? `\nRoles: ${rolesString.slice(0, 800)}` : ''}\nCreated at ${new DateFormatter(item.user.createdAt).formatToReadable()}`);
+                .addField('User', `ID: ${item.id}${rolesString ? `\nCreated at ${new DateFormatter(item.user.createdAt).formatToReadable()}\nRoles: ${rolesString}` : ''}`);
 
-            if (item.user.flags.toArray().length > 0) e.addField('Flags', item.user.flags.toArray().join('\n'));
+            if (item.user.flags.toArray().length > 0) e.addField('Flags', prettifyUserFlags(item.user.flags.toArray()).join('\n'));
 
             return e;
         }

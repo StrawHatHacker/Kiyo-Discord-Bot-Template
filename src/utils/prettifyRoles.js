@@ -6,6 +6,7 @@ module.exports = roleCollection => {
         .filter(role => role.name !== '@everyone')
         .map(role => role.toString())
         .sort((a, b) => b.rawPoisition - a.rawPoisition)
+        .limit(20)
         .join('')
         .slice(0, 1900);
 };
