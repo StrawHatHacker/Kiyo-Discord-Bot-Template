@@ -17,3 +17,10 @@ module.exports.prettifyUserFlags = (flagArray) => {
 
     return prettyFlagArray;
 };
+
+module.exports.prettifyChannelTypeFlags = (flag) => {
+    if (typeof flag !== 'string') throw new Error('Flag is not a string');
+
+    if (USER_FLAGS[flag]) return USER_FLAGS[flag];
+    else return flag;
+};

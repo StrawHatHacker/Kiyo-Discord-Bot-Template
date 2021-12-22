@@ -1,6 +1,6 @@
 'use strict';
 
-const { prettifyUserFlags } = require('../utils/prettifyFlags');
+const { prettifyUserFlags, prettifyChannelTypeFlags } = require('../utils/prettifyFlags');
 const DateFormatter = require('../utils/DateFormatter');
 const Permissions = require('../classes/Permissions');
 const prettifyRoles = require('./prettifyRoles');
@@ -185,7 +185,7 @@ const actionData = {
                 .setTimestamp()
                 .setColor(this.color)
                 .setAuthor('Channel Created')
-                .setDescription(`Name: ${item.name}\nID: ${item.id}${item.parent?.name ? `\nCategory: ${item.parent.name}` : ''}\nType: ${item.type}`);
+                .setDescription(`Name: ${item.name}\nID: ${item.id}${item.parent?.name ? `\nCategory: ${item.parent.name}` : ''}\nType: ${prettifyChannelTypeFlags(item.type)}`);
         }
     },
     channelDelete: {
@@ -196,7 +196,7 @@ const actionData = {
                 .setTimestamp()
                 .setColor(this.color)
                 .setAuthor('Channel Deleted')
-                .setDescription(`Name: ${item.name}\nID: ${item.id}${item.parent?.name ? `\nCategory: ${item.parent.name}` : ''}\nType: ${item.type}`);
+                .setDescription(`Name: ${item.name}\nID: ${item.id}${item.parent?.name ? `\nCategory: ${item.parent.name}` : ''}\nType: ${prettifyChannelTypeFlags(item.type)}`);
         }
     },
     channelUpdate: {
@@ -220,7 +220,7 @@ const actionData = {
                 e.addDescription(`Category: ${oldChannel.parent.name} => ${newChannel.parent.name}`);
 
             if (oldChannel.type !== newChannel.type)
-                e.addDescription(`Type: ${oldChannel.type} => ${newChannel.type}`);
+                e.addDescription(`Type: ${prettifyChannelTypeFlags(oldChannel.type)} => ${prettifyChannelTypeFlags(newChannel.type)}`);
 
             if (oldChannel.topic !== newChannel.topic)
                 e.addDescription(`Topic: ${oldChannel.topic?.slice(0, 500) || 'None'} => ${newChannel.topic?.slice(0, 500) || 'None'}`);
@@ -363,7 +363,7 @@ const actionData = {
             }
 
             if (oldGuild.premiumSubscriptionCount !== newGuild.premiumSubscriptionCount) {
-                e.addDescription(`Premium subscription count: ${oldGuild.premiumSubscriptionCount} => ${newGuild.premiumSubscriptionCount}`);
+                e.addDescription(`Boosts: ${oldGuild.premiumSubscriptionCount} => ${newGuild.premiumSubscriptionCount}`);
             }
 
             if (oldGuild.splash !== newGuild.splash) {
