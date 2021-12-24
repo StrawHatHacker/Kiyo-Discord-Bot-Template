@@ -255,9 +255,6 @@ const actionData = {
             if (oldChannel.nsfw !== newChannel.nsfw)
                 e.addDescription(`NSFW: ${oldChannel.nsfw} => ${newChannel.nsfw}`);
 
-            if (oldChannel.rawPosition !== newChannel.rawPosition)
-                e.addDescription(`Position: ${oldChannel.rawPosition + 1} => ${newChannel.rawPosition + 1}`);
-
             if (oldChannel.rtcRegion !== newChannel.rtcRegion)
                 e.addDescription(`Region: ${oldChannel.rtcRegion || 'Automatic'} => ${newChannel.rtcRegion || 'Automatic'}`);
 
@@ -404,6 +401,11 @@ const actionData = {
                 e.addDescription(`Banner: ${oldBanner || 'Not set'} => ${newBanner || 'Unset'}`);
             }
 
+            if (oldGuild.premiumSubscriptionCount !== newGuild.premiumSubscriptionCount) {
+                e.addDescription(`Boosts: ${oldGuild.premiumSubscriptionCount} => ${newGuild.premiumSubscriptionCount}`);
+                return e;
+            }
+
             if (oldGuild.explicitContentFilter !== newGuild.explicitContentFilter) {
                 e.addDescription(`Explicit content filter: ${oldGuild.explicitContentFilter} => ${newGuild.explicitContentFilter}`);
             }
@@ -423,14 +425,6 @@ const actionData = {
 
             if (oldGuild.nsfwLevel !== newGuild.nsfwLevel) {
                 e.addDescription(`NSFW level: ${oldGuild.nsfwLevel} => ${newGuild.nsfwLevel}`);
-            }
-
-            if (oldGuild.premiumTier !== newGuild.premiumTier) {
-                e.addDescription(`Premium tier: ${oldGuild.premiumTier} => ${newGuild.premiumTier}`);
-            }
-
-            if (oldGuild.premiumSubscriptionCount !== newGuild.premiumSubscriptionCount) {
-                e.addDescription(`Boosts: ${oldGuild.premiumSubscriptionCount} => ${newGuild.premiumSubscriptionCount}`);
             }
 
             if (oldGuild.splash !== newGuild.splash) {
@@ -797,7 +791,7 @@ module.exports = async (action, Guild, guild, item, moderator, reason) => {
     const channel = guild.channels.cache.get(Guild[db_field]);
     if (!channel) return;
 
-    await wait(500);
+    await wait(500); // Wait 500ms for the audit logs to be created
 
     // call getEmbed to create an embed
     const e = await d.getEmbed({ item, moderator, reason, guild });
