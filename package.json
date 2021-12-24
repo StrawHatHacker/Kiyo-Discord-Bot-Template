@@ -12,6 +12,7 @@
     "discord.js": "^13.3.1",
     "dotenv": "^8.6.0",
     "mongoose": "^5.13.9",
+    "parse-duration": "^1.0.2",
     "readdirp": "^3.6.0",
     "systeminformation": "^5.9.7"
   },
