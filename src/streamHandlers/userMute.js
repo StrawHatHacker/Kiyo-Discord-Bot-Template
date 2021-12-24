@@ -8,15 +8,7 @@ module.exports = async (client, doc) => {
         const User = await UserModel.findOne({ 'mutes.doc_id': doc.documentKey._id });
         if (!User) return;
 
-        let muteEntry;
-        /* muteEntry = {
-            doc_id: UserMute._id, 
-            guild_id: message.guild.id, 
-            roles_muted_with: muteRoleArrayToAdd
-        } */
-        for (const um of User.mutes) {
-            if (um.doc_id == doc.documentKey._id) muteEntry = um;
-        }
+        const muteEntry = User.mutes.find(m => m.doc_id == doc.documentKey._id);
 
         await User.updateOne({
             $pull: {
