@@ -6,6 +6,7 @@ const TimeParser = require('../../classes/TimeParser');
 const databaseUtils = require('../../utils/database');
 const createCase = require('../../utils/createCase');
 const { COMMAND_PERMS } = require('../../config');
+const parseDuration = require('parse-duration');
 const sendLog = require('../../utils/sendLog');
 const MuteModel = require('../../models/mute');
 const Embed = require('../../classes/Embed');
@@ -25,7 +26,6 @@ module.exports = {
     cooldown: 2000,
     async run({ message, args, Guild }) {
         const memberInput = args[0];
-        const timeInput = args[1];
         if (!memberInput) return;
 
         const memberToMute = await safeFindMember(message, memberInput);
@@ -33,46 +33,46 @@ module.exports = {
 
         if (hasModeratorPerms(memberToMute)) throw new Err(400).inputErr().setMessage('Member has moderation permissions');
 
-        let Time;
+        // Format message content to find possible time values
+        const strToParse = args.slice(1)     // Slice user's id
+            .filter(a => a.match(regex))     // Filter elements that don't match the time regex
+            .map(a => a.replaceAll('-', '')) // Replace hyphens with empty string, to avoid negative values
+            .join(' ');
 
-        // If there is time input, try to match it to the time regex
-        const providedTime = timeInput ? timeInput.match(regex) : null;
+        // Parse the formatted time into ms
+        const timeToMuteMS = parseDuration(strToParse, 'ms');
 
-        // Reason is the args without the cmd name and excluding the time input if there is one
-        const reason = args.length > 1 ? args.slice(providedTime ? 2 : 1).join(' ') : 'No reason provided';
+        // Get the date that the user will be unmuted
+        const timeThen = new TimeParser(timeToMuteMS).getTimeThen();
+
+        const reason = args.length > 1 ? args.slice(1).join(' ') : 'No reason provided';
 
         // Roles to add, removing the roles that the member already has
         const muteRoleArrayToAdd = Guild.mute_roles.filter(mr => !memberToMute.roles.cache.has(mr));
 
-        if (providedTime) {
-            Time = new TimeParser(providedTime);
-
-            // TODO put these at the end of the file
-            // These don't need to be executed immediately,
-            // so they don't have to delay the message reponses, hence why they are wrapped in a setImmediate
-            setImmediate(async () => {
-                const UserMute = await MuteModel.create({ mute_expire_at: Time.getDateThen() });
-                const UserToMute = await databaseUtils.user.findOneOrCreate(memberToMute.id);
-                await UserToMute.updateOne({
-                    $push: {
-                        mutes: {
-                            doc_id: UserMute._id,
-                            guild_id: message.guild.id,
-                            roles_muted_with: Guild.mute_roles
-                        }
-                    }
-                });
-            });
-        }
-
-        await memberToMute.send(`You have been muted in **${message.guild.name}** for: *${reason}*${providedTime ? `\nTime: ${Time.toReadable()}` : ''}`).catch(() => null);
+        await memberToMute.send(`You have been muted in **${message.guild.name}** for: *${reason}*`).catch(() => null);
         await memberToMute.roles.add(muteRoleArrayToAdd, 'Muted ' + reason);
-
-        const NewCase = await createCase(message.guild.id, memberToMute.id, message.author.id, reason, 'mute');
 
         const e = new Embed().setDescription(`**${memberToMute.user.tag} has been muted**`).isSuccess();
         await message.channel.send({ embeds: [e] });
 
+        const NewCase = await createCase(message.guild.id, memberToMute.id, message.author.id, reason, 'mute');
         await sendLog('mute', Guild, message.guild, [memberToMute, NewCase], message.member, reason);
+
+        // If there is a time, add the mute to the database
+        if (timeThen) {
+            const UserMute = await MuteModel.create({ mute_expire_at: timeThen });
+            const UserToMute = await databaseUtils.user.findOneOrCreate(memberToMute.id);
+            await UserToMute.updateOne({
+                $push: {
+                    mutes: {
+                        doc_id: UserMute._id,
+                        guild_id: message.guild.id,
+                        roles_muted_with: Guild.mute_roles
+                    }
+                }
+            });
+        }
+
     }
 };

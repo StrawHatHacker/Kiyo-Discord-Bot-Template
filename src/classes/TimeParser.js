@@ -1,47 +1,46 @@
 'use strict';
 
-const dayjs = require('dayjs');
+const msInADay = 86400000;
+const msInAnHour = 3600000;
+const msInAMinute = 60000;
+const msInASecond = 1000;
 
-// Didn't feel like calling it `Time`
 module.exports = class TimeParser {
     /**
-    * Parses an array of strings into a Time object.
-    * An array entry should be of format number:D|H|M, or matched to /(\d+)(D|H|M)/gi
-    * @param {String[]} time
+    * @description Calculates days, hours, minutes and seconds from a given time(in ms)
+    * @param {Number} time
     */
-    constructor(time) {
-        this.days = 0;
-        this.hours = 0;
-        this.minutes = 0;
+    constructor(ms) {
+        this.ms = ms;
+        this.msLeft = ms;
 
-        time.forEach(entry => {
-            const split = entry.split('');
-            const intentifier = split[split.length - 1];
-            const num = entry.slice(0, -1);
+        this.days = Math.floor(this.msLeft / msInADay);
+        this.msLeft = this.msLeft % msInADay;
 
-            switch (intentifier.toUpperCase()) {
-                case 'D': this.days = num; break;
-                case 'H': this.hours = num; break;
-                case 'M': this.minutes = num; break;
-            }
-        });
+        this.hours = Math.floor(this.msLeft / msInAnHour);
+        this.msLeft = this.msLeft % msInAnHour;
+
+        this.minutes = Math.floor(this.msLeft / msInAMinute);
+        this.msLeft = this.msLeft % msInAMinute;
+
+        this.seconds = Math.floor(this.msLeft / msInASecond);
+        this.msLeft = this.msLeft % msInASecond;
+
+        // For debugging
+        // console.log(`${this.days} days, ${this.hours} hours, ${this.minutes} minutes, ${this.seconds} seconds, ${this.msLeft} ms left, ${ms} ms`);
     }
 
     /**
-     * Add this.minutes, this.hours, this.days to the current time and return it.
-     * @returns {Date}
+     * @description Finds the date that is "this.ms" ms from now
+     * @returns {Date | null}  
     */
-    getDateThen() {
-        let then = dayjs();
-
-        if (this.minutes) then = then.add(this.minutes, 'minutes');
-        if (this.hours) then = then.add(this.hours, 'hours');
-        if (this.days) then = then.add(this.days, 'days');
-
-        return new Date(then);
+    getTimeThen() {
+        if (this.ms === 0) return null;
+        return new Date(new Date().setMilliseconds(new Date().getMilliseconds() + this.ms));
     }
 
     /**
+     * @description Beautifies the time
      * @returns {String}
     */
     toReadable() {
@@ -50,6 +49,7 @@ module.exports = class TimeParser {
         if (this.days > 0) str += `${this.days} Day(s) `;
         if (this.hours > 0) str += `${this.hours} Hour(s) `;
         if (this.minutes > 0) str += `${this.minutes} Minute(s) `;
+        if (this.seconds > 0) str += `${this.seconds} Second(s) `;
 
         return str;
     }
