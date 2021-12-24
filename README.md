@@ -59,7 +59,7 @@ Get an API Token from https://otakugifs.xyz and add it to the .env file in a new
 `OTAKUGIFS_TOKEN="API Key here"`
 
 ## Creating a command
-A command should be a file that exports an object. Required properties of that object are:
+A command should be a file that exports an object. Properties of that object are:
 
 ```javascript
 module.exports = {
@@ -71,6 +71,7 @@ module.exports = {
         user: ['BAN_MEMBERS'],
         client: ['BAN_MEMBERS']
     },
+    cooldown: 5000,
     async run() {
         // code here
     }
@@ -92,12 +93,53 @@ permissions to be authorized. In the case of *client*, the bot needs all of the 
 
 Needed for slash commands:
 
-`slashCommand`: True or false, signifying if the object is a slash command. Should be true for obvious reasons.
+###### Optional properties:
+
+`cooldown`: The cooldown of the command in milliseconds.
+
+`selfPopulate`: A function that is run when the bot loads the command. Usually used to populate the aliases array, like the reaction command's, or create the data property for slash commands(see below).
+
+## Creating a slash command
+A command should be a file that exports an object. Properties of that object are:
+
+```javascript
+module.exports = {
+   name: 'ping',
+    description: 'Pings the bot',
+    syntax: 'ping',
+    aliases: [],
+    requiredPermissions: {
+        user: [],
+        client: []
+    },
+    slashCommand: true,
+    cooldown: 5000,
+    selfPopulate() {
+        this.data = new SlashCommandBuilder()
+            .setName(this.name)
+            .setDescription(this.description);
+    }
+}
+```
+
+`name`: Is the name of the slash command.
+
+`description`: Short description of the slash command.
+
+`aliases`: Array of strings that can invoke the slash command.
+
+`syntax`: Visual representation of how the command should be structured in order to be executed. Elements wrapped in <> are required, elements wrapped in [] are optional.
+
+`requiredPermissions`: *user* and *client* properties are arrays of key permissions flags that are needed run a command. In the case of *user*, the user needs any of the 
+permissions to be authorized. In the case of *client*, the bot needs all of the permissions to run the command.
+
+`run`: Function to execute when the command is invoked.
+
+`slashCommand `: True or false, signifying if the object is a slash command. Should be true for obvious reasons.
 
 `data`: Required information for slash commands. Refer to [this article](https://discordjs.guide/interactions/registering-slash-commands.html#options).
 
-
-Optional properties:
+###### Optional properties:
 
 `cooldown`: The cooldown of the command in milliseconds.
 
@@ -106,6 +148,13 @@ Optional properties:
 ## Common issues
 * **Slash commands not working**
 Make sure the `application.commands` scope is authorized for your guild.
+* **Logs sometimes display the wrong moderator**
+Sadly audit logs don't work as we would like. This is the best implementation I could come up with.
+Open an issue so we can see if it's important.
+* **Reloading commands doesn't reflect my changes**
+The slash command "reloadcommands" only reloads files in the `/src/commands`, `/src/slashCommands` and `/src/utils` folders.
+* **Error: "The $changeStream stage is only supported on replica sets"**
+Use [Atlas](https://docs.atlas.mongodb.com/getting-starte) or read [this article](https://docs.mongodb.com/manual/tutorial/convert-standalone-to-replica-set/).
 
 ## 🙏 Contribution
 You can open pull requests freely 👍
