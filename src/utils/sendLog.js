@@ -498,7 +498,7 @@ const actionData = {
                 .setThumbnail(item.author.displayAvatarURL({ dynamic: true, size: 2048 }))
                 .setAuthor('Message Deleted',
                     item.author.displayAvatarURL({ dynamic: true, size: 128 }))
-                .setDescription(`Author: ${item.member.displayName}\nAuthor ID: ${item.author.id}\nChannel: ${item.channel.toString()}\nAttachments: ${item.attachments.size}`)
+                .setDescription(`Author: ${item.author.tag}\nAuthor ID: ${item.author.id}\nChannel: ${item.channel.toString()}\nAttachments: ${item.attachments.size}`)
                 .addField('Content ↓', item.content.slice(0, 2000));
 
             if (item.content.length > 2000) {
@@ -514,7 +514,7 @@ const actionData = {
         getEmbed: async function ({ item, guild }) {
             const content = item
                 .filter(msg => !!msg.content)
-                .map(msg => `${msg.member.displayName}: ${msg.content}`)
+                .map(msg => `${item.author.tag}: ${msg.content}`)
                 .reverse()
                 .join('\n');
 
