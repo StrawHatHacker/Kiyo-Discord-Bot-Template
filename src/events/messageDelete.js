@@ -10,6 +10,9 @@ module.exports = async (_client, message) => {
     // If the message has no content (uncached) return
     if (!message.content) return;
 
+    // Ignore common pick commands
+    if (message.content === '.pick' || message.content === ',pick') return;
+
     if (message.author.bot) return;
 
     if (message.channel.type !== 'GUILD_TEXT') return;
