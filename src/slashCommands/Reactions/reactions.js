@@ -14,25 +14,19 @@ module.exports = {
         client: []
     },
     async selfPopulate() { // Function to populate the `this.aliases` field
-        if (!process.env.OTAKUGIFS_API_KEY) return console.log('! Optional OtakuGIFs reactions not configured. This is not an error.');
-
         try {
             // Get all reactions from otakugifs.xyz
-            const response = await axios.get('https://api.otakugifs.xyz/gif/allreactions', {
-                headers: {
-                    'x-api-key': process.env.OTAKUGIFS_API_KEY
-                }
-            });
+            const response = await axios.get('https://api.otakugifs.xyz/gif/allreactions');
 
             // Adding all reactions that were returned but only if they exist in the descriptions.json
             this.aliases = response.data.reactions.filter(r => DESCRIPTIONS[r]);
 
-            // Showing which reactions have not been implemented yet in the descriptions.json
+            // Showing which reactions have not been implemented by the bot yet, in the descriptions.json
             if (this.aliases.length !== response.data.reactions.length)
                 console.log(`\u2005  ❕ Your descriptions.json is missing the ${response.data.reactions.filter(r => !DESCRIPTIONS[r]).join(', ')} reaction(s)`);
 
         } catch (error) {
-            console.log('\u2005  ❌ Invalid OtakuGIFs API KEY');
+            console.log('\u2005  ❌ ' + error.message);
             process.exit(1);
         }
 
@@ -42,11 +36,7 @@ module.exports = {
         const mention = interaction.options.getUser('user');
 
         // Requesting a random GIF from otakugifs.xyz
-        const response = await axios.get(`https://api.otakugifs.xyz/gif/${interaction.commandName}`, {
-            headers: {
-                'x-api-key': process.env.OTAKUGIFS_API_KEY
-            }
-        });
+        const response = await axios.get(`https://api.otakugifs.xyz/gif?reaction=${interaction.commandName}`);
 
         const highestRoleColor = interaction.member.roles.color?.hexColor || 0xffffff;
 
@@ -61,7 +51,7 @@ module.exports = {
             .addDescription(desc)
             .setImage(response.data.url)
             .setColor(highestRoleColor)
-            .setFooter('Powered by otakugifs.xyz', 'https://otakugifs.b-cdn.net/assets/otakugifsLogo.png');
+            .setFooter('Powered by otakugifs.xyz', 'https://cdn.otakugifs.xyz/assets/logo.png');
 
         interaction.reply({ embeds: [embed] });
     }

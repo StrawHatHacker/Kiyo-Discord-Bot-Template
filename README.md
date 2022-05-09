@@ -1,7 +1,12 @@
-Kiyo is an open source Discord Bot under the GNU General Public License v3.0 License.  <br/>
-Kiyo has powerful utilities which make it quick and easy to build upon.  <br/>
-Feature rich and easy to maintain. <br/>
+Kiyo is an open source Discord Bot under the GNU General Public License v3.0 License.
+
+Kiyo has powerful utilities which make it quick and easy to build upon.
+
+Feature rich and easy to maintain.
+
 Based on the [discord.js](https://github.com/discordjs/discord.js) library.
+
+[OtakuGIFs](https://otakugifs.xyz) implementation for anime reactions (kiss, hug, etc.)
 
 ## 📥 Installation
 <b> Node.js v16.6.0 or higher required. </b> Download [here](https://nodejs.org/) <br/>
@@ -54,10 +59,6 @@ Can be either `DEV` or `PRODUCTION`. Use `PRODUCTION` to load slash commands for
 node index.js 
 ```
 
-###### 12. (Optional) Add your OtakuGIFs token for anime GIF reactions.
-Get an API Token from https://otakugifs.xyz and add it to the .env file in a new line:
-`OTAKUGIFS_TOKEN="API Key here"`
-
 ## Creating a command
 A command should be a file that exports an object. Properties of that object are:
 
@@ -97,7 +98,7 @@ Needed for slash commands:
 
 `cooldown`: The cooldown of the command in milliseconds.
 
-`selfPopulate`: A function that is run when the bot loads the command. Usually used to populate the aliases array, like the reaction command's, or create the data property for slash commands(see below).
+`selfPopulate`: A function that is run when the bot loads the command (meaning on runtime and everytime you reload commands). Usually used to populate the aliases array, like the reaction command(see above), or create the data property for slash commands(see below).
 
 ## Creating a slash command
 A command should be a file that exports an object. Properties of that object are:
