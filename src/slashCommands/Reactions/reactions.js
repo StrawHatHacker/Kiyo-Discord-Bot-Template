@@ -51,7 +51,7 @@ module.exports = {
             .addDescription(desc)
             .setImage(response.data.url)
             .setColor(highestRoleColor)
-            .setFooter('Powered by otakugifs.xyz', 'https://cdn.otakugifs.xyz/assets/logo.png');
+            .setFooter({ text: 'Powered by otakugifs.xyz', iconURL: 'https://cdn.otakugifs.xyz/assets/logo.png' });
 
         interaction.reply({ embeds: [embed] });
     }

@@ -47,7 +47,7 @@ module.exports = {
         const otherPerms = targetMember.id === owner.id ? 'Owner' : new Permissions(memberPerms).filterNonKeyPerms().formatToReadable();
 
         const e = new Embed()
-            .setAuthor(targetMember.displayName, smallAV)
+            .setAuthor({ name: targetMember.displayName, iconURL: smallAV })
             .setThumbnail(bigAV)
             .addDescription(`Mention: ${targetMember.toString()}`);
 

@@ -29,12 +29,14 @@ const actionData = {
                 .setTimestamp()
                 .setColor(this.color)
                 .setThumbnail(memberToWarn.user.displayAvatarURL({ dynamic: true, size: 2048 }))
-                .setAuthor(`${memberToWarn.user.tag} got ${this.userGot}`,
-                    memberToWarn.user.displayAvatarURL({ dynamic: true, size: 128 }))
+                .setAuthor({
+                    name: `${memberToWarn.user.tag} got ${this.userGot}`,
+                    iconURL: memberToWarn.user.displayAvatarURL({ dynamic: true, size: 128 })
+                })
                 .addField(`${this.userGot} user`, `ID: ${memberToWarn.id}\n${rolesString ? `Roles: ${rolesString}` : ''}`)
                 .addField('Moderator', `${moderator.user.tag}\n${moderator.id}`)
                 .addField('Reason', `${reason.slice(0, 1024)}`)
-                .setFooter(`Case #${NewCase.case}`);
+                .setFooter({ text: `Case #${NewCase.case}` });
         }
     },
     kick: {
@@ -49,12 +51,14 @@ const actionData = {
                 .setTimestamp()
                 .setColor(this.color)
                 .setThumbnail(memberToKick.user.displayAvatarURL({ dynamic: true, size: 2048 }))
-                .setAuthor(`${memberToKick.user.tag} got ${this.userGot}`,
-                    memberToKick.user.displayAvatarURL({ dynamic: true, size: 128 }))
+                .setAuthor({
+                    name: `${memberToKick.user.tag} got ${this.userGot}`,
+                    iconURL: memberToKick.user.displayAvatarURL({ dynamic: true, size: 128 })
+                })
                 .addField(`${this.userGot} user`, `ID: ${memberToKick.id}\n${rolesString ? `Roles: ${rolesString}` : ''}`)
                 .addField('Moderator', `${moderator.user.tag}\n${moderator.id}`)
                 .addField('Reason', `${reason.slice(0, 1024)}`)
-                .setFooter(`Case #${NewCase.case}`);
+                .setFooter({ text: `Case #${NewCase.case}` });
         }
     },
     ban: {
@@ -69,12 +73,14 @@ const actionData = {
                 .setTimestamp()
                 .setColor(this.color)
                 .setThumbnail(memberToBan.user.displayAvatarURL({ dynamic: true, size: 2048 }))
-                .setAuthor(`${memberToBan.user.tag} got ${this.userGot}`,
-                    memberToBan.user.displayAvatarURL({ dynamic: true, size: 128 }))
+                .setAuthor({
+                    name: `${memberToBan.user.tag} got ${this.userGot}`,
+                    iconURL: memberToBan.user.displayAvatarURL({ dynamic: true, size: 128 })
+                })
                 .addField(`${this.userGot} user`, `ID: ${memberToBan.id}\n${rolesString ? `Roles: ${rolesString}` : ''}`)
                 .addField('Moderator', `${moderator.user.tag}\n${moderator.id}`)
                 .addField('Reason', `${reason.slice(0, 1024)}`)
-                .setFooter(`Case #${NewCase.case}`);
+                .setFooter({ text: `Case #${NewCase.case}` });
         }
     },
     mute: {
@@ -88,12 +94,14 @@ const actionData = {
                 .setTimestamp()
                 .setColor(this.color)
                 .setThumbnail(memberToMute.user.displayAvatarURL({ dynamic: true, size: 2048 }))
-                .setAuthor(`${memberToMute.user.tag} got ${this.userGot}`,
-                    memberToMute.user.displayAvatarURL({ dynamic: true, size: 128 }))
+                .setAuthor({
+                    name: `${memberToMute.user.tag} got ${this.userGot}`,
+                    iconURL: memberToMute.user.displayAvatarURL({ dynamic: true, size: 128 })
+                })
                 .addField(`${this.userGot} user`, `ID: ${memberToMute.id}`)
                 .addField('Moderator', `${moderator.user.tag}\n${moderator.id}`)
                 .addField('Reason', `${reason.slice(0, 1024)}`)
-                .setFooter(`Case #${NewCase.case}`);
+                .setFooter({ text: `Case #${NewCase.case}` });
         }
     },
     softban: {
@@ -108,12 +116,14 @@ const actionData = {
                 .setTimestamp()
                 .setColor(this.color)
                 .setThumbnail(memberToBan.user.displayAvatarURL({ dynamic: true, size: 2048 }))
-                .setAuthor(`${memberToBan.user.tag} got ${this.userGot}`,
-                    memberToBan.user.displayAvatarURL({ dynamic: true, size: 128 }))
+                .setAuthor({
+                    name: `${memberToBan.user.tag} got ${this.userGot}`,
+                    iconURL: memberToBan.user.displayAvatarURL({ dynamic: true, size: 128 })
+                })
                 .addField(`${this.userGot} user`, `ID: ${memberToBan.id}\n${rolesString ? `Roles: ${rolesString}` : ''}`)
                 .addField('Moderator', `${moderator.user.tag}\n${moderator.id}`)
                 .addField('Reason', `${reason.slice(0, 1024)}`)
-                .setFooter(`Case #${NewCase.case}`);
+                .setFooter({ text: `Case #${NewCase.case}` });
         }
     },
     unban: {
@@ -125,8 +135,10 @@ const actionData = {
                 .setTimestamp()
                 .setColor(this.color)
                 .setThumbnail(item.displayAvatarURL({ dynamic: true, size: 2048 }))
-                .setAuthor(`${item.tag} got ${this.userGot}`,
-                    item.displayAvatarURL({ dynamic: true, size: 128 }))
+                .setAuthor({
+                    name: `${item.tag} got ${this.userGot}`,
+                    iconURL: item.displayAvatarURL({ dynamic: true, size: 128 })
+                })
                 .addField(`${this.userGot} user`, `ID: ${item.id}`)
                 .addField('Moderator', `${moderator.user.tag}\n${moderator.id}`)
                 .addField('Reason', `${reason.slice(0, 1024)}`);
@@ -141,8 +153,10 @@ const actionData = {
                 .setTimestamp()
                 .setColor(this.color)
                 .setThumbnail(item.user.displayAvatarURL({ dynamic: true, size: 2048 }))
-                .setAuthor(`${item.user.tag} got ${this.userGot}`,
-                    item.user.displayAvatarURL({ dynamic: true, size: 128 }))
+                .setAuthor({
+                    name: `${item.user.tag} got ${this.userGot}`,
+                    iconURL: item.user.displayAvatarURL({ dynamic: true, size: 128 })
+                })
                 .addField(`${this.userGot} user`, `ID: ${item.id}`)
                 .addField('Moderator', `${moderator.user.tag}\n${moderator.id}`)
                 .addField('Reason', `${reason.slice(0, 1024)}`);
@@ -160,8 +174,10 @@ const actionData = {
                 .setTimestamp()
                 .setColor(this.color)
                 .setThumbnail(item.user.displayAvatarURL({ dynamic: true, size: 2048 }))
-                .setAuthor(`${item.user.tag} Joined`,
-                    item.user.displayAvatarURL({ dynamic: true, size: 128 }))
+                .setAuthor({
+                    name: `${item.user.tag} Joined`,
+                    iconURL: item.user.displayAvatarURL({ dynamic: true, size: 128 })
+                })
                 .addField('User', `ID: ${item.id}\nCreated at: ${new DateFormatter(item.user.createdAt).formatToReadable()}`);
 
             if (item.user.flags.toArray().length > 0) e.addField('Flags', prettifyUserFlags(item.user.flags.toArray()).join(', '));
@@ -180,8 +196,10 @@ const actionData = {
                 .setTimestamp()
                 .setColor(this.color)
                 .setThumbnail(item.user.displayAvatarURL({ dynamic: true, size: 2048 }))
-                .setAuthor(`${item.user.tag} Left`,
-                    item.user.displayAvatarURL({ dynamic: true, size: 128 }))
+                .setAuthor({
+                    name: `${item.user.tag} Left`,
+                    iconURL: item.user.displayAvatarURL({ dynamic: true, size: 128 })
+                })
                 .addField('User', `ID: ${item.id}\nCreated at ${new DateFormatter(item.user.createdAt).formatToReadable()}${rolesString ? `\nRoles: ${rolesString}` : ''}`);
 
             if (item.user.flags.toArray().length > 0) e.addField('Flags', prettifyUserFlags(item.user.flags.toArray()).join('\n'));
@@ -197,12 +215,12 @@ const actionData = {
             const e = new Embed()
                 .setTimestamp()
                 .setColor(this.color)
-                .setAuthor('Channel Created')
+                .setAuthor({ name: 'Channel Created' })
                 .setDescription(`Name: ${item.name}\nID: ${item.id}${item.parent?.name ? `\nCategory: ${item.parent.name}` : ''}\nType: ${prettifyChannelTypeFlags(item.type)}`);
 
             if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
                 const auditLog = await guild.fetchAuditLogs({ type: 'CHANNEL_CREATE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
-                if (auditLog.target.id === item.id) e.setFooter(`Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}`);
+                if (auditLog.target.id === item.id) e.setFooter({ text: `Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}` });
             }
 
             return e;
@@ -215,12 +233,12 @@ const actionData = {
             const e = new Embed()
                 .setTimestamp()
                 .setColor(this.color)
-                .setAuthor('Channel Deleted')
+                .setAuthor({ name: 'Channel Deleted' })
                 .setDescription(`Name: ${item.name}\nID: ${item.id}${item.parent?.name ? `\nCategory: ${item.parent.name}` : ''}\nType: ${prettifyChannelTypeFlags(item.type)}`);
 
             if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
                 const auditLog = await guild.fetchAuditLogs({ type: 'CHANNEL_DELETE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
-                if (auditLog.target.id === item.id) e.setFooter(`Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}`);
+                if (auditLog.target.id === item.id) e.setFooter({ text: `Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}` });
             }
 
             return e;
@@ -235,7 +253,7 @@ const actionData = {
             const e = new Embed()
                 .setTimestamp()
                 .setColor(this.color)
-                .setAuthor('Channel Updated');
+                .setAuthor({ name: 'Channel Updated' });
 
             if (oldChannel.name !== newChannel.name)
                 e.addDescription(`Name: ${oldChannel.name} => ${newChannel.name}`);
@@ -268,7 +286,7 @@ const actionData = {
 
             if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
                 const auditLog = await guild.fetchAuditLogs({ type: 'CHANNEL_UPDATE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
-                if (auditLog.target.id === newChannel.id) e.setFooter(`Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}`);
+                if (auditLog.target.id === newChannel.id) e.setFooter({ text: `Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}` });
             }
 
             return e;
@@ -281,13 +299,13 @@ const actionData = {
             const e = new Embed()
                 .setTimestamp()
                 .setColor(this.color)
-                .setAuthor('Emoji Added')
+                .setAuthor({ name: 'Emoji Added' })
                 .setThumbnail(item.url)
                 .setDescription(`Name: ${item.name}\nID: ${item.id}`);
 
             if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
                 const auditLog = await guild.fetchAuditLogs({ type: 'EMOJI_CREATE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
-                if (auditLog.target.id === item.id) e.setFooter(`Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}`);
+                if (auditLog.target.id === item.id) e.setFooter({ text: `Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}` });
             }
 
             return e;
@@ -300,13 +318,13 @@ const actionData = {
             const e = new Embed()
                 .setTimestamp()
                 .setColor(this.color)
-                .setAuthor('Emoji Deleted')
+                .setAuthor({ name: 'Emoji Deleted' })
                 .setThumbnail(item.url)
                 .setDescription(`Name: ${item.name}\nID: ${item.id}`);
 
             if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
                 const auditLog = await guild.fetchAuditLogs({ type: 'EMOJI_DELETE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
-                if (auditLog.target.id === item.id) e.setFooter(`Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}`);
+                if (auditLog.target.id === item.id) e.setFooter({ text: `Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}` });
             }
 
             return e;
@@ -321,13 +339,13 @@ const actionData = {
             const e = new Embed()
                 .setTimestamp()
                 .setColor(this.color)
-                .setAuthor('Emoji Updated')
+                .setAuthor({ name: 'Emoji Updated' })
                 .setThumbnail(newEmoji.url)
                 .setDescription(`Name: ${oldEmoji.name} => ${newEmoji.name}\nID: ${newEmoji.id}`);
 
             if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
                 const auditLog = await guild.fetchAuditLogs({ type: 'EMOJI_UPDATE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
-                if (auditLog.target.id === newEmoji.id) e.setFooter(`Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}`);
+                if (auditLog.target.id === newEmoji.id) e.setFooter({ text: `Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}` });
             }
             return e;
         }
@@ -340,14 +358,16 @@ const actionData = {
                 .setTimestamp()
                 .setColor(this.color)
                 .setThumbnail(item.user.displayAvatarURL({ dynamic: true, size: 2048 }))
-                .setAuthor(`${item.user.tag} got banned`,
-                    item.user.displayAvatarURL({ dynamic: true, size: 128 }))
+                .setAuthor({
+                    name: `${item.user.tag} got banned`,
+                    iconURL: item.user.displayAvatarURL({ dynamic: true, size: 128 })
+                })
                 .addField('Banned user', `ID: ${item.user.id}`)
                 .addField('Reason', `${item.reason?.slice(0, 1024) || 'No reason provided'}`);
 
             if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
                 const auditLog = await guild.fetchAuditLogs({ type: 'MEMBER_BAN_ADD', limit: 1 }).then(auditLogs => auditLogs.entries.first());
-                if (auditLog.target.id === item.user.id) e.setFooter(`Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}`);
+                if (auditLog.target.id === item.user.id) e.setFooter({ text: `Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}` });
             }
 
             return e;
@@ -361,13 +381,15 @@ const actionData = {
                 .setTimestamp()
                 .setColor(this.color)
                 .setThumbnail(item.user.displayAvatarURL({ dynamic: true, size: 2048 }))
-                .setAuthor(`${item.user.tag} got unbanned`,
-                    item.user.displayAvatarURL({ dynamic: true, size: 128 }))
+                .setAuthor({
+                    name: `${item.user.tag} got unbanned`,
+                    iconURL: item.user.displayAvatarURL({ dynamic: true, size: 128 })
+                })
                 .addField('Unbanned user', `ID: ${item.user.id}`);
 
             if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
                 const auditLog = await guild.fetchAuditLogs({ type: 'MEMBER_BAN_REMOVE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
-                if (auditLog.target.id === item.user.id) e.setFooter(`Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}`);
+                if (auditLog.target.id === item.user.id) e.setFooter({ text: `Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}` });
             }
 
             return e;
@@ -383,7 +405,7 @@ const actionData = {
                 .setTimestamp()
                 .setColor(this.color)
                 .setThumbnail(newGuild.iconURL({ dynamic: true, size: 2048 }))
-                .setAuthor('Server Update', newGuild.iconURL({ dynamic: true, size: 128 }));
+                .setAuthor({ name: 'Server Update', iconURL: newGuild.iconURL({ dynamic: true, size: 128 }) });
 
             if (oldGuild.name !== newGuild.name) e.addDescription(`Name: ${oldGuild.name} => ${newGuild.name}`);
 
@@ -446,7 +468,7 @@ const actionData = {
 
             if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
                 const auditLog = await guild.fetchAuditLogs({ type: 'GUILD_UPDATE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
-                if (auditLog.target.id === newGuild.id) e.setFooter(`Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}`);
+                if (auditLog.target.id === newGuild.id) e.setFooter({ text: `Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}` });
             }
 
             return e;
@@ -459,12 +481,12 @@ const actionData = {
             const e = new Embed()
                 .setTimestamp()
                 .setColor(this.color)
-                .setAuthor('Invite link created')
+                .setAuthor({ name: 'Invite link created' })
                 .setDescription(`Channel: ${item.channel.toString()}\nURL: ${item.url}`);
 
             if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
                 const auditLog = await guild.fetchAuditLogs({ type: 'INVITE_CREATE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
-                if (auditLog.target.id === item.id) e.setFooter(`Created by: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}`);
+                if (auditLog.target.id === item.id) e.setFooter({ text: `Created by: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}` });
             }
 
             return e;
@@ -477,12 +499,12 @@ const actionData = {
             const e = new Embed()
                 .setTimestamp()
                 .setColor(this.color)
-                .setAuthor('Invite link deleted')
+                .setAuthor({ name: 'Invite link deleted' })
                 .setDescription(`Channel: ${item.channel.toString()}\nURL: ${item.url}\nUsed: ${item?.uses || 0} time(s)`);
 
             if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
                 const auditLog = await guild.fetchAuditLogs({ type: 'INVITE_DELETE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
-                if (auditLog.changes[0].old === item.code) e.setFooter(`Deleted by: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}`);
+                if (auditLog.changes[0].old === item.code) e.setFooter({ text: { text: `Deleted by: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}` } });
             }
 
             return e;
@@ -496,8 +518,10 @@ const actionData = {
                 .setTimestamp()
                 .setColor(this.color)
                 .setThumbnail(item.author.displayAvatarURL({ dynamic: true, size: 2048 }))
-                .setAuthor('Message Deleted',
-                    item.author.displayAvatarURL({ dynamic: true, size: 128 }))
+                .setAuthor({
+                    name: 'Message Deleted',
+                    iconURL: item.author.displayAvatarURL({ dynamic: true, size: 128 })
+                })
                 .setDescription(`Author: ${item.author.tag}\nAuthor ID: ${item.author.id}\nChannel: ${item.channel.toString()}\nAttachments: ${item.attachments.size}`)
                 .addField('Content ↓', item.content.slice(0, 2000));
 
@@ -523,7 +547,7 @@ const actionData = {
             const e = new Embed()
                 .setTimestamp()
                 .setColor(this.color)
-                .setAuthor(`Message Bulk Delete (${item.size})`)
+                .setAuthor({ name: `Message Bulk Delete (${item.size})` })
                 .setDescription(`Channel: ${firstMsg.channel.toString()}`)
                 .addField('Content ↓', content.slice(0, 2000) || 'No text messages');
 
@@ -533,7 +557,7 @@ const actionData = {
 
             if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
                 const auditLog = await guild.fetchAuditLogs({ type: 'MESSAGE_BULK_DELETE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
-                if (auditLog.target.id === firstMsg.channel.id) e.setFooter(`Deleted by: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}`);
+                if (auditLog.target.id === firstMsg.channel.id) e.setFooter({ text: `Deleted by: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}` });
             }
 
             return e;
@@ -549,8 +573,10 @@ const actionData = {
                 .setTimestamp()
                 .setColor(this.color)
                 .setThumbnail(newMessage.author.displayAvatarURL({ dynamic: true, size: 2048 }))
-                .setAuthor('Message Updated',
-                    newMessage.author.displayAvatarURL({ dynamic: true, size: 128 }))
+                .setAuthor({
+                    name: 'Message Updated',
+                    iconURL: newMessage.author.displayAvatarURL({ dynamic: true, size: 128 })
+                })
                 .addDescription(`Channel: ${newMessage.channel.toString()}`)
                 .addDescription(`[Jump To Message](https://discordapp.com/channels/${newMessage.guild.id}/${newMessage.channel.id}/${newMessage.id})`);
 
@@ -570,7 +596,7 @@ const actionData = {
             const e = new Embed()
                 .setTimestamp()
                 .setColor(this.color)
-                .setAuthor('Role created')
+                .setAuthor({ name: 'Role created' })
                 .setDescription(`Name: ${item.name}\nRole: ${item.toString()}\nID: ${item.id}\nColor: ${item.hexColor}`)
                 .addField('Key Permissions ↓', new Permissions(item.permissions.toArray()).filterKeyPerms().formatToReadable());
 
@@ -578,7 +604,7 @@ const actionData = {
 
             if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
                 const auditLog = await guild.fetchAuditLogs({ type: 'ROLE_CREATE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
-                if (auditLog.target.id === item.id) e.setFooter(`Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}`);
+                if (auditLog.target.id === item.id) e.setFooter({ text: `Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}` });
             }
 
             return e;
@@ -591,7 +617,7 @@ const actionData = {
             const e = new Embed()
                 .setTimestamp()
                 .setColor(this.color)
-                .setAuthor('Role deleted')
+                .setAuthor({ name: 'Role deleted' })
                 .setDescription(`Name: ${item.name}\nID: ${item.id}\nColor: ${item.hexColor}`)
                 .addField('Key Permissions ↓', new Permissions(item.permissions.toArray()).filterKeyPerms().formatToReadable());
 
@@ -599,7 +625,7 @@ const actionData = {
 
             if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
                 const auditLog = await guild.fetchAuditLogs({ type: 'ROLE_DELETE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
-                if (auditLog.target.id === item.id) e.setFooter(`Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}`);
+                if (auditLog.target.id === item.id) e.setFooter({ text: `Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}` });
             }
 
             return e;
@@ -614,7 +640,7 @@ const actionData = {
             const e = new Embed()
                 .setTimestamp()
                 .setColor(this.color)
-                .setAuthor('Role update');
+                .setAuthor({ name: 'Role updated' });
 
             const oldPerms = new Permissions(oldRole.permissions).filterKeyPerms().formatToReadable();
             const newPerms = new Permissions(newRole.permissions).filterKeyPerms().formatToReadable();
@@ -630,7 +656,7 @@ const actionData = {
 
             if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
                 const auditLog = await guild.fetchAuditLogs({ type: 'ROLE_UPDATE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
-                if (auditLog.target.id === newRole.id) e.setFooter(`Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}`);
+                if (auditLog.target.id === newRole.id) e.setFooter({ text: `Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}` });
             }
 
             return e;
@@ -643,13 +669,13 @@ const actionData = {
             const e = new Embed()
                 .setTimestamp()
                 .setColor(this.color)
-                .setAuthor('Sticker Added')
+                .setAuthor({ name: 'Sticker Added' })
                 .setThumbnail(item.url)
                 .setDescription(`Name: ${item.name}\nID: ${item.id}\nDescription: ${item.description}\nTags: ${item?.tags?.join(', ') || 'No tags'}`);
 
             if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
                 const auditLog = await guild.fetchAuditLogs({ type: 'STICKER_CREATE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
-                if (auditLog.target.id === item.id) e.setFooter(`Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}`);
+                if (auditLog.target.id === item.id) e.setFooter({ text: `Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}` });
             }
 
             return e;
@@ -662,12 +688,12 @@ const actionData = {
             const e = new Embed()
                 .setTimestamp()
                 .setColor(this.color)
-                .setAuthor('Sticker Deleted')
+                .setAuthor({ name: 'Sticker Deleted' })
                 .setDescription(`Name: ${item.name}\nID: ${item.id}\nDescription: ${item.description}\nTags: ${item?.tags?.join(', ') || 'No tags'}`);
 
             if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
                 const auditLog = await guild.fetchAuditLogs({ type: 'STICKER_DELETE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
-                if (auditLog.target.id === item.id) e.setFooter(`Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}`);
+                if (auditLog.target.id === item.id) e.setFooter({ text: `Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}` });
             }
 
             return e;
@@ -682,7 +708,7 @@ const actionData = {
             const e = new Embed()
                 .setTimestamp()
                 .setColor(this.color)
-                .setAuthor('Sticker Updated')
+                .setAuthor({ name: 'Sticker Updated' })
                 .setThumbnail(newSticker.url);
 
             if (oldSticker.name !== newSticker.name) e.addDescription(`Name: ${oldSticker.name} => ${newSticker.name}`);
@@ -694,7 +720,7 @@ const actionData = {
 
             if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
                 const auditLog = await guild.fetchAuditLogs({ type: 'STICKER_UPDATE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
-                if (auditLog.target.id === item.id) e.setFooter(`Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}`);
+                if (auditLog.target.id === item.id) e.setFooter({ text: `Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}` });
             }
 
             return e;
@@ -707,12 +733,12 @@ const actionData = {
             const e = new Embed()
                 .setTimestamp()
                 .setColor(this.color)
-                .setAuthor('Channel Created')
+                .setAuthor({ name: 'Channel Created' })
                 .setDescription(`Name: ${item.name}\nID: ${item.id}\nParent: ${item.parent.name}\nType: thread`);
 
             if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
                 const auditLog = await guild.fetchAuditLogs({ type: 'THREAD_CREATE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
-                if (auditLog.target.id === item.id) e.setFooter(`Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}`);
+                if (auditLog.target.id === item.id) e.setFooter({ text: `Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}` });
             }
 
             return e;
@@ -725,12 +751,12 @@ const actionData = {
             const e = new Embed()
                 .setTimestamp()
                 .setColor(this.color)
-                .setAuthor('Channel Deleted')
+                .setAuthor({ name: 'Channel Deleted' })
                 .setDescription(`Name: ${item.name}\nID: ${item.id}\nParent: ${item.parent.name}\nType: thread`);
 
             if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
                 const auditLog = await guild.fetchAuditLogs({ type: 'THREAD_CREATE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
-                if (auditLog.target.id === item.id) e.setFooter(`Deleted by: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}`);
+                if (auditLog.target.id === item.id) e.setFooter({ text: `Deleted by: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}` });
             }
 
             return e;
@@ -745,7 +771,7 @@ const actionData = {
             const e = new Embed()
                 .setTimestamp()
                 .setColor(this.color)
-                .setAuthor('Channel Updated');
+                .setAuthor({ name: 'Channel Updated' });
 
             if (oldThread.name !== newThread.name)
                 e.addDescription(`Name: ${oldThread.name} => ${newThread.name}`);
@@ -754,7 +780,7 @@ const actionData = {
 
             if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
                 const auditLog = await guild.fetchAuditLogs({ type: 'THREAD_UPDATE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
-                if (auditLog.target.id === newThread.id) e.setFooter(`Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}`);
+                if (auditLog.target.id === newThread.id) e.setFooter({ text: `Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}` });
             }
 
             return e;

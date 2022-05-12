@@ -43,9 +43,9 @@ module.exports = {
 
         // Sending the first page of the user's cases
         const e = new Embed()
-            .setAuthor(`Cases of ${user?.tag || userIDInput} - ${Cases.length} total`, user && user.displayAvatarURL({ size: 64, dynamic: true }))
+            .setAuthor({ name: `Cases of ${user?.tag || userIDInput} - ${Cases.length} total`, iconURL: user.displayAvatarURL({ size: 64, dynamic: true }) || null })
             .setFields(createFields(1, 9, Cases))
-            .setFooter(`Page: ${currentPageNum}/${pageNum}`);
+            .setFooter({ text: `Page: ${currentPageNum}/${pageNum}` });
 
         const sentMsg = await message.channel.send({ embeds: [e] });
         await sentMsg.react('◀');
@@ -70,7 +70,7 @@ module.exports = {
                     embeds: [
                         e.setFields(
                             createFields(currentPageNum * 9 - 8, currentPageNum * 9, Cases) // Fancy math for 9 elements per page
-                        ).setFooter(`Page: ${currentPageNum}/${pageNum}`),
+                        ).setFooter({ text: `Page: ${currentPageNum}/${pageNum}` }),
                     ]
                 });
             }
@@ -85,7 +85,7 @@ module.exports = {
                     embeds: [
                         e.setFields(
                             createFields(currentPageNum * 9 - 8, currentPageNum * 9, Cases) // Fancy math for 9 elements per page
-                        ).setFooter(`Page: ${currentPageNum}/${pageNum}`),
+                        ).setFooter({ text: `Page: ${currentPageNum}/${pageNum}` }),
                     ]
                 });
             }
