@@ -40,12 +40,14 @@ function loop(arrayOfStrings, wrapper, word) {
 /**
  * @description 
  * @param {String[]} arrayOfStrings 
+ * @param {String} wrapper 
  * @returns {String}
  */
 module.exports.and = (arrayOfStrings, wrapper) => loop(arrayOfStrings, wrapper, 'and');
 /**
  * @description 
  * @param {String[]} arrayOfStrings 
+ * @param {String} wrapper 
  * @returns {String}
  */
 module.exports.or = (arrayOfStrings, wrapper) => loop(arrayOfStrings, wrapper, 'or');
