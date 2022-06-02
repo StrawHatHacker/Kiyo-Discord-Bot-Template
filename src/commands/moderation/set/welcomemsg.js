@@ -5,10 +5,10 @@ const EmbedModel = require('../../../models/embed');
 const Err = require('../../../classes/Err');
 
 module.exports = {
-    name: 'welcomemsg',
+    name: 'setwelcomemsg',
     description: 'Configure welcome message functionality',
     aliases: [],
-    syntax: 'welcomemsg <"channel" or "embed name">',
+    syntax: 'setwelcomemsg <"channel" or "embed name">',
     requiredPermissions: {
         user: ['ADMINISTRATOR'],
         client: []

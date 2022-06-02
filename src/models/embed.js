@@ -30,7 +30,7 @@ const AuthorSchema = new Schema({
     },
     url: {
         type: String,
-        default: false
+        default: ''
     }
 }, {
     _id: false,
@@ -99,12 +99,10 @@ const EmbedSchema = new Schema({
         }
     },
     author: {
-        type: AuthorSchema,
-        default: {}
+        type: AuthorSchema
     },
     footer: {
-        type: FooterSchema,
-        default: {}
+        type: FooterSchema
     }
 }, {
     timestamps: true,

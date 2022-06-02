@@ -7,6 +7,7 @@ const { GuildMember } = require('discord.js');
  */
 const replaceFlags = (str, member) => {
     if (!(member instanceof GuildMember)) throw new Error('Parameter member is not instance of GuildMember');
+    if (typeof str !== 'string') return str;
 
     return str.replace(/{username}/g, member.user.username)
         .replace(/{mention}/g, member.toString())
