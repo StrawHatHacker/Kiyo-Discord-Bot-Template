@@ -39,6 +39,12 @@ module.exports = {
         },
         feature: {
             user: ['MANAGE_GUILD']
+        },
+        addFilter: {
+            user: ['MANAGE_GUILD']
+        },
+        removeFilter: {
+            user: ['MANAGE_GUILD']
         }
     },
     PERM_FLAGS: {

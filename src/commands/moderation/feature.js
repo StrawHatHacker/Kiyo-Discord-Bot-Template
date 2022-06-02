@@ -4,7 +4,11 @@ const { and, or } = require('../../utils/stringManipulation');
 const { COMMAND_PERMS } = require('../../config');
 const Err = require('../../classes/Err');
 
-const featureTypes = ['welcomemessages', 'leavemessages', 'moderationlog', 'messagelog', 'serverlog', 'memberlog'];
+const featureTypes = [
+    'welcomemessages', 'leavemessages',
+    'moderationlog', 'messagelog', 'serverlog', 'memberlog',
+    'filter'
+];
 
 module.exports = {
     name: 'feature',

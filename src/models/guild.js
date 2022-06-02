@@ -26,6 +26,10 @@ const FeaturesSchema = new Schema({
     memberlog: {
         type: Boolean,
         default: true
+    },
+    filter: {
+        type: Boolean,
+        default: true
     }
 }, {
     _id: false
@@ -80,6 +84,10 @@ const GuildSchema = new Schema({
     member_log_channel_id: {
         type: String,
         default: ''
+    },
+    filtered_words: {
+        type: [String],
+        default: []
     },
     security_policy: {
         type: String,

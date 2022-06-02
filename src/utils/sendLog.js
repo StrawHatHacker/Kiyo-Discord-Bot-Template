@@ -786,6 +786,22 @@ const actionData = {
             return e;
         }
     },
+    filter: {
+        type: 'moderationlog',
+        color: colors.orangePrimary,
+        getEmbed: async function ({ item }) {
+            const [member, words] = item;
+
+            const e = new Embed()
+                .setTimestamp()
+                .setColor(this.color)
+                .setAuthor({ name: `${member.displayName} | Used Filtered Words` })
+                .addField('User', `ID: ${member.id}`)
+                .addField('Words', '||' + words.join(', ') + '||');
+
+            return e;
+        }
+    },
 };
 
 /**
