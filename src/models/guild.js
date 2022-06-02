@@ -7,6 +7,10 @@ const FeaturesSchema = new Schema({
         type: Boolean,
         default: true
     },
+    leavemessages: {
+        type: Boolean,
+        default: true
+    },
     moderationlog: {
         type: Boolean,
         default: true
@@ -49,6 +53,14 @@ const GuildSchema = new Schema({
         type: String,
         default: null
     },
+    leave_channel_id: {
+        type: String,
+        default: null
+    },
+    leave_embed_id: {
+        type: String,
+        default: null
+    },
     mute_roles: {
         type: [String],
         default: []
@@ -68,6 +80,10 @@ const GuildSchema = new Schema({
     member_log_channel_id: {
         type: String,
         default: ''
+    },
+    security_policy: {
+        type: String,
+        default: 'off'
     }
 }, {
     timestamps: true,
