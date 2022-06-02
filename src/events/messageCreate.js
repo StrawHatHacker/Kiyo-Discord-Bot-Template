@@ -1,9 +1,11 @@
 'use strict';
 
+const parseMessageFilter = require('../utils/parseMessageFilter');
 const checkPermissions = require('../utils/checkForPermissions');
 const errorHandler = require('../utils/messageErrorHandler');
 const databaseUtils = require('../utils/database');
 const onCooldown = require('../utils/onCooldown');
+const sendLog = require('../utils/sendLog');
 
 module.exports = async (client, message) => {
     // If guild is not available becase of outage return
@@ -18,6 +20,13 @@ module.exports = async (client, message) => {
 
     // If the message is the bot mention return the prefix
     if (message.content === `<@!${client.user.id}>`) return message.channel.send(`My prefix in this server is \`${Guild.prefix}\``);
+
+    // Check if the message contains filtered words
+    const wordsFound = parseMessageFilter(message, Guild);
+    if (wordsFound) {
+        await sendLog('filter', Guild, message.guild, [message.member, wordsFound], null, null);
+        return;
+    }
 
     // If message doesn't start with prefix, ignore it
     if (!message.content.toLowerCase().startsWith(Guild.prefix)) return;
