@@ -2,7 +2,7 @@
 
 const { Schema, model } = require('mongoose');
 
-const FeaturesSchema = new Schema({
+const FeaturesSubSchema = new Schema({
     welcomemessages: {
         type: Boolean,
         default: true
@@ -30,6 +30,10 @@ const FeaturesSchema = new Schema({
     filter: {
         type: Boolean,
         default: true
+    },
+    invitelinks: {
+        type: Boolean,
+        default: false
     }
 }, {
     _id: false
@@ -46,7 +50,7 @@ const GuildSchema = new Schema({
         default: '>'
     },
     features: {
-        type: FeaturesSchema,
+        type: FeaturesSubSchema,
         default: () => ({})
     },
     welcome_channel_id: {

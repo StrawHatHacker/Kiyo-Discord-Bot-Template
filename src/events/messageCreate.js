@@ -1,8 +1,9 @@
 'use strict';
 
-const parseMessageFilter = require('../utils/parseMessageFilter');
 const checkPermissions = require('../utils/checkForPermissions');
+const inviteLinkFilter = require('../utils/inviteLinkFilter');
 const errorHandler = require('../utils/messageErrorHandler');
+const messageFilter = require('../utils/messageFilter');
 const databaseUtils = require('../utils/database');
 const onCooldown = require('../utils/onCooldown');
 const sendLog = require('../utils/sendLog');
@@ -21,11 +22,27 @@ module.exports = async (client, message) => {
     // If the message is the bot mention return the prefix
     if (message.content === `<@!${client.user.id}>`) return message.channel.send(`My prefix in this server is \`${Guild.prefix}\``);
 
-    // Check if the message contains filtered words
-    const wordsFound = parseMessageFilter(message, Guild);
-    if (wordsFound) {
-        await sendLog('filter', Guild, message.guild, [message.member, wordsFound], null, null);
-        return;
+    // If user doesn't have any of these permissions then pass the message through filters
+    if (!message.member.permissions.has('ADMINISTRATOR') &&
+        !message.member.permissions.has('MANAGE_GUILD') &&
+        !message.member.permissions.has('MANAGE_CHANNELS') &&
+        !message.member.permissions.has('MANAGE_MESSAGES')) {
+
+        const parsedContent = message.content.toLowerCase().replace(/\n/g, '');
+
+        if (inviteLinkFilter(parsedContent, Guild)) {
+            await message.delete();
+            await sendLog('invite_link', Guild, message.guild, [message], null, null);
+            return;
+        }
+
+        // Check if the message contains filtered words
+        const wordsFound = messageFilter(parsedContent, Guild);
+        if (wordsFound) {
+            await message.delete();
+            await sendLog('filter', Guild, message.guild, [message.member, wordsFound], null, null);
+            return;
+        }
     }
 
     // If message doesn't start with prefix, ignore it

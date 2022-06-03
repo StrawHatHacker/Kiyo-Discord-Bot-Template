@@ -795,9 +795,33 @@ const actionData = {
             const e = new Embed()
                 .setTimestamp()
                 .setColor(this.color)
-                .setAuthor({ name: `${member.displayName} | Used Filtered Words` })
+                .setThumbnail(member.user.displayAvatarURL({ dynamic: true, size: 2048 }))
+                .setAuthor({
+                    name: `${member.user.tag} | Used Filtered Words`,
+                    iconURL: member.user.displayAvatarURL({ dynamic: true, size: 128 })
+                })
                 .addField('User', `ID: ${member.id}`)
                 .addField('Words', '||' + words.join(', ') + '||');
+
+            return e;
+        }
+    },
+    invite_link: {
+        type: 'moderationlog',
+        color: colors.redPrimary,
+        getEmbed: async function ({ item }) {
+            const [message] = item;
+
+            const e = new Embed()
+                .setTimestamp()
+                .setColor(this.color)
+                .setThumbnail(message.author.displayAvatarURL({ dynamic: true, size: 2048 }))
+                .setAuthor({
+                    name: `${message.author.tag} | Sent Invite Link`,
+                    iconURL: message.author.displayAvatarURL({ dynamic: true, size: 128 })
+                })
+                .addField('User', `ID: ${message.member.id}`)
+                .addField('Message', message.content);
 
             return e;
         }
@@ -807,11 +831,11 @@ const actionData = {
 /**
  * @description Sends a log message to the corresponding log channel. It has a
  *             set delay so audit logs have time to be created. 
- *             Use with caution because it might make your commands slower
- * @param {warn|kick|ban|softban|mute|unban|unmute} action the action that triggered this log
+ *             So use with caution because it might make your commands slower.
+ * @param {String} action the action that triggered this log
  * @param {GuildObject} Guild object with guild data from the database
  * @param {Discord.Guild} guild 
- * @param {} item It's an item with information passed to get embed function to use it as it likes
+ * @param {any} item It's an item with information passed to get embed function to use it as it likes
  * @param {Discord.GuildMember} moderator 
  * @param {String} reason 
  * @returns {Promise<void>}

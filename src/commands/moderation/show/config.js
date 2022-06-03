@@ -36,6 +36,11 @@ module.exports = {
         e.addDescription(`${Guild.features.leavemessages ? '✅' : '❎'} Leave Messages`);
         e.addDescription(`${spacing}${Guild.leave_channel_id ? `<#${Guild.leave_channel_id}>` : '`No channel set`'}`);
 
+        e.addDescription(`${Guild.features.filter ? '✅' : '❎'} Word Filter`);
+        e.addDescription(`${spacing}${Guild.filtered_words.length > 0 ? `${Guild.filtered_words.length} word(s)` : '`No words added`'}`);
+
+        e.addDescription(`${Guild.features.invitelinks ? '✅' : '❎'} Invite Link Deletion`);
+
         e.addDescription(`\n${'✅'} - enabled | ${'❎'} - disabled`);
 
         await message.channel.send({ embeds: [e] });
