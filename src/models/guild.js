@@ -34,6 +34,10 @@ const FeaturesSubSchema = new Schema({
     invitelinks: {
         type: Boolean,
         default: false
+    },
+    links: {
+        type: Boolean,
+        default: false
     }
 }, {
     _id: false

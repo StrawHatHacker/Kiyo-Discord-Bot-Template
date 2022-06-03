@@ -826,6 +826,26 @@ const actionData = {
             return e;
         }
     },
+    link: {
+        type: 'moderationlog',
+        color: colors.redPrimary,
+        getEmbed: async function ({ item }) {
+            const [message] = item;
+
+            const e = new Embed()
+                .setTimestamp()
+                .setColor(this.color)
+                .setThumbnail(message.author.displayAvatarURL({ dynamic: true, size: 2048 }))
+                .setAuthor({
+                    name: `${message.author.tag} | Sent Link`,
+                    iconURL: message.author.displayAvatarURL({ dynamic: true, size: 128 })
+                })
+                .addField('User', `ID: ${message.member.id}`)
+                .addField('Message', message.content);
+
+            return e;
+        }
+    },
 };
 
 /**

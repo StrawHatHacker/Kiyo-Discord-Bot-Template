@@ -6,6 +6,7 @@ const errorHandler = require('../utils/messageErrorHandler');
 const messageFilter = require('../utils/messageFilter');
 const databaseUtils = require('../utils/database');
 const onCooldown = require('../utils/onCooldown');
+const linkFilter = require('../utils/linkFilter');
 const sendLog = require('../utils/sendLog');
 
 module.exports = async (client, message) => {
@@ -30,9 +31,17 @@ module.exports = async (client, message) => {
 
         const parsedContent = message.content.toLowerCase().replace(/\n/g, '');
 
+        // Check if the message contains a Discord invite link
         if (inviteLinkFilter(parsedContent, Guild)) {
             await message.delete();
             await sendLog('invite_link', Guild, message.guild, [message], null, null);
+            return;
+        }
+
+        // Check if the message contains any link
+        if (linkFilter(parsedContent, Guild)) {
+            await message.delete().catch(() => null);
+            await sendLog('link', Guild, message.guild, [message], null, null);
             return;
         }
 

@@ -1,4 +1,7 @@
 module.exports = {
+    regex: {
+        url: /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()!@:%_+.~#?&//=]*)/g
+    },
     // You dont have to write ADMINISTRATOR for command perms, that gets checked for you
     COMMAND_PERMS: {
         userinfo: {

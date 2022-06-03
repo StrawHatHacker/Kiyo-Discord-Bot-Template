@@ -7,7 +7,7 @@ const Err = require('../../classes/Err');
 const featureTypes = [
     'welcomemessages', 'leavemessages',
     'moderationlog', 'messagelog', 'serverlog', 'memberlog',
-    'filter', 'invitelinks'
+    'filter', 'invitelinks', 'links'
 ];
 
 module.exports = {
@@ -27,9 +27,10 @@ module.exports = {
         featureInput = featureInput.toLowerCase();
 
         if (!featureTypes.includes(featureInput))
-            throw new Err(400).inputErr().setMessage(`"Feature" is neither ${or(featureTypes, '"')}`);
+            throw new Err(400).inputErr().setMessage(`"Feature" should be ${or(featureTypes, '"')}`);
+
         if (!['on', 'off'].includes(toggleInput))
-            throw new Err(400).inputErr().setMessage('"Toggle" is neither "on" or "off"');
+            throw new Err(400).inputErr().setMessage('"Toggle" should be "on" or "off"');
 
         let bool, str;
 
