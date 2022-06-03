@@ -148,10 +148,10 @@ permissions to be authorized. In the case of *client*, the bot needs all of the 
 
 ## Common issues
 * **Slash commands not working**
-Make sure the `application.commands` scope is authorized for your guild.
+Make sure the `application.commands` scope is checked when you invite the bot in your guild.
 * **Logs sometimes display the wrong moderator**
 Sadly audit logs don't work as we would like. This is the best implementation I could come up with.
-Open an issue so we can see if it's important.
+Open an issue so we can see if it's important that needs fixing.
 * **Reloading commands doesn't reflect my changes**
 The slash command "reloadcommands" only reloads files in the `/src/commands`, `/src/slashCommands` and `/src/utils` folders.
 * **Error: "The $changeStream stage is only supported on replica sets"**
