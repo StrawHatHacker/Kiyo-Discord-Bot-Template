@@ -39,7 +39,14 @@ module.exports = {
         e.addDescription(`${Guild.features.filter ? '✅' : '❎'} Word Filter`);
         e.addDescription(`${spacing}${Guild.filtered_words.length > 0 ? `${Guild.filtered_words.length} word(s)` : '`No words added`'}`);
 
+        e.addDescription(`${Guild.features.autoroles ? '✅' : '❎'} Autoroles`);
+        e.addDescription(`${spacing}${Guild.autoroles.length > 0 ? `${Guild.autoroles.length} roles(s)` : '`No roles added`'}`);
+
         e.addDescription(`${Guild.features.invitelinks ? '✅' : '❎'} Invite Link Deletion`);
+        e.addDescription(`${Guild.features.links ? '✅' : '❎'} Link Deletion`);
+
+        e.addDescription(`\nSecurity Policy: ${Guild.security_policy}`);
+        e.addDescription(`Chatlog Ignore Channels: ${Guild.chatlog_ignore_channels.length} channel(s)`);
 
         e.addDescription(`\n${'✅'} - enabled | ${'❎'} - disabled`);
 
