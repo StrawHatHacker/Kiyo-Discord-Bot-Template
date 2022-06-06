@@ -3,6 +3,7 @@
 const stripToID = require('../../../utils/stripToID');
 const { COMMAND_PERMS } = require('../../../config');
 const Embed = require('../../../classes/Embed');
+const Err = require('../../../classes/Err');
 
 module.exports = {
     name: 'removemuterole',
@@ -18,6 +19,7 @@ module.exports = {
         if (!roleInput) return;
 
         const roleID = stripToID(roleInput);
+        if (!Guild.mute_roles.includes(roleID)) throw new Err(400).inputErr().setMessage('That role is not in the mute role list.');
 
         await Guild.updateOne({
             $pull: {
