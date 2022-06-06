@@ -23,10 +23,10 @@ module.exports = {
         const guildRole = message.guild.roles.cache.get(stripToID(roleInput));
         if (!guildRole) throw new Err().inputErr().roleNotFound();
 
-        if (Guild.mute_roles.includes(guildRole.id)) throw new Err().inputErr().roleAlreadyExists();
+        if (Guild.mute_roles.includes(guildRole.id)) throw new Err().inputErr().roleAlreadyExists('in the mute role list.');
 
         if (hasModeratorPerms(guildRole))
-            throw new Err(400).inputErr().setMessage('Role has moderation permissions. Bot should not assign roles that can elevate the permissions of a user');
+            throw new Err(400).inputErr().setMessage('Role has moderation permissions. Bot should not assign roles that can elevate the permissions of a user.');
 
         await Guild.updateOne({
             $push: {
