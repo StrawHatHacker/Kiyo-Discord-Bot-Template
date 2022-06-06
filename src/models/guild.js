@@ -38,6 +38,10 @@ const FeaturesSubSchema = new Schema({
     links: {
         type: Boolean,
         default: false
+    },
+    autoroles: {
+        type: Boolean,
+        default: true
     }
 }, {
     _id: false
@@ -94,6 +98,10 @@ const GuildSchema = new Schema({
         default: ''
     },
     filtered_words: {
+        type: [String],
+        default: []
+    },
+    autoroles: {
         type: [String],
         default: []
     },

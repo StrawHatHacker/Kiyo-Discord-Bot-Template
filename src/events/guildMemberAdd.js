@@ -1,5 +1,6 @@
 'use strict';
 
+const safeAddRolesToMember = require('../utils/safeAddRolesToMember');
 const formatEmbed = require('../utils/formatEmbed');
 const GuildModel = require('../models/guild');
 const EmbedModel = require('../models/embed');
@@ -15,15 +16,24 @@ module.exports = async (_client, member) => {
 
     await sendLog('guildMemberAdd', Guild, member.guild, member).catch(() => null);
 
-    if (!Guild.features.welcomemessages) return;
-    if (Guild.welcome_channel_id === null || Guild.welcome_embed_id === null) return;
+    autorolesCondition:
+    if (Guild.features.autoroles && member.guild.me.permissions.has('MANAGE_ROLES')) {
+        if (Guild.autoroles.length === 0) break autorolesCondition;
 
-    const channel = member.guild.channels.cache.get(Guild.welcome_channel_id);
-    const EmbedProps = await EmbedModel.findById(Guild.welcome_embed_id);
+        await safeAddRolesToMember(member, Guild.autoroles);
+    }
 
-    if (!channel || !EmbedProps) return;
+    welcomeCondition:
+    if (Guild.features.welcomemessages && Guild.welcome_channel_id !== null && Guild.welcome_embed_id === null) {
+        if (Guild.welcome_channel_id === null || Guild.welcome_embed_id === null) break welcomeCondition;
 
-    const formattedEmbedProps = formatEmbed(EmbedProps, member);
+        const channel = member.guild.channels.cache.get(Guild.welcome_channel_id);
+        const EmbedProps = await EmbedModel.findById(Guild.welcome_embed_id);
 
-    await channel.send({ content: EmbedProps.content, embeds: [new Embed(formattedEmbedProps)] }).catch(() => null);
+        if (!channel || !EmbedProps) break welcomeCondition;
+
+        const formattedEmbedProps = formatEmbed(EmbedProps, member);
+
+        await channel.send({ content: EmbedProps.content || null, embeds: [new Embed(formattedEmbedProps)] }).catch(() => null);
+    }
 };

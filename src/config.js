@@ -19,6 +19,12 @@ module.exports = {
         removemuterole: {
             user: ['BAN_MEMBERS', 'KICK_MEMBERS', 'MANAGE_CHANNELS', 'MANAGE_GUILD', 'MANAGE_ROLES']
         },
+        removeautorole: {
+            user: ['MANAGE_GUILD', 'MANAGE_ROLES']
+        },
+        addautorole: {
+            user: ['MANAGE_GUILD', 'MANAGE_ROLES']
+        },
         prune: {
             user: ['BAN_MEMBERS', 'KICK_MEMBERS', 'MANAGE_CHANNELS', 'MANAGE_MESSAGES']
         },
