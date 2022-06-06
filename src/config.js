@@ -25,6 +25,12 @@ module.exports = {
         addautorole: {
             user: ['MANAGE_GUILD', 'MANAGE_ROLES']
         },
+        addchatlogignorechannel: {
+            user: ['MANAGE_GUILD', 'MANAGE_CHANNELS', 'MANAGE_MESSAGES']
+        },
+        removechatlogignorechannel: {
+            user: ['MANAGE_GUILD', 'MANAGE_CHANNELS', 'MANAGE_MESSAGES']
+        },
         prune: {
             user: ['BAN_MEMBERS', 'KICK_MEMBERS', 'MANAGE_CHANNELS', 'MANAGE_MESSAGES']
         },

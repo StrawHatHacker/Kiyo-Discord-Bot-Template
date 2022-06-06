@@ -9,10 +9,15 @@ module.exports = async (_client, messages) => {
     // If guild is not available because of outage return
     if (!firstMessage.guild.available) return;
 
-    if (firstMessage.channel.type !== 'GUILD_TEXT') return;
+    if (
+        firstMessage.channel.type !== 'GUILD_TEXT'
+        && firstMessage.channel.type !== 'GUILD_NEWS'
+    ) return;
 
     const Guild = await GuildModel.findById(firstMessage.guild.id);
     if (!Guild) return;
 
-    await sendLog('messageDeleteBulk', Guild, firstMessage.guild, messages);
+    if (!Guild.chatlog_ignore_channels.includes(firstMessage.channel.id)) {
+        await sendLog('messageDeleteBulk', Guild, firstMessage.guild, messages);
+    }
 };

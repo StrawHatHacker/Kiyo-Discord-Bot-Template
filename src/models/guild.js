@@ -105,6 +105,10 @@ const GuildSchema = new Schema({
         type: [String],
         default: []
     },
+    chatlog_ignore_channels: {
+        type: [String],
+        default: []
+    },
     security_policy: {
         type: String,
         default: 'off'

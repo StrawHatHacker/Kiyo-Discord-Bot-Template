@@ -7,7 +7,10 @@ module.exports = async (_client, oldMessage, newMessage) => {
     // If guild is not available because of outage return
     if (!newMessage.guild.available) return;
 
-    if (newMessage.channel.type !== 'GUILD_TEXT') return;
+    if (
+        newMessage.channel.type !== 'GUILD_TEXT'
+        && newMessage.channel.type !== 'GUILD_NEWS'
+    ) return;
 
     // Return in case of uncached message
     if (!oldMessage.content) return;
@@ -21,5 +24,7 @@ module.exports = async (_client, oldMessage, newMessage) => {
     const Guild = await GuildModel.findById(newMessage.guild.id);
     if (!Guild) return;
 
-    await sendLog('messageUpdate', Guild, newMessage.guild, [oldMessage, newMessage]);
+    if (!Guild.chatlog_ignore_channels.includes(newMessage.channel.id)) {
+        await sendLog('messageUpdate', Guild, newMessage.guild, [oldMessage, newMessage]);
+    }
 };
