@@ -106,9 +106,9 @@ module.exports = class Err {
     }
 
     // The specified role already exists
-    roleAlreadyExists() {
+    roleAlreadyExists(appendable) {
         this.httpStatus = 400;
-        this.message = 'Role already exists';
+        this.message = 'Role already exists ' + appendable;
         return this;
     }
 
