@@ -24,6 +24,7 @@ module.exports = {
         if (!guildRole) throw new Err().inputErr().roleNotFound();
 
         if (Guild.autoroles.includes(guildRole.id)) throw new Err().inputErr().roleAlreadyExists('in the autorole list.');
+        if (Guild.autoroles.length >= 10) throw new Err().inputErr().setMessage('Cannot add more than 10 roles in the autoroles list.');
 
         if (hasModeratorPerms(guildRole))
             throw new Err(400).inputErr().setMessage('Role has moderation permissions. Bot should not assign roles that can elevate the permissions of a user.');
