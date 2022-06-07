@@ -46,7 +46,9 @@ module.exports = {
         e.addDescription(`${Guild.features.links ? '✅' : '❎'} Link Deletion`);
 
         e.addDescription(`\nSecurity Policy: ${Guild.security_policy}`);
+        e.addDescription(`Attachment Only Channels: ${Guild.attachment_only_channels.length} channel(s)`);
         e.addDescription(`Chatlog Ignore Channels: ${Guild.chatlog_ignore_channels.length} channel(s)`);
+        e.addDescription(`Link Filter Channels: ${Guild.link_filter_channels.length} channel(s)`);
 
         e.addDescription(`\n${'✅'} - enabled | ${'❎'} - disabled`);
 
