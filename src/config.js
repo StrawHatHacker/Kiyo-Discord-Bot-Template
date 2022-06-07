@@ -31,6 +31,12 @@ module.exports = {
         removechatlogignorechannel: {
             user: ['MANAGE_GUILD', 'MANAGE_CHANNELS', 'MANAGE_MESSAGES']
         },
+        addattachmentonlychannel: {
+            user: ['MANAGE_GUILD', 'MANAGE_CHANNELS', 'MANAGE_MESSAGES']
+        },
+        removeattachmentonlychannel: {
+            user: ['MANAGE_GUILD', 'MANAGE_CHANNELS', 'MANAGE_MESSAGES']
+        },
         prune: {
             user: ['BAN_MEMBERS', 'KICK_MEMBERS', 'MANAGE_CHANNELS', 'MANAGE_MESSAGES']
         },

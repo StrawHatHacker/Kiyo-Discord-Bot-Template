@@ -52,6 +52,13 @@ module.exports = async (client, message) => {
             await sendLog('filter', Guild, message.guild, [message.member, wordsFound], null, null);
             return;
         }
+
+        // Check if the message has an attachment (only for attachment-only channels)
+        if (Guild.attachment_only_channels.includes(message.channel.id) && message.attachments.size === 0) {
+            await message.delete().catch(() => null);
+            await sendLog('attachment_only', Guild, message.guild, [message], null, null);
+            return;
+        }
     }
 
     // If message doesn't start with prefix, ignore it

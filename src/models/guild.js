@@ -109,6 +109,10 @@ const GuildSchema = new Schema({
         type: [String],
         default: []
     },
+    attachment_only_channels: {
+        type: [String],
+        default: []
+    },
     security_policy: {
         type: String,
         default: 'off'

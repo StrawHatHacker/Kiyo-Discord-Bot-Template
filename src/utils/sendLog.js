@@ -846,6 +846,26 @@ const actionData = {
             return e;
         }
     },
+    attachment_only: {
+        type: 'moderationlog',
+        color: colors.orangePrimary,
+        getEmbed: async function ({ item }) {
+            const [message] = item;
+
+            const e = new Embed()
+                .setTimestamp()
+                .setColor(this.color)
+                .setThumbnail(message.author.displayAvatarURL({ dynamic: true, size: 2048 }))
+                .setAuthor({
+                    name: `${message.author.tag} | Sent text in attachment only channel`,
+                    iconURL: message.author.displayAvatarURL({ dynamic: true, size: 128 })
+                })
+                .addField('User', `ID: ${message.member.id}`)
+                .addField('Message', message.content);
+
+            return e;
+        }
+    },
 };
 
 /**
