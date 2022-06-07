@@ -37,6 +37,12 @@ module.exports = {
         removeattachmentonlychannel: {
             user: ['MANAGE_GUILD', 'MANAGE_CHANNELS', 'MANAGE_MESSAGES']
         },
+        addlinkfilterchannel: {
+            user: ['MANAGE_GUILD', 'MANAGE_CHANNELS', 'MANAGE_MESSAGES']
+        },
+        removelinkfilterchannel: {
+            user: ['MANAGE_GUILD', 'MANAGE_CHANNELS', 'MANAGE_MESSAGES']
+        },
         prune: {
             user: ['BAN_MEMBERS', 'KICK_MEMBERS', 'MANAGE_CHANNELS', 'MANAGE_MESSAGES']
         },

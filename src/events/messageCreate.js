@@ -39,7 +39,7 @@ module.exports = async (client, message) => {
         }
 
         // Check if the message contains any link
-        if (linkFilter(parsedContent, Guild)) {
+        if (Guild.link_filter_channels.includes(message.channel.id) && linkFilter(parsedContent)) {
             await message.delete().catch(() => null);
             await sendLog('link', Guild, message.guild, [message], null, null);
             return;

@@ -35,10 +35,6 @@ const FeaturesSubSchema = new Schema({
         type: Boolean,
         default: false
     },
-    links: {
-        type: Boolean,
-        default: false
-    },
     autoroles: {
         type: Boolean,
         default: true
@@ -110,6 +106,10 @@ const GuildSchema = new Schema({
         default: []
     },
     attachment_only_channels: {
+        type: [String],
+        default: []
+    },
+    link_filter_channels: {
         type: [String],
         default: []
     },

@@ -7,7 +7,7 @@ const Err = require('../../classes/Err');
 const featureTypes = [
     'welcomemessages', 'leavemessages',
     'moderationlog', 'messagelog', 'serverlog', 'memberlog',
-    'filter', 'invitelinks', 'links', 'autoroles'
+    'filter', 'invitelinks', 'autoroles'
 ];
 
 module.exports = {
