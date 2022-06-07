@@ -28,7 +28,7 @@ module.exports = {
             }
         });
 
-        const e = new Embed().setDescription(`<#${channelID}> removed from the chatlog ignore channel.`).isSuccess();
+        const e = new Embed().setDescription(`<#${channelID}> removed from the chatlog ignore list.`).isSuccess();
         await message.channel.send({ embeds: [e] });
     }
 };
