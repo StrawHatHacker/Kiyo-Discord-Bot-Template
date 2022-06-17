@@ -26,8 +26,13 @@ module.exports = (EmbedProps, member) => {
     EmbedProps.content = replaceFlags(EmbedProps.content, member);
     EmbedProps.title = replaceFlags(EmbedProps.title, member);
     EmbedProps.description = replaceFlags(EmbedProps.description, member);
-    EmbedProps.author.name = replaceFlags(EmbedProps.author.name, member);
-    EmbedProps.footer.text = replaceFlags(EmbedProps.footer.text, member);
+
+    if (!EmbedProps.author) EmbedProps.author = { name: null, url: null, iconURL: null };
+    EmbedProps.author.name = EmbedProps.author?.name ? replaceFlags(EmbedProps.author.name, member) : null;
+
+    if (!EmbedProps.footer) EmbedProps.footer = { text: null, iconURL: null };
+    EmbedProps.footer.text = EmbedProps.author?.name ? replaceFlags(EmbedProps.footer.text, member) : null;
+
     EmbedProps.fields = EmbedProps.fields.map(f => {
         return {
             name: replaceFlags(f.name, member),

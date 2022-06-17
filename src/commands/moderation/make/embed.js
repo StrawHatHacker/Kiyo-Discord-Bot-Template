@@ -50,7 +50,7 @@ module.exports = {
             guildId: message.guild.id,
             content,
             name: collectedMsgContent,
-            ...embed
+            ...targetEmbed
         });
 
         message.channel.send(`Embed \`${collectedMsgContent}\` successfuly saved`);
