@@ -24,7 +24,7 @@ module.exports = async (_client, member) => {
     }
 
     welcomeCondition:
-    if (Guild.features.welcomemessages && Guild.welcome_channel_id !== null && Guild.welcome_embed_id === null) {
+    if (Guild.features.welcomemessages && Guild.welcome_channel_id !== null && Guild.welcome_embed_id !== null) {
         if (Guild.welcome_channel_id === null || Guild.welcome_embed_id === null) break welcomeCondition;
 
         const channel = member.guild.channels.cache.get(Guild.welcome_channel_id);
