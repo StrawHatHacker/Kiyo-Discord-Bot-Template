@@ -34,7 +34,7 @@ module.exports = (parsedContent, Guild) => {
             content.includes('top.gg/bots/') ||
             content.includes('top.gg/servers/') ||
             content.includes('discordservers.com/server/') ||
-            content.includes('https://discords.com/servers/') ||
+            content.includes('discords.com/servers/') ||
             content.includes('discord.st/server/')
         ) return true;
     }
