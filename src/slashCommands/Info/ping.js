@@ -25,21 +25,25 @@ module.exports = {
         const { minutes, hours, days } = getTimeFromMS(client.uptime);
 
         const pingembed = new Embed()
-            .addField('Ping', `:hourglass_flowing_sand: ${reply.createdTimestamp - interaction.createdTimestamp}ms`, true)
-            .addField('Websocket', `${client.ws.ping}ms`, true)
-            .addField('Uptime', `:clock1: ${days}d, ${hours}h, ${minutes}m`, true)
-            .addField('Memory Usage', `:dna: ${Math.trunc(process.memoryUsage().heapUsed / 1024 / 1024)}MBs`, true);
-
+            .addField('Ping', `⏳ ${reply.createdTimestamp - interaction.createdTimestamp}ms`, true)
+            .addField('Websocket', `🌊 ${client.ws.ping}ms`, true)
+            .addField('Uptime', `🕜 ${days}d, ${hours}h, ${minutes}m`, true)
+            .addField('Memory Usage', `🧬 ${Math.trunc(process.memoryUsage().heapUsed / 1024 / 1024)}MBs`, true);
 
         await interaction.editReply({ content: '\u2005', embeds: [pingembed] });
 
         const cpu = await si.cpu();
-        pingembed.addField('CPU Usage', `${cpu.manufacturer} - ${cpu.cores} Cores - ${cpu.speed}GHz`, true);
+        const data = await client.shard.fetchClientValues('guilds.cache.size');
+        const guildCount = data.reduce((p, n) => p + n, 0);
+
+        pingembed.addField('CPU Usage', `💻 ${cpu.manufacturer} - ${cpu.cores} Cores - ${cpu.speed}GHz`, true)
+            .addField('More', `🔢 In ${guildCount} guilds, ${client.shard.count} shards`, true);
 
         await interaction.editReply({ content: '\u2005', embeds: [pingembed] });
     }
 };
 
+// TODO Replace this with TimeParse class
 const getTimeFromMS = (time) => {
     const days = Math.floor(time / 86400000);
     const hours = Math.floor(time / 3600000) % 24;
