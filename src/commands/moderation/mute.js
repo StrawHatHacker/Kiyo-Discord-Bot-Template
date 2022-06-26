@@ -33,18 +33,6 @@ module.exports = {
 
         if (hasModeratorPerms(memberToMute)) throw new Err(400).inputErr().setMessage('Member has moderation permissions');
 
-        // Format message content to find possible time values
-        const strToParse = args.slice(1)     // Slice user's id
-            .filter(a => a.match(regex))     // Filter elements that don't match the time regex
-            .map(a => a.replaceAll('-', '')) // Replace hyphens with empty string, to avoid negative values
-            .join(' ');
-
-        // Parse the formatted time into ms
-        const timeToMuteMS = parseDuration(strToParse, 'ms');
-
-        // Get the date that the user will be unmuted
-        const timeThen = new TimeParser(timeToMuteMS).getTimeThen();
-
         const reason = args.length > 1 ? args.slice(1).join(' ') : 'No reason provided';
 
         // Roles to add, removing the roles that the member already has
@@ -58,6 +46,19 @@ module.exports = {
 
         const NewCase = await createCase(message.guild.id, memberToMute.id, message.author.id, reason, 'mute');
         await sendLog('mute', Guild, message.guild, [memberToMute, NewCase], message.member, reason);
+
+        // Format message content to find possible time values
+        const strToParse = args.slice(1)     // Slice user's id
+            .filter(a => a.match(regex))     // Filter elements that don't match the time regex
+            .map(a => a.replaceAll('-', '')) // Replace hyphens with empty string, to avoid negative values
+            .join(' ');
+
+        // Parse the formatted time into ms
+        const timeToMuteMS = parseDuration(strToParse, 'ms');
+
+        // Get the date that the user will be unmuted
+        let timeThen;
+        timeThen !== null ? timeThen = new TimeParser(timeToMuteMS).getTimeThen() : timeThen = null;
 
         // If there is a time, add the mute to the database
         if (timeThen) {
@@ -73,6 +74,5 @@ module.exports = {
                 }
             });
         }
-
     }
 };
