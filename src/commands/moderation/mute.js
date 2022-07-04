@@ -58,7 +58,7 @@ module.exports = {
 
         // Get the date that the user will be unmuted
         let timeThen;
-        timeThen !== null ? timeThen = new TimeParser(timeToMuteMS).getTimeThen() : timeThen = null;
+        timeToMuteMS !== null ? timeThen = new TimeParser(timeToMuteMS).getTimeThen() : timeThen = null;
 
         // If there is a time, add the mute to the database
         if (timeThen) {
