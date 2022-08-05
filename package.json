@@ -8,7 +8,7 @@
     "@discordjs/rest": "^0.4.1",
     "axios": "^0.21.4",
     "discord-api-types": "^0.32.1",
-    "discord.js": "^13.6.0",
+    "discord.js": "^13.7.0",
     "dotenv": "^8.6.0",
     "mongoose": "^5.13.9",
     "parse-duration": "^1.0.2",
