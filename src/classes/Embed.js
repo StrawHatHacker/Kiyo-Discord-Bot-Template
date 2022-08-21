@@ -43,4 +43,9 @@ module.exports = class Embed extends MessageEmbed {
         this.color = 0xaf4541;
         return this;
     }
+
+    addField(name, value, inline = false) {
+        this.fields.push({ name, value, inline });
+        return this;
+    }
 };
