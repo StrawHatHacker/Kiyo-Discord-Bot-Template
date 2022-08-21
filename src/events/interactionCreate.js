@@ -20,12 +20,13 @@ module.exports = async (client, interaction) => {
     if (cooldown && onCooldown(name, interaction.member.id, cooldown) === true)
         return interaction.reply({ content: 'You are on cooldown', ephemeral: true });
 
+    const Guild = await databaseUtils.guild.findOneOrCreate(interaction.guild.id);
     await databaseUtils.user.findOneOrCreate(interaction.member.id);
 
     // Checking both member and bot permissions before executing the interaction
     if (!checkForSlashPermissions(interaction, name, requiredPermissions)) return;
 
     // Run the interaction
-    run(client, interaction)
+    run(client, interaction, Guild)
         .catch(e => interactionErrorHandler(e, interaction));
 };
