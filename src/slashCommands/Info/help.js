@@ -20,11 +20,12 @@ module.exports = {
             .addStringOption(o => o.setName('command').setDescription('The command to get information about'));
     },
     async run(client, interaction, Guild) {
-        const arg = interaction.options.getString('command');
+        const commandNameArg = interaction.options.getString('command');
 
-        if (!arg) {
+        // If no command option passed, show the general help embed
+        if (!commandNameArg) {
             const e = new Embed()
-                .setColor(interaction.guild.me.roles.color?.hexColor || 0xffffff)
+                .setColor(interaction.guild.members.me.roles.color?.hexColor || 0xffffff)
                 .setThumbnail(client.user.displayAvatarURL({ dynamic: true, size: 2048 }))
                 .addDescription('[ɪɴᴠɪᴛᴇ ᴍᴇ](https://discord.com/api/oauth2/authorize?client_id=794989015765483571&permissions=0&scope=bot%20applications.commands) ┃ [ꜱᴜᴘᴘᴏʀᴛ ꜱᴇʀᴠᴇʀ](https://discord.gg/ypEBGHB) \n')
                 .addDescription(`Hey! I'm ${client.user.username} and I'm Open Source. You can find me [here](https://github.com/StrawHatHacker/Kiyo-Discord-Bot).`)
@@ -40,32 +41,34 @@ module.exports = {
         }
 
         // Search throught modules
-        if (Object.keys(client.modulesWithCommands).includes(arg)) {
-            const moduleCommands = client.modulesWithCommands[arg].map(c => c.name);
-            return await sendModuleHelp(interaction, moduleCommands, arg);
+        if (Object.keys(client.modulesWithCommands).includes(commandNameArg)) {
+            const moduleCommands = client.modulesWithCommands[commandNameArg].map(c => c.name);
+            return await sendModuleHelp(interaction, moduleCommands, commandNameArg);
         }
 
-        if (Object.keys(client.modulesWithSlashCommands).includes(arg)) {
+        if (Object.keys(client.modulesWithSlashCommands).includes(commandNameArg)) {
             let moduleCommands = [];
 
-            if (arg === 'reactions') moduleCommands = client.modulesWithSlashCommands['reactions'][0].aliases;
-            else moduleCommands = client.modulesWithSlashCommands[arg].map(c => c.name);
+            if (commandNameArg === 'reactions') moduleCommands = client.modulesWithSlashCommands['reactions'][0].aliases;
+            else moduleCommands = client.modulesWithSlashCommands[commandNameArg].map(c => c.name);
 
-            return await sendModuleHelp(interaction, moduleCommands, arg);
+            return await sendModuleHelp(interaction, moduleCommands, commandNameArg);
         }
 
         // Search throught command names
-        const cmd = client.commands.find(c => c.name.toLowerCase() === arg || c.aliases.includes(arg));
+        const cmd = client.commands.find(c => c.name.toLowerCase() === commandNameArg || c.aliases.includes(commandNameArg));
         if (cmd) return await sendCommandHelp(interaction, cmd);
 
-        const slashCmd = client.slashCommands.find(c => c.name.toLowerCase() === arg);
+        const slashCmd = client.slashCommands.find(c => c.name.toLowerCase() === commandNameArg);
         if (slashCmd) return await sendCommandHelp(interaction, slashCmd);
+
+        await interaction.reply({ content: 'Command not found', ephemeral: true })
     }
 };
 
 const sendModuleHelp = async (interaction, moduleCommands, arg) => {
     const e = new Embed()
-        .setColor(interaction.guild.me.roles.color?.hexColor || 0xffffff)
+        .setColor(interaction.guild.members.me.roles.color?.hexColor || 0xffffff)
         .setTitle(`Module: ${arg}`)
         .addField('Commands', moduleCommands.sort().map(c => `\`${c}\``).join(', '));
     await interaction.reply({ embeds: [e] });
@@ -73,7 +76,7 @@ const sendModuleHelp = async (interaction, moduleCommands, arg) => {
 
 const sendCommandHelp = async (interaction, cmd) => {
     const e = new Embed()
-        .setColor(interaction.guild.me.roles.color?.hexColor || 0xffffff)
+        .setColor(interaction.guild.members.me.roles.color?.hexColor || 0xffffff)
         .setTitle(`Command: ${cmd.name}`)
         .addDescription(`Syntax: \`${cmd.syntax}\``)
         .addDescription(`Module: ${cmd.module}`);

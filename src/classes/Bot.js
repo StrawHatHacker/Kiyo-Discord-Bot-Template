@@ -1,4 +1,5 @@
 'use strict';
+
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { Routes } = require('discord-api-types/v9');
 const { REST } = require('@discordjs/rest');

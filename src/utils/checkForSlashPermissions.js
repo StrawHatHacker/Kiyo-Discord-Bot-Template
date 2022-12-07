@@ -1,7 +1,7 @@
 'use strict';
 
 const Permissions = require('../classes/Permissions');
-const { Interaction } = require('discord.js');
+const { BaseInteraction } = require('discord.js');
 const Err = require('../classes/Err');
 
 /**
@@ -14,14 +14,14 @@ const Err = require('../classes/Err');
  */
 module.exports = (interaction, cmdName, requiredPermissions) => {
     try {
-        if (!(interaction instanceof Interaction))
-            throw new Err(400).inputErr().setMessage('Parameter `interaction` should be an instance of `Interaction`');
+        if (!(interaction instanceof BaseInteraction))
+            throw new Err(400).inputErr().setMessage('Parameter `interaction` should be an instance of `BaseInteraction`');
         if (typeof cmdName !== 'string')
             throw new Err(400).inputErr().setMessage('Parameter `cmdName` should be a type of `string`');
         if (!Array.isArray(requiredPermissions.user) || !Array.isArray(requiredPermissions.client))
             throw new Err(400).inputErr().setMessage('Parameter `requiredPermissions` is not correctly formatted');
 
-        const userhasPermission = new Permissions(interaction.member.permissions)
+        const userhasPermission = new Permissions(interaction.memberPermissions)
             .filterKeyPerms()
             .userhasPermission(requiredPermissions.user);
 
@@ -33,13 +33,13 @@ module.exports = (interaction, cmdName, requiredPermissions) => {
             return false;
         }
 
-        const clientHasPermissions = new Permissions(interaction.guild.me.permissions)
+        const clientHasPermissions = new Permissions(interaction.guild.members.me.permissions)
             .permsToArray()
             .clientHasPermission(requiredPermissions.client);
 
         if (!clientHasPermissions) {
             interaction.reply({
-                content: `${interaction.guild.me.user.username} doesn't have permission to run the \`${cmdName}\` slash command in **${interaction.guild.name}**`,
+                content: `${interaction.guild.members.me.user.username} doesn't have permission to run the \`${cmdName}\` slash command in **${interaction.guild.name}**`,
                 ephemeral: true
             });
             return false;

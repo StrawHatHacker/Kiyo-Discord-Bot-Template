@@ -346,6 +346,15 @@
             "--author nuzzles --target!"
         ]
     },
+    "nyah": {
+        "single": [
+            "--author meows!",
+            "--author wants attention."
+        ],
+        "multiple": [
+            "--author meows at --target!"
+        ]
+    },
     "pat": {
         "single": [
             "Here's a pat for you, --author!",

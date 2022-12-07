@@ -7,21 +7,26 @@ const messageFilter = require('../utils/messageFilter');
 const databaseUtils = require('../utils/database');
 const onCooldown = require('../utils/onCooldown');
 const linkFilter = require('../utils/linkFilter');
+const { ChannelType } = require('discord.js');
 const sendLog = require('../utils/sendLog');
 
 module.exports = async (client, message) => {
     // If guild is not available becase of outage return
-    if (!message.guild.available) return;
+    if (!message?.guild.available) return;
 
     // If message came from another bot or it was from a non *text* channel, ignore it
-    if (message.author.bot || message.channel.type !== 'GUILD_TEXT') return;
+    if (message.author.bot || message.channel.type !== ChannelType.GuildText) return;
 
     // Fetching or creating a guild and the user if they don't exist in the database already
     const Guild = await databaseUtils.guild.findOneOrCreate(message.guild.id);
     const User = await databaseUtils.user.findOneOrCreate(message.author.id);
+    console.log(message.content, client.user.id)
+
+    // TODO FIX ON FROM HERE
 
     // If the message is the bot mention return the prefix
-    if (message.content === `<@!${client.user.id}>`) return message.channel.send(`My prefix in this server is \`${Guild.prefix}\``);
+    if (message.content.replaceAll('!', '') === `<@${client.user.id}>`)
+        return message.channel.send(`My prefix in this server is \`${Guild.prefix}\``);
 
     // If user doesn't have any of these permissions then pass the message through filters
     if (!message.member.permissions.has('ADMINISTRATOR') &&

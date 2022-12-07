@@ -218,7 +218,7 @@ const actionData = {
                 .setAuthor({ name: 'Channel Created' })
                 .setDescription(`Name: ${item.name}\nID: ${item.id}${item.parent?.name ? `\nCategory: ${item.parent.name}` : ''}\nType: ${prettifyChannelTypeFlags(item.type)}`);
 
-            if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
+            if (guild.members.me.permissions.has('VIEW_AUDIT_LOG', true)) {
                 const auditLog = await guild.fetchAuditLogs({ type: 'CHANNEL_CREATE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
                 if (auditLog.target.id === item.id) e.setFooter({ text: `Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}` });
             }
@@ -236,7 +236,7 @@ const actionData = {
                 .setAuthor({ name: 'Channel Deleted' })
                 .setDescription(`Name: ${item.name}\nID: ${item.id}${item.parent?.name ? `\nCategory: ${item.parent.name}` : ''}\nType: ${prettifyChannelTypeFlags(item.type)}`);
 
-            if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
+            if (guild.members.me.permissions.has('VIEW_AUDIT_LOG', true)) {
                 const auditLog = await guild.fetchAuditLogs({ type: 'CHANNEL_DELETE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
                 if (auditLog.target.id === item.id) e.setFooter({ text: `Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}` });
             }
@@ -284,7 +284,7 @@ const actionData = {
 
             if (e.description === '' || e.description === null) return null;
 
-            if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
+            if (guild.members.me.permissions.has('VIEW_AUDIT_LOG', true)) {
                 const auditLog = await guild.fetchAuditLogs({ type: 'CHANNEL_UPDATE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
                 if (auditLog.target.id === newChannel.id) e.setFooter({ text: `Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}` });
             }
@@ -303,7 +303,7 @@ const actionData = {
                 .setThumbnail(item.url)
                 .setDescription(`Name: ${item.name}\nID: ${item.id}`);
 
-            if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
+            if (guild.members.me.permissions.has('VIEW_AUDIT_LOG', true)) {
                 const auditLog = await guild.fetchAuditLogs({ type: 'EMOJI_CREATE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
                 if (auditLog.target.id === item.id) e.setFooter({ text: `Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}` });
             }
@@ -322,7 +322,7 @@ const actionData = {
                 .setThumbnail(item.url)
                 .setDescription(`Name: ${item.name}\nID: ${item.id}`);
 
-            if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
+            if (guild.members.me.permissions.has('VIEW_AUDIT_LOG', true)) {
                 const auditLog = await guild.fetchAuditLogs({ type: 'EMOJI_DELETE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
                 if (auditLog.target.id === item.id) e.setFooter({ text: `Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}` });
             }
@@ -343,7 +343,7 @@ const actionData = {
                 .setThumbnail(newEmoji.url)
                 .setDescription(`Name: ${oldEmoji.name} => ${newEmoji.name}\nID: ${newEmoji.id}`);
 
-            if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
+            if (guild.members.me.permissions.has('VIEW_AUDIT_LOG', true)) {
                 const auditLog = await guild.fetchAuditLogs({ type: 'EMOJI_UPDATE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
                 if (auditLog.target.id === newEmoji.id) e.setFooter({ text: `Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}` });
             }
@@ -365,7 +365,7 @@ const actionData = {
                 .addField('Banned user', `ID: ${item.user.id}`)
                 .addField('Reason', `${item.reason?.slice(0, 1024) || 'No reason provided'}`);
 
-            if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
+            if (guild.members.me.permissions.has('VIEW_AUDIT_LOG', true)) {
                 const auditLog = await guild.fetchAuditLogs({ type: 'MEMBER_BAN_ADD', limit: 1 }).then(auditLogs => auditLogs.entries.first());
                 if (auditLog.target.id === item.user.id) e.setFooter({ text: `Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}` });
             }
@@ -387,7 +387,7 @@ const actionData = {
                 })
                 .addField('Unbanned user', `ID: ${item.user.id}`);
 
-            if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
+            if (guild.members.me.permissions.has('VIEW_AUDIT_LOG', true)) {
                 const auditLog = await guild.fetchAuditLogs({ type: 'MEMBER_BAN_REMOVE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
                 if (auditLog.target.id === item.user.id) e.setFooter({ text: `Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}` });
             }
@@ -466,7 +466,7 @@ const actionData = {
 
             if (e.description === '' || e.description === null) return null;
 
-            if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
+            if (guild.members.me.permissions.has('VIEW_AUDIT_LOG', true)) {
                 const auditLog = await guild.fetchAuditLogs({ type: 'GUILD_UPDATE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
                 if (auditLog.target.id === newGuild.id) e.setFooter({ text: `Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}` });
             }
@@ -484,7 +484,7 @@ const actionData = {
                 .setAuthor({ name: 'Invite link created' })
                 .setDescription(`Channel: ${item.channel.toString()}\nURL: ${item.url}`);
 
-            if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
+            if (guild.members.me.permissions.has('VIEW_AUDIT_LOG', true)) {
                 const auditLog = await guild.fetchAuditLogs({ type: 'INVITE_CREATE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
                 if (auditLog.target.id === item.id) e.setFooter({ text: `Created by: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}` });
             }
@@ -502,7 +502,7 @@ const actionData = {
                 .setAuthor({ name: 'Invite link deleted' })
                 .setDescription(`Channel: ${item.channel.toString()}\nURL: ${item.url}\nUsed: ${item?.uses || 0} time(s)`);
 
-            if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
+            if (guild.members.me.permissions.has('VIEW_AUDIT_LOG', true)) {
                 const auditLog = await guild.fetchAuditLogs({ type: 'INVITE_DELETE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
                 if (auditLog.changes[0].old === item.code) e.setFooter({ text: { text: `Deleted by: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}` } });
             }
@@ -555,7 +555,7 @@ const actionData = {
                 e.addField('Content ↓', content.slice(2000, 4000));
             }
 
-            if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
+            if (guild.members.me.permissions.has('VIEW_AUDIT_LOG', true)) {
                 const auditLog = await guild.fetchAuditLogs({ type: 'MESSAGE_BULK_DELETE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
                 if (auditLog.target.id === firstMsg.channel.id) e.setFooter({ text: `Deleted by: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}` });
             }
@@ -602,7 +602,7 @@ const actionData = {
 
             if (item.icon) e.setThumbnail(item.iconURL({ size: 1024 }));
 
-            if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
+            if (guild.members.me.permissions.has('VIEW_AUDIT_LOG', true)) {
                 const auditLog = await guild.fetchAuditLogs({ type: 'ROLE_CREATE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
                 if (auditLog.target.id === item.id) e.setFooter({ text: `Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}` });
             }
@@ -623,7 +623,7 @@ const actionData = {
 
             if (item.icon) e.setThumbnail(item.iconURL({ size: 1024 }));
 
-            if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
+            if (guild.members.me.permissions.has('VIEW_AUDIT_LOG', true)) {
                 const auditLog = await guild.fetchAuditLogs({ type: 'ROLE_DELETE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
                 if (auditLog.target.id === item.id) e.setFooter({ text: `Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}` });
             }
@@ -654,7 +654,7 @@ const actionData = {
 
             if (e.description === '' || e.description === null) return null;
 
-            if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
+            if (guild.members.me.permissions.has('VIEW_AUDIT_LOG', true)) {
                 const auditLog = await guild.fetchAuditLogs({ type: 'ROLE_UPDATE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
                 if (auditLog.target.id === newRole.id) e.setFooter({ text: `Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}` });
             }
@@ -673,7 +673,7 @@ const actionData = {
                 .setThumbnail(item.url)
                 .setDescription(`Name: ${item.name}\nID: ${item.id}\nDescription: ${item.description}\nTags: ${item?.tags?.join(', ') || 'No tags'}`);
 
-            if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
+            if (guild.members.me.permissions.has('VIEW_AUDIT_LOG', true)) {
                 const auditLog = await guild.fetchAuditLogs({ type: 'STICKER_CREATE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
                 if (auditLog.target.id === item.id) e.setFooter({ text: `Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}` });
             }
@@ -691,7 +691,7 @@ const actionData = {
                 .setAuthor({ name: 'Sticker Deleted' })
                 .setDescription(`Name: ${item.name}\nID: ${item.id}\nDescription: ${item.description}\nTags: ${item?.tags?.join(', ') || 'No tags'}`);
 
-            if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
+            if (guild.members.me.permissions.has('VIEW_AUDIT_LOG', true)) {
                 const auditLog = await guild.fetchAuditLogs({ type: 'STICKER_DELETE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
                 if (auditLog.target.id === item.id) e.setFooter({ text: `Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}` });
             }
@@ -718,7 +718,7 @@ const actionData = {
 
             if (e.description === '' || e.description === null) return null;
 
-            if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
+            if (guild.members.me.permissions.has('VIEW_AUDIT_LOG', true)) {
                 const auditLog = await guild.fetchAuditLogs({ type: 'STICKER_UPDATE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
                 if (auditLog.target.id === item.id) e.setFooter({ text: `Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}` });
             }
@@ -736,7 +736,7 @@ const actionData = {
                 .setAuthor({ name: 'Channel Created' })
                 .setDescription(`Name: ${item.name}\nID: ${item.id}\nParent: ${item.parent.name}\nType: thread`);
 
-            if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
+            if (guild.members.me.permissions.has('VIEW_AUDIT_LOG', true)) {
                 const auditLog = await guild.fetchAuditLogs({ type: 'THREAD_CREATE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
                 if (auditLog.target.id === item.id) e.setFooter({ text: `Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}` });
             }
@@ -754,7 +754,7 @@ const actionData = {
                 .setAuthor({ name: 'Channel Deleted' })
                 .setDescription(`Name: ${item.name}\nID: ${item.id}\nParent: ${item.parent.name}\nType: thread`);
 
-            if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
+            if (guild.members.me.permissions.has('VIEW_AUDIT_LOG', true)) {
                 const auditLog = await guild.fetchAuditLogs({ type: 'THREAD_CREATE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
                 if (auditLog.target.id === item.id) e.setFooter({ text: `Deleted by: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}` });
             }
@@ -778,7 +778,7 @@ const actionData = {
 
             if (e.description === '' || e.description === null) return null;
 
-            if (guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
+            if (guild.members.me.permissions.has('VIEW_AUDIT_LOG', true)) {
                 const auditLog = await guild.fetchAuditLogs({ type: 'THREAD_UPDATE', limit: 1 }).then(auditLogs => auditLogs.entries.first());
                 if (auditLog.target.id === newThread.id) e.setFooter({ text: `Moderator: ${auditLog.executor.tag}\nID: ${auditLog.executor.id}` });
             }

@@ -2,9 +2,14 @@
 
 const checkForSlashPermissions = require('../utils/checkForSlashPermissions');
 const interactionErrorHandler = require('../utils/interactionErrorHandler');
+const { CommandInteraction, Client } = require('discord.js');
 const databaseUtils = require('../utils/database');
 const onCooldown = require('../utils/onCooldown');
 
+/**
+ * @param {Client} client 
+ * @param {CommandInteraction} interaction 
+ */
 module.exports = async (client, interaction) => {
     // If guild is not available becase of outage return
     if (!interaction.guild?.available) return;
@@ -22,6 +27,7 @@ module.exports = async (client, interaction) => {
 
     const Guild = await databaseUtils.guild.findOneOrCreate(interaction.guild.id);
     await databaseUtils.user.findOneOrCreate(interaction.member.id);
+    await interaction.guild.fetch();
 
     // Checking both member and bot permissions before executing the interaction
     if (!checkForSlashPermissions(interaction, name, requiredPermissions)) return;

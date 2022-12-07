@@ -1,7 +1,7 @@
 'use strict';
 
 const { PERM_FLAGS, KEY_PERMS } = require('../config');
-const { Permissions: TPermissions } = require('discord.js');
+const {PermissionsBitField} = require('discord.js');
 const Err = require('./Err');
 
 /*
@@ -12,7 +12,7 @@ module.exports = class Permissions {
      * @param {TPermissions | String[]} perms 
      */
     constructor(perms) {
-        if (!(perms instanceof TPermissions) && !Array.isArray(perms))
+        if (!(perms instanceof PermissionsBitField) && !Array.isArray(perms))
             throw new Err(400).inputErr().setMessage('Parameter `perms` should be an instance of `Collection` or an array of permissions');
         this.perms = perms;
     }

@@ -30,12 +30,12 @@ module.exports = (message, cmdName, requiredPermissions) => {
             return false;
         }
 
-        const clientHasPermissions = new Permissions(message.guild.me.permissions)
+        const clientHasPermissions = new Permissions(message.guild.members.me.permissions)
             .permsToArray()
             .clientHasPermission(requiredPermissions.client);
 
         if (!clientHasPermissions) {
-            message.member.send(`${message.guild.me.user.username} doesn't have permission to run the \`${cmdName}\` command in **${message.guild.name}**`);
+            message.member.send(`${message.guild.members.me.user.username} doesn't have permission to run the \`${cmdName}\` command in **${message.guild.name}**`);
             return false;
         }
 

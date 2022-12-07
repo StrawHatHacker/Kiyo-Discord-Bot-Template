@@ -4,7 +4,7 @@ require('dotenv').config();
 require('./polyfills');
 
 const Bot = require('./classes/Bot');
-const { Intents, Options } = require('discord.js');
+const { GatewayIntentBits, Options } = require('discord.js');
 
 // Creating a new Bot Client instance
 const Kiyo = new Bot({
@@ -19,13 +19,13 @@ const Kiyo = new Bot({
     }),
     allowedMentions: { parse: ['roles', 'users'] },
     intents: [
-        Intents.FLAGS.GUILDS,
-        Intents.FLAGS.GUILD_BANS,
-        Intents.FLAGS.GUILD_INVITES,
-        Intents.FLAGS.GUILD_MEMBERS,
-        Intents.FLAGS.GUILD_MESSAGES,
-        Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
-        Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS,
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildBans,
+        GatewayIntentBits.GuildInvites,
+        GatewayIntentBits.GuildMembers,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.GuildMessageReactions,
+        GatewayIntentBits.GuildEmojisAndStickers,
     ],
     partials: ['GUILD_MEMBER', 'USER', 'MESSAGE', 'CHANNEL', 'REACTION'],
     restRequestTimeout: 5000,

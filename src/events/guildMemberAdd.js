@@ -17,7 +17,7 @@ module.exports = async (_client, member) => {
     await sendLog('guildMemberAdd', Guild, member.guild, member).catch(() => null);
 
     autorolesCondition:
-    if (Guild.features.autoroles && member.guild.me.permissions.has('MANAGE_ROLES')) {
+    if (Guild.features.autoroles && member.guild.members.me.permissions.has('MANAGE_ROLES')) {
         if (Guild.autoroles.length === 0) break autorolesCondition;
 
         await safeAddRolesToMember(member, Guild.autoroles);
