@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = (parsedContent, Guild) => {
     if (!Guild.features.invitelinks) return false;
 

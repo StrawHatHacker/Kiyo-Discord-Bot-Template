@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = (message, Guild) => {
     if (message.member.permissions.has('ADMINISTRATOR') ||
         message.member.permissions.has('MANAGE_GUILD') ||

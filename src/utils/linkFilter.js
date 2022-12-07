@@ -1,3 +1,5 @@
+'use strict';
+
 const { regex } = require('../config');
 
 module.exports = (parsedContent) => {
