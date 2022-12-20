@@ -24,6 +24,7 @@ const Kiyo = new Bot({
         GatewayIntentBits.GuildInvites,
         GatewayIntentBits.GuildMembers,
         GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.MessageContent,
         GatewayIntentBits.GuildMessageReactions,
         GatewayIntentBits.GuildEmojisAndStickers,
     ],
