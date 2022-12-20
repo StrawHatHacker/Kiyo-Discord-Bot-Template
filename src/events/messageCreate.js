@@ -20,7 +20,6 @@ module.exports = async (client, message) => {
     // Fetching or creating a guild and the user if they don't exist in the database already
     const Guild = await databaseUtils.guild.findOneOrCreate(message.guild.id);
     const User = await databaseUtils.user.findOneOrCreate(message.author.id);
-    console.log(message.content, client.user.id)
 
     // TODO FIX ON FROM HERE
 
