@@ -21,6 +21,7 @@ module.exports = {
     async run(client, interaction) {
         await interaction.reply({ content: 'Pinging...', username: 'test' });
         const reply = await interaction.fetchReply();
+        const cpu = await si.cpu();
 
         const { minutes, hours, days } = getTimeFromMS(client.uptime);
 
@@ -28,16 +29,19 @@ module.exports = {
             .addField('Ping', `⏳ ${reply.createdTimestamp - interaction.createdTimestamp}ms`, true)
             .addField('Websocket', `🌊 ${client.ws.ping}ms`, true)
             .addField('Uptime', `🕜 ${days}d, ${hours}h, ${minutes}m`, true)
-            .addField('Memory Usage', `🧬 ${Math.trunc(process.memoryUsage().heapUsed / 1024 / 1024)}MBs`, true);
+            .addField('Memory Usage', `🧬 ${Math.trunc(process.memoryUsage().heapUsed / 1024 / 1024)}MBs`, true)
+            .addField('CPU Usage', `💻 ${cpu.manufacturer} - ${cpu.cores} Cores - ${cpu.speed}GHz`, true);
 
         await interaction.editReply({ content: '\u2005', embeds: [pingembed] });
 
-        const cpu = await si.cpu();
-        const data = await client.shard.fetchClientValues('guilds.cache.size');
-        const guildCount = data.reduce((p, n) => p + n, 0);
+        if (client.shard) {
+            const data = await client.shard.fetchClientValues('guilds.cache.size');
+            const guildCount = data.reduce((p, n) => p + n, 0);
 
-        pingembed.addField('CPU Usage', `💻 ${cpu.manufacturer} - ${cpu.cores} Cores - ${cpu.speed}GHz`, true)
-            .addField('More', `🔢 In ${guildCount} guilds, ${client.shard.count} shards`, true);
+            pingembed.addField('More', `🔢 In ${guildCount} guilds, ${client.shard.count} shards`, true);
+        } else {
+            pingembed.addField('More', `🔢 In ${client.guilds.cache.size} guilds`, true);
+        }
 
         await interaction.editReply({ content: '\u2005', embeds: [pingembed] });
     }
