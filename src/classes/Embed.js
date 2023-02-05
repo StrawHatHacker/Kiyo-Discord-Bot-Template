@@ -17,9 +17,7 @@ module.exports = class Embed extends EmbedBuilder {
     // TODO check here if embed description length is above the character limit
     // Appends a string to the `.description` property of the object **IN A NEW LINE** (don't confuse with the inherited `.setDescription` method which replaces the previous description value)
     addDescription(appendable) {
-        /*                 `.description` property starts as null                                */
-        /*                 if embed has null description initialize it as an empty string        */
-        this.data.description = (this.data.description === null ? '' : this.data.description) + '\n' + appendable;
+        this.data.description = (!this.data.description ? '' : this.data.description) + '\n' + appendable;
         return this;
     }
 
@@ -27,9 +25,7 @@ module.exports = class Embed extends EmbedBuilder {
     // Appends a string to the `.description` property of the object **IN THE SAME LINE** (don't confuse with the inherited `.setDescription` method which replaces the previous description value)
     appendDescription(appendable) {
         console.log(appendable);
-        /*                 `.description` property starts as null                                */
-        /*                 if embed has null description initialize it as an empty string        */
-        this.data.description = (this.data.description === null ? '' : this.data.description) + appendable.trim();
+        this.data.description = (!this.data.description  ? '' : this.data.description) + appendable.trim();
         return this;
     }
 
