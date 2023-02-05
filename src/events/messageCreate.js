@@ -21,8 +21,6 @@ module.exports = async (client, message) => {
     const Guild = await databaseUtils.guild.findOneOrCreate(message.guild.id);
     const User = await databaseUtils.user.findOneOrCreate(message.author.id);
 
-    // TODO FIX ON FROM HERE
-
     // If the message is the bot mention return the prefix
     if (message.content.replaceAll('!', '') === `<@${client.user.id}>`)
         return message.channel.send(`My prefix in this server is \`${Guild.prefix}\``);

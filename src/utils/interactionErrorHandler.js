@@ -1,17 +1,17 @@
 'use strict';
 
-const { Interaction } = require('discord.js');
+const { BaseInteraction } = require('discord.js');
 const Err = require('../classes/Err');
 
 /**
  * @param {Err|Error} e 
- * @param {Interaction} i 
+ * @param {BaseInteraction} i 
  */
 module.exports = (e, i) => {
     if (!(e instanceof Err) && !(e instanceof Error))
         throw new Error('Parameter `e` is neither instance of `Err` or `Error`');
-    if (!(i instanceof Interaction))
-        throw new Error('Parameter `m` is not instance of `Interaction`');
+    if (!(i instanceof BaseInteraction))
+        throw new Error('Parameter `m` is not instance of `BaseInteraction`');
 
     // 404 Not Found
     if (e.httpStatus === 404 || e.httpStatus === 401 || e.httpStatus === 400) i.reply({ content: `${e.name}: ${e.message}`, ephemeral: true });

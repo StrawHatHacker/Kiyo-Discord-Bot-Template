@@ -9,7 +9,7 @@ const Err = require('./Err');
 */
 module.exports = class Permissions {
     /**
-     * @param {TPermissions | String[]} perms 
+     * @param {String[]} perms 
      */
     constructor(perms) {
         if (!(perms instanceof PermissionsBitField) && !Array.isArray(perms))
@@ -23,7 +23,7 @@ module.exports = class Permissions {
         let _ = new Set();
 
         for (const p of this.perms) {
-            if (p === 'ADMINISTRATOR') {
+            if (p === 'Administrator') {
                 this.perms = ['ADMINISTRATOR'];
                 return this;
             }

@@ -20,11 +20,11 @@ const Kiyo = new Bot({
     allowedMentions: { parse: ['roles', 'users'] },
     intents: [
         GatewayIntentBits.Guilds,
-        GatewayIntentBits.GuildBans,
         GatewayIntentBits.GuildInvites,
         GatewayIntentBits.GuildMembers,
         GatewayIntentBits.GuildMessages,
         GatewayIntentBits.MessageContent,
+        GatewayIntentBits.GuildModeration,
         GatewayIntentBits.GuildMessageReactions,
         GatewayIntentBits.GuildEmojisAndStickers,
     ],

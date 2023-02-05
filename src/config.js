@@ -5,116 +5,116 @@ module.exports = {
     // You dont have to write ADMINISTRATOR for command perms, that gets checked for you
     COMMAND_PERMS: {
         userinfo: {
-            user: ['BAN_MEMBERS', 'KICK_MEMBERS', 'MANAGE_CHANNELS', 'MANAGE_GUILD']
+            user: ['BanMembers', 'KickMembers', 'ManageChannels', 'ManageGuild']
         },
         makeembed: {
-            user: ['BAN_MEMBERS', 'KICK_MEMBERS', 'MANAGE_CHANNELS', 'MANAGE_GUILD']
+            user: ['BanMembers', 'KickMembers', 'ManageChannels', 'ManageGuild']
         },
         mute: {
-            user: ['BAN_MEMBERS', 'KICK_MEMBERS', 'MANAGE_CHANNELS', 'MANAGE_GUILD', 'MANAGE_ROLES']
+            user: ['BanMembers', 'KickMembers', 'ManageChannels', 'ManageGuild', 'ManageRoles']
         },
         addmuterole: {
-            user: ['BAN_MEMBERS', 'KICK_MEMBERS', 'MANAGE_CHANNELS', 'MANAGE_GUILD', 'MANAGE_ROLES']
+            user: ['BanMembers', 'KickMembers', 'ManageChannels', 'ManageGuild', 'ManageRoles']
         },
         removemuterole: {
-            user: ['BAN_MEMBERS', 'KICK_MEMBERS', 'MANAGE_CHANNELS', 'MANAGE_GUILD', 'MANAGE_ROLES']
+            user: ['BanMembers', 'KickMembers', 'ManageChannels', 'ManageGuild', 'ManageRoles']
         },
         removeautorole: {
-            user: ['MANAGE_GUILD', 'MANAGE_ROLES']
+            user: ['ManageGuild', 'ManageRoles']
         },
         addautorole: {
-            user: ['MANAGE_GUILD', 'MANAGE_ROLES']
+            user: ['ManageGuild', 'ManageRoles']
         },
         addchatlogignorechannel: {
-            user: ['MANAGE_GUILD', 'MANAGE_CHANNELS', 'MANAGE_MESSAGES']
+            user: ['ManageGuild', 'ManageChannels', 'ManageMessages']
         },
         removechatlogignorechannel: {
-            user: ['MANAGE_GUILD', 'MANAGE_CHANNELS', 'MANAGE_MESSAGES']
+            user: ['ManageGuild', 'ManageChannels', 'ManageMessages']
         },
         addattachmentonlychannel: {
-            user: ['MANAGE_GUILD', 'MANAGE_CHANNELS', 'MANAGE_MESSAGES']
+            user: ['ManageGuild', 'ManageChannels', 'ManageMessages']
         },
         removeattachmentonlychannel: {
-            user: ['MANAGE_GUILD', 'MANAGE_CHANNELS', 'MANAGE_MESSAGES']
+            user: ['ManageGuild', 'ManageChannels', 'ManageMessages']
         },
         addlinkfilterchannel: {
-            user: ['MANAGE_GUILD', 'MANAGE_CHANNELS', 'MANAGE_MESSAGES']
+            user: ['ManageGuild', 'ManageChannels', 'ManageMessages']
         },
         removelinkfilterchannel: {
-            user: ['MANAGE_GUILD', 'MANAGE_CHANNELS', 'MANAGE_MESSAGES']
+            user: ['ManageGuild', 'ManageChannels', 'ManageMessages']
         },
         prune: {
-            user: ['BAN_MEMBERS', 'KICK_MEMBERS', 'MANAGE_CHANNELS', 'MANAGE_MESSAGES']
+            user: ['BanMembers', 'KickMembers', 'ManageChannels', 'ManageMessages']
         },
         warn: {
-            user: ['BAN_MEMBERS', 'KICK_MEMBERS', 'MANAGE_CHANNELS', 'MANAGE_GUILD', 'MANAGE_ROLES']
+            user: ['BanMembers', 'KickMembers', 'ManageChannels', 'ManageGuild', 'ManageRoles']
         },
         addcase: {
-            user: ['BAN_MEMBERS', 'KICK_MEMBERS', 'MANAGE_CHANNELS', 'MANAGE_GUILD', 'MANAGE_ROLES', 'MANAGE_MESSAGES']
+            user: ['BanMembers', 'KickMembers', 'ManageChannels', 'ManageGuild', 'ManageRoles', 'ManageMessages']
         },
         removecase: {
-            user: ['BAN_MEMBERS', 'KICK_MEMBERS', 'MANAGE_CHANNELS', 'MANAGE_GUILD', 'MANAGE_ROLES', 'MANAGE_MESSAGES']
+            user: ['BanMembers', 'KickMembers', 'ManageChannels', 'ManageGuild', 'ManageRoles', 'ManageMessages']
         },
         editcase: {
-            user: ['BAN_MEMBERS', 'KICK_MEMBERS', 'MANAGE_CHANNELS', 'MANAGE_GUILD', 'MANAGE_ROLES', 'MANAGE_MESSAGES']
+            user: ['BanMembers', 'KickMembers', 'ManageChannels', 'ManageGuild', 'ManageRoles', 'ManageMessages']
         },
         cases: {
-            user: ['BAN_MEMBERS', 'KICK_MEMBERS', 'MANAGE_CHANNELS', 'MANAGE_GUILD', 'MANAGE_ROLES', 'MANAGE_MESSAGES']
+            user: ['BanMembers', 'KickMembers', 'ManageChannels', 'ManageGuild', 'ManageRoles', 'ManageMessages']
         },
         unban: {
-            user: ['BAN_MEMBERS', 'MANAGE_GUILD']
+            user: ['BanMembers', 'ManageGuild']
         },
         feature: {
-            user: ['MANAGE_GUILD']
+            user: ['ManageGuild']
         },
         addFilter: {
-            user: ['MANAGE_GUILD']
+            user: ['ManageGuild']
         },
         removeFilter: {
-            user: ['MANAGE_GUILD']
+            user: ['ManageGuild']
         }
     },
     PERM_FLAGS: {
-        ADMINISTRATOR: 'Administrator',
-        CREATE_INSTANT_INVITE: 'Create Invite',
-        KICK_MEMBERS: 'Kick Members',
-        BAN_MEMBERS: 'Ban Members',
-        MANAGE_CHANNELS: 'Manage Channels',
-        MANAGE_GUILD: 'Manage Server',
-        ADD_REACTIONS: 'Add Reactions',
-        VIEW_AUDIT_LOG: 'View Audit Log',
-        PRIORITY_SPEAKER: 'Priority Speaker',
-        STREAM: 'Stream',
-        SEND_MESSAGES: 'Send Messages',
-        SEND_TTS_MESSAGES: 'Send TTS Messages',
-        MANAGE_MESSAGES: 'Manage Messages',
-        EMBED_LINKS: 'Embed Links',
-        ATTACH_FILES: 'Attach Files',
-        READ_MESSAGE_HISTORY: 'Read Message History',
-        MENTION_EVERYONE: 'Mention Everyone',
-        USE_EXTERNAL_EMOJIS: 'Use External Emojis',
-        VIEW_GUILD_INSIGHTS: 'View Server Insights',
-        CONNECT: 'Connect',
-        SPEAK: 'Speak',
-        VIEW_CHANNEL: 'View Channel',
-        MUTE_MEMBERS: 'Mute Members',
-        DEAFEN_MEMBERS: 'Deafen Members',
-        MOVE_MEMBERS: 'Move Members',
-        USE_VAD: 'Use Voice Activity Detection',
-        CHANGE_NICKNAME: 'Change Nickname',
-        MANAGE_NICKNAMES: 'Manage Nicknames',
-        MANAGE_ROLES: 'Manage Roles',
-        MANAGE_WEBHOOKS: 'Manage Webhooks',
-        MANAGE_EMOJIS: 'Manage Emojis',
-        USE_APPLICATION_COMMANDS: 'Use Application Commands',
-        REQUEST_TO_SPEAK: 'Request to Speak',
-        USE_PUBLIC_THREADS: 'Use Public Threads',
-        CREATE_PUBLIC_THREADS: 'Create Public Threads',
-        USE_PRIVATE_THREADS: 'Use Private Threads',
-        CREATE_PRIVATE_THREADS: 'Create Private Threads',
-        USE_EXTERNAL_STICKERS: 'Use External Stickers',
-        SEND_MESSAGES_IN_THREADS: 'Send Messages in Threads',
-        START_EMBEDDED_ACTIVITIES: 'Start Embedded Activities',
+        Administrator: 'Administrator',
+        CreateInstantInvite: 'Create Invite',
+        KickMembers: 'Kick Members',
+        BanMembers: 'Ban Members',
+        ManageChannels: 'Manage Channels',
+        ManageGuild: 'Manage Server',
+        AddReactions: 'Add Reactions',
+        ViewAuditLog: 'View Audit Log',
+        PrioritySpeaker: 'Priority Speaker',
+        Stream: 'Stream',
+        SendMessages: 'Send Messages',
+        SendTTSMessages: 'Send TTS Messages',
+        ManageMessages: 'Manage Messages',
+        EmbedLinks: 'Embed Links',
+        AttachFiles: 'Attach Files',
+        ReadMessageHistory: 'Read Message History',
+        MentionEveryone: 'Mention Everyone',
+        UseExternalEmojis: 'Use External Emojis',
+        ViewGuildInsights: 'View Server Insights',
+        Connect: 'Connect',
+        Speak: 'Speak',
+        ViewChannel: 'View Channel',
+        MuteMembers: 'Mute Members',
+        DeafenMembers: 'Deafen Members',
+        MoveMembers: 'Move Members',
+        UseVAD: 'Use Voice Activity Detection',
+        ChangeNickname: 'Change Nickname',
+        ManageNicknames: 'Manage Nicknames',
+        ManageRoles: 'Manage Roles',
+        ManageWebhooks: 'Manage Webhooks',
+        ManageEmojis: 'Manage Emojis',
+        UseApplicationCommands: 'Use Application Commands',
+        RequestToSpeak: 'Request to Speak',
+        UsePublicThreads: 'Use Public Threads',
+        CreatePublicThreads: 'Create Public Threads',
+        UsePrivateThreads: 'Use Private Threads',
+        CreatePrivateThreads: 'Create Private Threads',
+        UseExternalStickers: 'Use External Stickers',
+        SendMessagesInThreads: 'Send Messages in Threads',
+        StartEmbeddedActivities: 'Start Embedded Activities',
     },
     USER_FLAGS: {
         DISCORD_EMPLOYEE: 'Discord Employee',
@@ -146,23 +146,23 @@ module.exports = {
         UNKNOWN: 'Unknown',
     },
     KEY_PERMS: [
-        'ADMINISTRATOR',
-        'CREATE_INSTANT_INVITE',
-        'KICK_MEMBERS',
-        'BAN_MEMBERS',
-        'MANAGE_CHANNELS',
-        'MANAGE_GUILD',
-        'VIEW_AUDIT_LOG',
-        'MANAGE_MESSAGES',
-        'MENTION_EVERYONE',
-        'VIEW_GUILD_INSIGHTS',
-        'MUTE_MEMBERS',
-        'DEAFEN_MEMBERS',
-        'MOVE_MEMBERS',
-        'MANAGE_NICKNAMES',
-        'MANAGE_ROLES',
-        'MANAGE_WEBHOOKS',
-        'MANAGE_EMOJIS',
+        'Administrator',
+        'CreateInstantInvite',
+        'KickMembers',
+        'BanMembers',
+        'ManageChannels',
+        'ManageGuild',
+        'ViewAuditLog',
+        'ManageMessages',
+        'MentionEveryone',
+        'ViewGuildInsights',
+        'MuteMembers',
+        'DeafenMembers',
+        'MoveMembers',
+        'ManageNicknames',
+        'ManageRoles',
+        'ManageWebhooks',
+        'ManageEmojis',
     ],
     MONTHS: [
         'January',
