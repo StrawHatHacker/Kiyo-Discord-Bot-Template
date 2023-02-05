@@ -92,7 +92,7 @@ module.exports = class Bot extends Client {
     // PRIVATE
     // Loads all slash commands from the `src/slashCommands/` directory and subdirectories.
     async _registerSlashCommands(token) {
-        const rest = new REST({ version: '9' }).setToken(token);
+        const rest = new REST({ version: '10' }).setToken(token);
         try {
             console.log('⏳ Registering slash commands...');
 
@@ -202,6 +202,9 @@ module.exports = class Bot extends Client {
         this._connectToDB();
         this._registerStreams();
 
-        await this.login(process.env.DISCORD_BOT_TOKEN);
+        return this.login(process.env.DISCORD_BOT_TOKEN).catch(() => {
+            console.error('Invalid Discord token.');
+            process.exit(1);
+        });
     }
 };
