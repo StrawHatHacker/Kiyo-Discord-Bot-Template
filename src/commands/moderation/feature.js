@@ -44,6 +44,8 @@ module.exports = {
         }
 
         await Guild.updateOne({ [`features.${featureInput}`]: bool });
+        Guild[`features.${featureInput}`] = bool;
+
         await message.channel.send(`Feature "${featureInput}" has been toggled ${str}`);
     }
 };

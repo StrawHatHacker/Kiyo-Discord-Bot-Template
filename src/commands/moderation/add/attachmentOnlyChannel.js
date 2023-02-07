@@ -30,6 +30,7 @@ module.exports = {
                 attachment_only_channels: guildChannel.id
             }
         });
+        Guild.attachment_only_channels.push(guildChannel.id);
 
         const e = new Embed().setDescription(`<#${guildChannel.id.toString()}> added in the attachment only channel list.`).isSuccess();
         await message.channel.send({ embeds: [e] });

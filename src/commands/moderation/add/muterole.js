@@ -33,6 +33,7 @@ module.exports = {
                 mute_roles: guildRole.id
             }
         });
+        Guild.mute_roles.push(guildRole.id);
 
         const e = new Embed().setDescription(`${guildRole.toString()} added to mute roles`).isSuccess();
         await message.channel.send({ embeds: [e] });

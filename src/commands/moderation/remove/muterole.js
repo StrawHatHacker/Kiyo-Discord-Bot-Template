@@ -26,6 +26,7 @@ module.exports = {
                 mute_roles: roleID
             }
         });
+        Guild.mute_roles.pull(roleID);
 
         const e = new Embed().setDescription(`<@&${roleID}> removed from mute roles`).isSuccess();
         await message.channel.send({ embeds: [e] });

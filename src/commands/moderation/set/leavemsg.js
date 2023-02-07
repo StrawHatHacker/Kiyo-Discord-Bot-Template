@@ -23,11 +23,13 @@ module.exports = {
         if (Embed) {
 
             await Guild.updateOne({ leave_embed_id: Embed._id });
+            Guild.leave_embed_id = Embed._id;
             return await message.channel.send('Embed set as leave message');
 
         } else if (channel) {
 
             await Guild.updateOne({ leave_channel_id: channel.id });
+            Guild.leave_embed_id = channel._id;
             return await message.channel.send(`Leave channel set (<#${channel.id}>)`);
 
         } else {

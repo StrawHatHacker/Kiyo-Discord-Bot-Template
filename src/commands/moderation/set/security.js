@@ -24,6 +24,7 @@ module.exports = {
             throw new Err(400).inputErr().setMessage(`"Log type" is neither ${or(securityTypes, '"')}`);
 
         await Guild.updateOne({ security_policy: securityTypeInput });
+        Guild.security_policy = securityTypeInput;
 
         await message.channel.send(`Security policy set to ${securityTypeInput}`);
     }

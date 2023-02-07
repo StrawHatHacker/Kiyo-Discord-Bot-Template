@@ -27,6 +27,7 @@ module.exports = {
                 link_filter_channels: channelID
             }
         });
+        Guild.link_filter_channels.pull(channelID);
 
         const e = new Embed().setDescription(`<#${channelID}> removed from the link filter list.`).isSuccess();
         await message.channel.send({ embeds: [e] });

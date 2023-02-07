@@ -30,6 +30,7 @@ module.exports = {
                 link_filter_channels: guildChannel.id
             }
         });
+        Guild.link_filter_channels.push(guildChannel.id);
 
         const e = new Embed().setDescription(`<#${guildChannel.id.toString()}> added in the link filter list.`).isSuccess();
         await message.channel.send({ embeds: [e] });

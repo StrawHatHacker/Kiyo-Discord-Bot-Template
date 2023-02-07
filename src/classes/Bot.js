@@ -1,6 +1,7 @@
 'use strict';
 
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const LocalCache = require('../classes/LocalCache');
 const { Routes } = require('discord-api-types/v9');
 const { REST } = require('@discordjs/rest');
 const { Client } = require('discord.js');
@@ -20,6 +21,7 @@ module.exports = class Bot extends Client {
         this.slashCommands = [];
         this.modulesWithCommands = {};
         this.modulesWithSlashCommands = {};
+        this.guildCache = new LocalCache(0, 0); // Not expirable
     }
 
     // PRIVATE

@@ -18,7 +18,7 @@ module.exports = async (client, message) => {
     if (message.author.bot || message.channel.type !== ChannelType.GuildText) return;
 
     // Fetching or creating a guild and the user if they don't exist in the database already
-    const Guild = await databaseUtils.guild.findOneOrCreate(message.guild.id);
+    const Guild = await databaseUtils.guild.findOneOrCreate(message.guild.id, client.guildCache);
     const User = await databaseUtils.user.findOneOrCreate(message.author.id);
 
     // If the message is the bot mention return the prefix

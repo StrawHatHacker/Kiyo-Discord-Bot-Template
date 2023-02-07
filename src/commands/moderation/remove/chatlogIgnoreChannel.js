@@ -27,6 +27,7 @@ module.exports = {
                 chatlog_ignore_channels: channelID
             }
         });
+        Guild.chatlog_ignore_channels.pull(channelID);
 
         const e = new Embed().setDescription(`<#${channelID}> removed from the chatlog ignore list.`).isSuccess();
         await message.channel.send({ embeds: [e] });

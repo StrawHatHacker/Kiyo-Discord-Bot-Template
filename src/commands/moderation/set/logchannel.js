@@ -32,6 +32,7 @@ module.exports = {
         await Guild.updateOne({
             [`${logTypeInput}_log_channel_id`]: channel.id
         });
+        Guild[`${logTypeInput}_log_channel_id`] = channel.id;
 
         await message.channel.send(`${channel.toString()} set as ${logTypeInput} log`);
     }

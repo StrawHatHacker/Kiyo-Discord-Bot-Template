@@ -23,11 +23,13 @@ module.exports = {
         if (Embed) {
 
             await Guild.updateOne({ welcome_embed_id: Embed._id });
+            Guild.welcome_embed_id = Embed._id;
             return await message.channel.send('Embed set as welcome message');
 
         } else if (channel) {
 
             await Guild.updateOne({ welcome_channel_id: channel.id });
+            Guild.welcome_embed_id = channel._id;
             return await message.channel.send(`Welcome channel set (<#${channel.id}>)`);
 
         } else {

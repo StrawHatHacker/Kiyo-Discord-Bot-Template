@@ -24,6 +24,7 @@ module.exports = {
                 autoroles: roleID
             }
         });
+        Guild.autoroles.pull(roleID);
 
         const e = new Embed().setDescription(`<@&${roleID}> removed from autoroles`).isSuccess();
         await message.channel.send({ embeds: [e] });

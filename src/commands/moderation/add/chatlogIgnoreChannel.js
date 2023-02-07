@@ -30,6 +30,7 @@ module.exports = {
                 chatlog_ignore_channels: guildChannel.id
             }
         });
+        Guild.chatlog_ignore_channels.push(guildChannel.id);
 
         const e = new Embed().setDescription(`<#${guildChannel.id.toString()}> added in the chatlog ignore list.`).isSuccess();
         await message.channel.send({ embeds: [e] });

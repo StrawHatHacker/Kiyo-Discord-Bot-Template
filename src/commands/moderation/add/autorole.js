@@ -34,6 +34,7 @@ module.exports = {
                 autoroles: guildRole.id
             }
         });
+        Guild.autoroles.push(guildRole.id);
 
         const e = new Embed().setDescription(`${guildRole.toString()} added to autoroles`).isSuccess();
         await message.channel.send({ embeds: [e] });

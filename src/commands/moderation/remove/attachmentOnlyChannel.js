@@ -27,6 +27,7 @@ module.exports = {
                 attachment_only_channels: channelID
             }
         });
+        Guild.attachment_only_channels.pull(channelID);
 
         const e = new Embed().setDescription(`<#${channelID}> removed from the attachment only channel list.`).isSuccess();
         await message.channel.send({ embeds: [e] });

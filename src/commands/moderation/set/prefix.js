@@ -17,9 +17,8 @@ module.exports = {
 
         if (prefixInput.length > 3) throw new Err(400).inputErr().setMessage('The prefix must be 3 characters or less.');
 
-        await Guild.updateOne({
-            prefix: prefixInput
-        });
+        await Guild.updateOne({ prefix: prefixInput });
+        Guild.prefix = prefixInput;
 
         await message.channel.send(`Prefix changed to \`${prefixInput}\``);
     }
