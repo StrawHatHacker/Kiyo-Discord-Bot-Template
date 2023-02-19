@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Multipurpose Discord Bot",
   "repository": "https://github.com/StrawHatHacker/Kiyo-Discord-Bot",
-  "main": "index.js",
+  "main": "dist/index.js",
   "dependencies": {
     "@discordjs/rest": "^1.5.0",
     "axios": "^1.3.2",
@@ -15,10 +15,15 @@
     "readdirp": "^3.6.0",
     "systeminformation": "^5.9.7"
   },
-  "scripts": {},
+  "scripts": {
+    "run": "node ./dist/index.js",
+    "build": "tsc -b --clean"
+  },
   "author": "strawhathacker",
   "license": "GPL-3.0-only",
   "devDependencies": {
-    "eslint": "^7.32.0"
+    "@types/node": "^18.14.0",
+    "eslint": "^7.32.0",
+    "typescript": "^4.9.5"
   }
 }

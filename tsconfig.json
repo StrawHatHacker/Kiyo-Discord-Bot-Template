@@ -1,0 +1,14 @@
+{
+	"compilerOptions": {
+		"rootDir": "./src",
+		"target": "es2021",
+		"module": "es2022",
+		"lib": ["es2021"],
+		"outDir": "./dist",
+		"moduleResolution": "node",
+		"esModuleInterop": true,
+		"experimentalDecorators": true,
+		"skipLibCheck": true
+	},
+	"exclude": ["node_modules", "dist"]
+}
