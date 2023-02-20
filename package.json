@@ -17,12 +17,15 @@
   },
   "scripts": {
     "run": "node ./dist/index.js",
-    "build": "tsc -b --clean"
+    "build": "tsc -b --clean",
+    "lint": ""
   },
   "author": "strawhathacker",
   "license": "GPL-3.0-only",
   "devDependencies": {
     "@types/node": "^18.14.0",
+    "@typescript-eslint/eslint-plugin": "^5.52.0",
+    "@typescript-eslint/parser": "^5.52.0",
     "eslint": "^7.32.0",
     "typescript": "^4.9.5"
   }
