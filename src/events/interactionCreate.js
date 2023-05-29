@@ -2,7 +2,6 @@
 
 const checkForSlashPermissions = require('../utils/checkForSlashPermissions');
 const interactionErrorHandler = require('../utils/interactionErrorHandler');
-const { CommandInteraction, Client } = require('discord.js');
 const databaseUtils = require('../utils/database');
 const onCooldown = require('../utils/onCooldown');
 
@@ -25,7 +24,8 @@ module.exports = async (client, interaction) => {
     if (cooldown && onCooldown(name, interaction.member.id, cooldown) === true)
         return interaction.reply({ content: 'You are on cooldown', ephemeral: true });
 
-    const Guild = await databaseUtils.guild.findOneOrCreate(interaction.guild.id);
+    const Guild = await databaseUtils.guild.findOneOrCreate(interaction.guild.id, client.guildCache);
+
     await databaseUtils.user.findOneOrCreate(interaction.member.id);
     await interaction.guild.fetch();
 

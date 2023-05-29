@@ -24,7 +24,7 @@ class LocalCache {
     get(key) {
         const found = this.data.get(key);
         if (found) {
-            console.log('Found guild: ', key);
+            // console.log('Found guild: ', key);
 
             found.lastAccessed = new Date().getTime();
             return found;
@@ -38,7 +38,7 @@ class LocalCache {
      * @param {object} value 
      */
     set(key, value) {
-        console.log('Set guild: ', key);
+        // console.log('Set guild: ', key);
 
         value.lastAccessed = new Date().getTime();
         this.data.set(key, value);
