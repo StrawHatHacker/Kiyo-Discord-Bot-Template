@@ -115,6 +115,7 @@ module.exports = {
         UseExternalStickers: 'Use External Stickers',
         SendMessagesInThreads: 'Send Messages in Threads',
         StartEmbeddedActivities: 'Start Embedded Activities',
+        SendVoiceMessage: 'Send Voice Messages',
     },
     USER_FLAGS: {
         DISCORD_EMPLOYEE: 'Discord Employee',
@@ -130,6 +131,7 @@ module.exports = {
         VERIFIED_BOT: 'Verified Bot',
         EARLY_VERIFIED_BOT_DEVELOPER: 'Early Verified Bot Developer',
         DISCORD_CERTIFIED_MODERATOR: 'Discord Certified Moderator',
+        ACTIVE_DEVELOPER: 'Active Developer',
     },
     CHANNEL_TYPES: {
         GUILD_TEXT: 'Text',
