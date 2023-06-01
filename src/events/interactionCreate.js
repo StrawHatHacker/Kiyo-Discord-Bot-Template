@@ -15,7 +15,7 @@ module.exports = async (client, interaction) => {
     if (!interaction.isCommand() || !interaction.inGuild()) return;
 
     // Find the interaction
-    const interactionToRun = client.slashCommands.find(i => i.aliases.includes(interaction.commandName) || interaction.commandName === i.name);
+    const interactionToRun = client.interactions.find(i => i.aliases.includes(interaction.commandName) || interaction.commandName === i.name);
     if (!interactionToRun) return;
 
     const { name, run, requiredPermissions, cooldown } = interactionToRun;

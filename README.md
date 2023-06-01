@@ -152,7 +152,7 @@ Make sure the `application.commands` scope is checked when you invite the bot in
 Sadly audit logs don't work as we would like. This is the best implementation I could come up with.
 Open an issue so we can see if it's important that needs fixing.
 * **Reloading commands doesn't reflect my changes**
-The slash command "reloadcommands" only reloads files in the `/src/commands`, `/src/slashCommands` and `/src/utils` folders.
+The slash command "reloadcommands" only reloads files in the `/src/commands`, `/src/interactions` and `/src/utils` folders.
 * **Error: "The $changeStream stage is only supported on replica sets"**
 Use [Atlas](https://docs.atlas.mongodb.com/getting-starte) or read [this article](https://docs.mongodb.com/manual/tutorial/convert-standalone-to-replica-set/).
 

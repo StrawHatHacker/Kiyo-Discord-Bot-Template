@@ -33,7 +33,7 @@ module.exports = {
                 .addDescription('Type `/help moduleName` to see all commands of that module.')
                 .addDescription('Type `/help commandName` to see all information of that command.')
                 .addField('Prefix Modules', Object.keys(client.modulesWithCommands).map(m => `\`${m}\``).join(', '))
-                .addField('Slash Modules', Object.keys(client.modulesWithSlashCommands).map(m => `\`${m}\``).join(', '))
+                .addField('Slash Modules', Object.keys(client.modulesWithInteractions).map(m => `\`${m}\``).join(', '))
                 .addField('Referrals', 'Cloud servers: [DigitalOcean](https://m.do.co/c/f51cd516e684), [Hetzner](https://hetzner.cloud/?ref=0fswF9Kv99Av)\nCDN: [BunnyCDN](https://bunnycdn.com/?ref=1dqicv581x)')
                 .addField('Donate', '[Ko-fi](https://ko-fi.com/skillers3)');
 
@@ -46,11 +46,11 @@ module.exports = {
             return await sendModuleHelp(interaction, moduleCommands, commandNameArg);
         }
 
-        if (Object.keys(client.modulesWithSlashCommands).includes(commandNameArg)) {
+        if (Object.keys(client.modulesWithInteractions).includes(commandNameArg)) {
             let moduleCommands = [];
 
-            if (commandNameArg === 'reactions') moduleCommands = client.modulesWithSlashCommands['reactions'][0].aliases;
-            else moduleCommands = client.modulesWithSlashCommands[commandNameArg].map(c => c.name);
+            if (commandNameArg === 'reactions') moduleCommands = client.modulesWithInteractions['reactions'][0].aliases;
+            else moduleCommands = client.modulesWithInteractions[commandNameArg].map(c => c.name);
 
             return await sendModuleHelp(interaction, moduleCommands, commandNameArg);
         }
@@ -59,7 +59,7 @@ module.exports = {
         const cmd = client.commands.find(c => c.name.toLowerCase() === commandNameArg || c.aliases.includes(commandNameArg));
         if (cmd) return await sendCommandHelp(interaction, cmd);
 
-        const slashCmd = client.slashCommands.find(c => c.name.toLowerCase() === commandNameArg);
+        const slashCmd = client.interactions.find(c => c.name.toLowerCase() === commandNameArg);
         if (slashCmd) return await sendCommandHelp(interaction, slashCmd);
 
         await interaction.reply({ content: 'Command not found', ephemeral: true })

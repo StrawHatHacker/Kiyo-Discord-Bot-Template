@@ -18,9 +18,9 @@ module.exports = class Bot extends Client {
     constructor(botConfig) {
         super(botConfig);
         this.commands = [];
-        this.slashCommands = [];
+        this.interactions = [];
         this.modulesWithCommands = {};
-        this.modulesWithSlashCommands = {};
+        this.modulesWithInteractions = {};
         this.guildCache = new LocalCache(0, 0); // Not expirable
     }
 
@@ -44,9 +44,9 @@ module.exports = class Bot extends Client {
         console.log('✅ Loaded commands');
     }
 
-    async _loadSlashCommands() {
+    async _loadInteractions() {
         console.log('⌛ Loading slash commands...');
-        for await (const file of readFiles('./slashCommands', { fileFilter: ['*.js'], lstat: true })) {
+        for await (const file of readFiles('./interactions', { fileFilter: ['*.js'], lstat: true })) {
             const command = require(file.fullPath);
             if (command.name === 'reactions') continue;
 
@@ -58,7 +58,7 @@ module.exports = class Bot extends Client {
             if (file.path.includes('\\')) command.module = file.path.split('\\')[0];
             else command.module = file.path.split('/')[0];
 
-            this.slashCommands.push(command);
+            this.interactions.push(command);
         }
         console.log('✅ Loaded slash commands');
     }
@@ -67,11 +67,11 @@ module.exports = class Bot extends Client {
     async _loadReactions() {
         console.log('⌛ Loading reactions');
 
-        const ReactionsCMD = require('../slashCommands/Reactions/reactions');
+        const ReactionsCMD = require('../interactions/Reactions/reactions');
         await ReactionsCMD.selfPopulate();
 
         for (const r of ReactionsCMD.aliases) {
-            this.slashCommands.push({
+            this.interactions.push({
                 name: r,
                 description: 'Anime GIFs as reactions',
                 aliases: [],
@@ -92,22 +92,22 @@ module.exports = class Bot extends Client {
     }
 
     // PRIVATE
-    // Loads all slash commands from the `src/slashCommands/` directory and subdirectories.
-    async _registerSlashCommands(token) {
+    // Loads all slash commands from the `src/interactions/` directory and subdirectories.
+    async _registerInteractions(token) {
         const rest = new REST({ version: '10' }).setToken(token);
         try {
             console.log('⏳ Registering slash commands...');
 
-            const slashCommandsData = this.slashCommands.map(c => c.data.toJSON());
+            const interactionsData = this.interactions.map(c => c.data.toJSON());
             if (process.env.ENVIRONMENT === 'DEV') {
                 await rest.put(
                     Routes.applicationGuildCommands(process.env.BOT_ID, process.env.DEV_GUILD_ID),
-                    { body: slashCommandsData });
+                    { body: interactionsData });
 
             } else if (process.env.ENVIRONMENT === 'PRODUCTION') {
                 await rest.put(
                     Routes.applicationCommands(process.env.BOT_ID),
-                    { body: slashCommandsData });
+                    { body: interactionsData });
 
             } else {
                 throw new Error('Environment variable "ENVIRONMENT" is neither "DEV" or "PRODUCTION"');
@@ -125,15 +125,15 @@ module.exports = class Bot extends Client {
     async reloadCommands() {
         Object.keys(require.cache).forEach((key) => {
             if (key.includes('src\\commands\\')) delete require.cache[key];
-            if (key.includes('src\\slashCommands\\')) delete require.cache[key];
+            if (key.includes('src\\interactions\\')) delete require.cache[key];
             if (key.includes('src\\utils\\')) delete require.cache[key];
         });
         this.commands = [];
         this.modulesWithCommands = {};
-        this.slashCommands = [];
-        this.modulesWithSlashCommands = {};
+        this.interactions = [];
+        this.modulesWithInteractions = {};
         await this._loadCommands();
-        await this._loadSlashCommands();
+        await this._loadInteractions();
         await this._createModulesWithCommandsField();
         console.log('Reloaded commands');
     }
@@ -184,20 +184,20 @@ module.exports = class Bot extends Client {
 
             this.modulesWithCommands[moduleName].push(cmd);
         }
-        for (let cmd of this.slashCommands) {
+        for (let cmd of this.interactions) {
             const moduleName = cmd.module.toLowerCase();
-            if (!this.modulesWithSlashCommands[moduleName]) this.modulesWithSlashCommands[moduleName] = [];
+            if (!this.modulesWithInteractions[moduleName]) this.modulesWithInteractions[moduleName] = [];
 
-            this.modulesWithSlashCommands[moduleName].push(cmd);
+            this.modulesWithInteractions[moduleName].push(cmd);
         }
     }
 
     // Starts the bot
     async start() {
         await this._loadCommands();
-        await this._loadSlashCommands();
+        await this._loadInteractions();
         await this._loadReactions();
-        await this._registerSlashCommands(process.env.DISCORD_BOT_TOKEN);
+        await this._registerInteractions(process.env.DISCORD_BOT_TOKEN);
         await this._createModulesWithCommandsField();
         await this._loadEvents();
 
