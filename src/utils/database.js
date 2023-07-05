@@ -1,28 +1,22 @@
 'use strict';
 
-const GuildModel = require('../models/guild');
-const UserModel = require('../models/user');
-
 module.exports = {
     guild: {
-        async findOneOrCreate(id, cache) {
-            const cachedGuild = cache.get(id);
-            if (cachedGuild) return cachedGuild;
+        async findOneOrCreate(id, db) {
 
-            let g = await GuildModel.findById(id);
+            let g = await db.models.Guild.findById(id);
 
-            if (!g) g = await GuildModel.create({ _id: id });
-
-            cache.set(g._id, g);
+            if (!g) g = await db.models.Guild.create({ id: id });
 
             return g;
         }
     },
     user: {
-        async findOneOrCreate(id) {
-            let u = await UserModel.findById(id);
+        async findOneOrCreate(id, db) {
 
-            if (!u) u = await UserModel.create({ _id: id });
+            let u = await db.models.User.findById(id);
+
+            if (!u) u = await db.models.User.create({ id: id });
 
             return u;
         }

@@ -1,37 +1,30 @@
 'use strict';
 
-const { Schema, model } = require('mongoose');
+const { DataTypes } = require('sequelize');
 
-const MuteSchema = new Schema({
-    doc_id: {
-        type: String,
-        required: true
-    },
-    guild_id: {
-        type: String,
-        required: true
-    },
-    roles_muted_with: {
-        type: [String],
-        required: true
-    }
-});
+module.exports = (db) => {
+    db.define('User', {
+        id: {
+            type: DataTypes.STRING,
+            unique: true,
+            primaryKey: true,
+            allowNull: false,
+        },
+    }, {});
 
-const UserSchema = new Schema({
-    _id: {
-        type: String,
-        required: true
-    },
-    mutes: {
-        type: [MuteSchema],
-        default: []
-    }
-}, {
-    timestamps: true,
-    validateBeforeSave: true,
-    minimize: false,
-    collection: 'user',
-    autoIndex: false
-});
+    /**
+     * @param {string|number} id 
+     */
+    db.models.User.findById = async (id) => {
 
-module.exports = model('user', UserSchema);
+        let users = await db.models.User.findAll({
+            where: {
+                id: id
+            }
+        });
+
+        if (users.length === 0 || !users) return null;
+
+        return users[0];
+    };
+};
