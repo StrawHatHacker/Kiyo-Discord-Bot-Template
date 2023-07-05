@@ -1,6 +1,12 @@
 'use strict';
 
-module.exports = roleCollection => {
+// eslint-disable-next-line no-unused-vars
+const { Collection} = require('discord.js');
+
+/**
+ * @param {Collection} roleCollection
+ */
+module.exports = (roleCollection) => {
     // Remove the '@everyone' role from the member and format their roles into a string
     return roleCollection
         .filter(role => role?.name !== '@everyone')
