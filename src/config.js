@@ -19,47 +19,11 @@ module.exports = {
         removemuterole: {
             user: ['BanMembers', 'KickMembers', 'ManageChannels', 'ManageGuild', 'ManageRoles']
         },
-        removeautorole: {
-            user: ['ManageGuild', 'ManageRoles']
-        },
-        addautorole: {
-            user: ['ManageGuild', 'ManageRoles']
-        },
-        addchatlogignorechannel: {
-            user: ['ManageGuild', 'ManageChannels', 'ManageMessages']
-        },
-        removechatlogignorechannel: {
-            user: ['ManageGuild', 'ManageChannels', 'ManageMessages']
-        },
-        addattachmentonlychannel: {
-            user: ['ManageGuild', 'ManageChannels', 'ManageMessages']
-        },
-        removeattachmentonlychannel: {
-            user: ['ManageGuild', 'ManageChannels', 'ManageMessages']
-        },
-        addlinkfilterchannel: {
-            user: ['ManageGuild', 'ManageChannels', 'ManageMessages']
-        },
-        removelinkfilterchannel: {
-            user: ['ManageGuild', 'ManageChannels', 'ManageMessages']
-        },
         prune: {
             user: ['BanMembers', 'KickMembers', 'ManageChannels', 'ManageMessages']
         },
         warn: {
             user: ['BanMembers', 'KickMembers', 'ManageChannels', 'ManageGuild', 'ManageRoles']
-        },
-        addcase: {
-            user: ['BanMembers', 'KickMembers', 'ManageChannels', 'ManageGuild', 'ManageRoles', 'ManageMessages']
-        },
-        removecase: {
-            user: ['BanMembers', 'KickMembers', 'ManageChannels', 'ManageGuild', 'ManageRoles', 'ManageMessages']
-        },
-        editcase: {
-            user: ['BanMembers', 'KickMembers', 'ManageChannels', 'ManageGuild', 'ManageRoles', 'ManageMessages']
-        },
-        cases: {
-            user: ['BanMembers', 'KickMembers', 'ManageChannels', 'ManageGuild', 'ManageRoles', 'ManageMessages']
         },
         unban: {
             user: ['BanMembers', 'ManageGuild']
@@ -67,12 +31,6 @@ module.exports = {
         feature: {
             user: ['ManageGuild']
         },
-        addFilter: {
-            user: ['ManageGuild']
-        },
-        removeFilter: {
-            user: ['ManageGuild']
-        }
     },
     PERM_FLAGS: {
         Administrator: 'Administrator',
