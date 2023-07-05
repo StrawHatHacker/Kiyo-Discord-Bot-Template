@@ -7,8 +7,8 @@ module.exports = async (client, guild) => {
     if (!guild.available) return;
 
     // Adding every guild the bot joins into the db
-    const Guild = await db.guild.findOneOrCreate(guild.id, client.guildCache);
+    await db.guild.findOneOrCreate(guild.id, client.db);
 
-    // Resetting the prefix everytime the bot joins a new guild
-    await Guild.updateOne({ prefix: '>' });
+    // TODO Reset the prefix everytime the bot joins a new guild
+    // await Guild.updateOne({ prefix: '>' });
 };

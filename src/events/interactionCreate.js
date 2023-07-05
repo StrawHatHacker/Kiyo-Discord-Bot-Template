@@ -10,7 +10,7 @@ const onCooldown = require('../utils/onCooldown');
  * @param {CommandInteraction} interaction 
  */
 module.exports = async (client, interaction) => {
-    // If guild is not available becase of outage return
+    // If guild is not available because of outage return
     if (!interaction.guild?.available) return;
     if (!interaction.isCommand() || !interaction.inGuild()) return;
 

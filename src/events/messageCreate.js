@@ -1,72 +1,37 @@
 'use strict';
 
 const checkPermissions = require('../utils/checkForPermissions');
-const inviteLinkFilter = require('../utils/inviteLinkFilter');
 const errorHandler = require('../utils/messageErrorHandler');
-const messageFilter = require('../utils/messageFilter');
-const databaseUtils = require('../utils/database');
 const onCooldown = require('../utils/onCooldown');
-const linkFilter = require('../utils/linkFilter');
 const { ChannelType } = require('discord.js');
-const sendLog = require('../utils/sendLog');
+const dbUtils = require('../utils/database');
 
 module.exports = async (client, message) => {
-    // If guild is not available becase of outage return
+    // If guild is not available because of outage return
     if (!message?.guild.available) return;
 
     // If message came from another bot or it was from a non *text* channel, ignore it
-    if (message.author.bot || message.channel.type !== ChannelType.GuildText) return;
+    if (message.author.bot || (
+        message.channel.type !== ChannelType.GuildText
+        && message.channel.type !== ChannelType.PrivateThread
+        && message.channel.type !== ChannelType.PublicThread
+        && message.channel.type !== ChannelType.GuildForum
+        && message.channel.type !== ChannelType.GuildAnnouncement
+        && message.channel.type !== ChannelType.GuildStageVoice
+    )) return;
 
     // Fetching or creating a guild and the user if they don't exist in the database already
-    const Guild = await databaseUtils.guild.findOneOrCreate(message.guild.id, client.guildCache);
-    const User = await databaseUtils.user.findOneOrCreate(message.author.id);
+    const Guild = await dbUtils.guild.findOneOrCreate(message.guild.id, client.db);
+    const User = await dbUtils.user.findOneOrCreate(message.author.id, client.db);
 
     // If the message is the bot mention return the prefix
-    if (message.content.replaceAll('!', '') === `<@${client.user.id}>`)
+    if (message.content === `<@${client.user.id}>` || message.content === `<@!${client.user.id}>`)
         return message.channel.send(`My prefix in this server is \`${Guild.prefix}\``);
-
-    // If user doesn't have any of these permissions then pass the message through filters
-    if (!message.member.permissions.has('ADMINISTRATOR') &&
-        !message.member.permissions.has('MANAGE_GUILD') &&
-        !message.member.permissions.has('MANAGE_CHANNELS') &&
-        !message.member.permissions.has('MANAGE_MESSAGES')) {
-
-        const parsedContent = message.content.toLowerCase().replace(/\n/g, '');
-
-        // Check if the message contains a Discord invite link
-        if (inviteLinkFilter(parsedContent, Guild)) {
-            await message.delete();
-            await sendLog('invite_link', Guild, message.guild, [message], null, null);
-            return;
-        }
-
-        // Check if the message contains any link
-        if (Guild.link_filter_channels.includes(message.channel.id) && linkFilter(parsedContent)) {
-            await message.delete().catch(() => null);
-            await sendLog('link', Guild, message.guild, [message], null, null);
-            return;
-        }
-
-        // Check if the message contains filtered words
-        const wordsFound = messageFilter(parsedContent, Guild);
-        if (wordsFound) {
-            await message.delete();
-            await sendLog('filter', Guild, message.guild, [message.member, wordsFound], null, null);
-            return;
-        }
-
-        // Check if the message has an attachment (only for attachment-only channels)
-        if (Guild.attachment_only_channels.includes(message.channel.id) && message.attachments.size === 0) {
-            await message.delete().catch(() => null);
-            await sendLog('attachment_only', Guild, message.guild, [message], null, null);
-            return;
-        }
-    }
 
     // If message doesn't start with prefix, ignore it
     if (!message.content.toLowerCase().startsWith(Guild.prefix)) return;
 
-    /*   str   array                     Slice off the prefix      Split at one or more spaces*/
+    /*   str     array                   Slice off the prefix       Split at one or more spaces*/
     let [cmd, ...args] = message.content.slice(Guild.prefix.length).split(/\s+/g);
     cmd = cmd.toLowerCase(); // Lowercase the cmd to match it with lowercase aliases
 

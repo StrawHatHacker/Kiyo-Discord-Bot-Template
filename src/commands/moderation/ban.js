@@ -2,8 +2,6 @@
 
 const hasModeratorPerms = require('../../utils/hasModeratorPerms');
 const safeFindMember = require('../../utils/safeFindMember');
-const createCase = require('../../utils/createCase');
-const sendLog = require('../../utils/sendLog');
 const Embed = require('../../classes/Embed');
 const Err = require('../../classes/Err');
 
@@ -17,7 +15,7 @@ module.exports = {
         client: ['BAN_MEMBERS']
     },
     cooldown: 2000,
-    async run({ message, args, Guild }) {
+    async run({ message, args }) {
         const memberInput = args[0];
         if (!memberInput) return;
 
@@ -34,8 +32,5 @@ module.exports = {
 
         const e = new Embed().setDescription(`**${memberToBan.user.tag} has been banned**`).isSuccess();
         await message.channel.send({ embeds: [e] });
-
-        const NewCase = await createCase(message.guild.id, memberToBan.id, message.author.id, reason, 'ban');
-        await sendLog('ban', Guild, message.guild, [memberToBan, NewCase], message.member, reason);
     }
 };
