@@ -1,19 +1,16 @@
+/* eslint-disable no-unused-vars */
 'use strict';
 
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const LocalCache = require('../classes/LocalCache');
+const { Client, ClientOptions } = require('discord.js');
 const { Routes } = require('discord-api-types/v9');
+const { Sequelize } = require('sequelize');
 const { REST } = require('@discordjs/rest');
-const { Client } = require('discord.js');
 const readFiles = require('readdirp');
-const mongoose = require('mongoose');
 
-/*
-    Extending Client with our own methods
-*/
 module.exports = class Bot extends Client {
     /**
-     * @param {*} botConfig https://discord.js.org/#/docs/main/12.5.3/typedef/ClientOptions
+     * @param {ClientOptions} botConfig https://discord.js.org/#/docs/main/12.5.3/typedef/ClientOptions
      */
     constructor(botConfig) {
         super(botConfig);
@@ -21,11 +18,13 @@ module.exports = class Bot extends Client {
         this.interactions = [];
         this.modulesWithCommands = {};
         this.modulesWithInteractions = {};
-        this.guildCache = new LocalCache(0, 0); // Not expirable
+        this.db = null;
     }
 
-    // PRIVATE
-    // Loads all commands from the `src/commands/` directory and subdirectories.
+    /**
+    * @private
+    * @description Loads all commands from the `src/commands/` directory and subdirectories.
+    */
     async _loadCommands() {
         console.log('⌛ Loading commands...');
         // readdirp flattens the `commands` folder and subfolders after reading all folders recursively.
@@ -44,6 +43,10 @@ module.exports = class Bot extends Client {
         console.log('✅ Loaded commands');
     }
 
+    /**
+    * @private
+    * @description Loads all interactions from the `src/interactions/` directory and subdirectories.
+    */
     async _loadInteractions() {
         console.log('⌛ Loading slash commands...');
         for await (const file of readFiles('./interactions', { fileFilter: ['*.js'], lstat: true })) {
@@ -63,7 +66,10 @@ module.exports = class Bot extends Client {
         console.log('✅ Loaded slash commands');
     }
 
-    // PRIVATE
+    /**
+    * @private
+    * @description Loads reactions from otakugifs.xyz and injects them in the interaction aliases
+    */
     async _loadReactions() {
         console.log('⌛ Loading reactions');
 
@@ -91,8 +97,10 @@ module.exports = class Bot extends Client {
         console.log('✅ Loaded reactions');
     }
 
-    // PRIVATE
-    // Loads all slash commands from the `src/interactions/` directory and subdirectories.
+    /**
+    * @private
+    * @description Registers all interactions
+    */
     async _registerInteractions(token) {
         const rest = new REST({ version: '10' }).setToken(token);
         try {
@@ -120,8 +128,10 @@ module.exports = class Bot extends Client {
         }
     }
 
-    // PUBLIC
-    // Reloading commands and updating file cache. Mongoose Models and Classes should not be overriden
+    /**
+    * @public
+    * @description Reloading commands and updating file cache.
+    */
     async reloadCommands() {
         Object.keys(require.cache).forEach((key) => {
             if (key.includes('src\\commands\\')) delete require.cache[key];
@@ -138,11 +148,12 @@ module.exports = class Bot extends Client {
         console.log('Reloaded commands');
     }
 
-    // PRIVATE
-    // Loads all events from the `src/events/` directory.
+    /**
+    * @private
+    * @description Loads all events from the src/events folder and creates an event emmiter for them.
+    */
     async _loadEvents() {
-        // readdirp flattens the `events` folder and subfolders after reading all folders recursively.
-        // this could be done with fs but I'm using readdirp for consistency.
+        // "readdirp.readFiles" flattens the `events` folder and subfolders after reading all folders recursively.
         for await (const file of readFiles('./events')) {
             const event = require(file.fullPath);
             const eventName = file.path.split('.')[0];
@@ -154,29 +165,35 @@ module.exports = class Bot extends Client {
         return this;
     }
 
-    // PRIVATE
-    // Connects to the database.
-    _connectToDB() {
-        mongoose.connect(process.env.DB_CONNECTION_STRING, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-            useCreateIndex: true
+    /**
+    * @private
+    * @description Create a database connection
+    */
+    async _connectToDB() {
+        this.db = new Sequelize({
+            dialect: 'sqlite',
+            storage: '../db.sqlite',
+            logging: false
         });
-        console.log('🍃 Connected to DB');
+
+        try {
+            await this.db.authenticate();
+            console.log('💿 Connected to DB');
+        } catch (error) {
+            console.error('Unable to connect to the database:', error);
+            process.exit(1);
+        }
+
+        // Initialize models
+        require('../models/user')(this.db);
+        require('../models/guild')(this.db);
+        await this.db.sync({ force: false });
     }
 
-    // PRIVATE
-    _registerStreams() {
-        const MuteModel = require('../models/mute');
-        const userMuteHandler = require('../streamHandlers/userMute');
-
-        // USED FOR UNMUTES
-        const userMuteStream = MuteModel.watch([{ $match: { operationType: 'delete' } }]);
-        userMuteStream.on('change', document => userMuteHandler(this, document));
-    }
-
-    // PRIVATE
-    // Always needs to be executed after this._loadCommands
+    /**
+    * @private
+    * @description // Always needs to be executed after this._loadCommands()
+    */
     async _createModulesWithCommandsField() {
         for (let cmd of this.commands) {
             const moduleName = cmd.module.toLowerCase();
@@ -197,12 +214,10 @@ module.exports = class Bot extends Client {
         await this._loadCommands();
         await this._loadInteractions();
         await this._loadReactions();
-        await this._registerInteractions(process.env.DISCORD_BOT_TOKEN);
+        // await this._registerInteractions(process.env.DISCORD_BOT_TOKEN);
         await this._createModulesWithCommandsField();
         await this._loadEvents();
-
-        this._connectToDB();
-        this._registerStreams();
+        await this._connectToDB();
 
         return this.login(process.env.DISCORD_BOT_TOKEN).catch(() => {
             console.error('Invalid Discord token.');
