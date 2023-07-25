@@ -214,7 +214,7 @@ module.exports = class Bot extends Client {
         await this._loadCommands();
         await this._loadInteractions();
         await this._loadReactions();
-        // await this._registerInteractions(process.env.DISCORD_BOT_TOKEN);
+        await this._registerInteractions(process.env.DISCORD_BOT_TOKEN);
         await this._createModulesWithCommandsField();
         await this._loadEvents();
         await this._connectToDB();
