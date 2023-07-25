@@ -6,6 +6,10 @@ const onCooldown = require('../utils/onCooldown');
 const { ChannelType } = require('discord.js');
 const dbUtils = require('../utils/database');
 
+/**
+ * @param {Client} client 
+ * @param {Message} message 
+ */
 module.exports = async (client, message) => {
     // If guild is not available because of outage return
     if (!message?.guild.available) return;
